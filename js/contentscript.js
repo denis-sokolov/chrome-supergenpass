@@ -31,9 +31,14 @@ if (/type=['"]?password/.test(document.body.innerHTML))
 }
 else
 { // If no password fields are at the moment, they may appear later
+	var original = document.onkeypress;
 	document.onkeypress = function(e) {
 		if (e.target.type == 'password')
+		{
 			init();
+			document.onkeypress = original;
+		}
+		original();
 	}
 }
 
