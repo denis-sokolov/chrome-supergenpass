@@ -1,0 +1,68 @@
+<html>
+	<head>
+		<title>ChromeGenPass</title>
+		<script src="../js/jquery-1.4.2.min.js"></script>
+		<script src="../js/orig.js"></script>
+		<script src="../js/saveload.js"></script>
+		<script src="options.js"></script>
+		<style>
+			* { margin: 0; padding: 0 }
+			html { font-family: Georgia, serif }
+			#viewbox { min-width: 200px; max-width: 450px; margin: 1em auto; }
+			h1 {
+				margin: 50px 0 0 -20px;
+				font-size: 120%; font-variant: small-caps; font-weight: normal;  }
+			a { color: #00735A; }
+			p { margin-bottom: 1ex }
+
+			#settings { list-style-type: none; padding: 0; }
+			#settings > li.new { display:none !important }
+			#settings > li[name="0"] { margin-left: 5px }
+			#settings > li { display: inline-block !important;
+				/* Important is for jQuery's broken .animate, which sets display to block. */
+				white-space: nowrap;
+				/* Nowrap is for animating width. */
+				margin: 1em }
+			#settings > li:hover { color: red; text-decoration: line-through; cursor: pointer }
+			#settings            img { vertical-align: middle; visibility: hidden }
+			#settings > li:hover img { visibility: visible }
+
+			input { display: block; border: 1px dotted black; margin: 5px; padding: 5px; width: 100% }
+			#status { list-style-type: none; color: rgb(255,122,150) }
+
+			#credits { opacity: 0.5 }
+			#credits:hover { opacity: 1 }
+			.author { margin-top: 3ex; text-align: right; font-style: italic }
+		</style>
+	</head>
+	<body>
+		<div id="viewbox">
+			<h1>Your stored password hashes</h1>
+			<ol id="settings">
+				<li class="new">
+					<span class="note"></span> <span class="length"></span>
+					<img src="../img/cross.png" alt="[delete]">
+				</li>
+			</ol>
+			<h1>Add new</h1>
+			<form>
+				<input type="password" name="password" placeholder="Password" required>
+				<input type="password" name="confirm" placeholder="Confirm the password" required>
+				<input type="number" min="1" max="100" name="length" placeholder="Length of generated password (usually 10)">
+				<input name="note" placeholder="Note for self" required>
+				<input type="submit" value="Add new password">
+			</form>
+			<ol id="status">
+			</ol>
+			<div id="credits">
+				<h1>Credits</h1>
+				<p>
+					Devoted to the most beautiful and smart girl ever: <a href="http://pudlovskyte.lt">Monika</a>.
+				<p>
+					I love you, my cute magical kitten, and always will.
+				<p class="author">
+					<a href="http://sokolov.cc">Denis Sokolov</a>.
+			</div>
+		</div>
+	</body>
+</html>
