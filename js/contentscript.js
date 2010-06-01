@@ -31,15 +31,14 @@ if (/type=['"]?password/.test(document.body.innerHTML))
 }
 else
 { // If no password fields are at the moment, they may appear later
-	var original = document.onkeypress;
-	document.onkeypress = function(e) {
+	var catchNewFields = function(e) {
 		if (e.target.type == 'password')
 		{
 			init();
-			document.onkeypress = original;
+			document.removeEventListener('keypress', catchNewFields);
 		}
-		original();
 	}
+	document.addEventListener('keypress', catchNewFields, false);
 }
 
 function init(){
@@ -54,6 +53,7 @@ function init(){
 		
 		// To avoid constant hashing, we will hash the entered text only after a certain timeout.
 		// This way if a user types fast, only the last keypress will trigger an intensive work.
+		// Pattern: bouncer
 		var timer = false;
 		
 		// Prepare the popup
