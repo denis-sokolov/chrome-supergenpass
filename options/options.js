@@ -27,7 +27,7 @@ $(document).ready(function(){
 		}
 
 
-		// Careful, the same settings are written in js/contentscript.js
+		// Careful, the same settings are written in html/background.html
 		// Change both. Will break all existing user settings!
 		var hash = function(text){
 			return supergenpass(text, 'chromegenpass-chrome-extension', 16);

@@ -35,9 +35,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	}
 
 	passwords = [];
+	supergenpass = null;
 
 	get('js/jquery-1.4.2.min.js', function(res){ jQuery = res; });
-	get('js/orig.js', function(res){ supergenpass = res; });
+	get('js/orig.js', function(res){ eval(res); });
 	get('js/saveload.js', function(res){ eval(res); passwords = load(); });
 
 	chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
@@ -63,7 +64,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			sendResponse({
 				'passwords': passwords,
 				'jquery': jQuery,
-				'supergenpass': supergenpass,
+			});
+			responded = true;
+		}
+		
+		if ('password' in req)
+		{
+			var index = req['password'];
+			if (!('password' in passwords[index]))
+			{
+				var stop = false;
+				var second_attempt = false;
+				while (!stop)
+				{
+					var entered = prompt_password(passwords[index], second_attempt);
+					if (entered == null)
+					{ // Cancelled
+						console.log('stopping');
+						stop = true;
+					}
+					else if (hash(entered) == passwords[index]['hash'])
+					{ // Correct
+						stop = true;
+						passwords[index]['password'] = entered;
+					}
+					else
+					{ // Wrong password
+						second_attempt = true;
+					}
+				}
+			}
+			sendResponse({
+				'passwords': passwords
 			});
 			responded = true;
 		}
@@ -73,6 +105,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 			sendResponse({});
 	});
 
+	// Careful, the same settings are written in options/options.js
+	// Change both. Will break all existing user settings!
+	var hash = function(text){
+		return supergenpass(text, 'chromegenpass-chrome-extension', 16);
+	}
+
+	function prompt_password(password, second_attempt)
+	{
+		var txt = '';
+		if (second_attempt)
+		{
+			txt += 'Password "' + password['note'] + '" is incorrect. Perhaps you have made a mistake?\n\n';
+			txt += 'Try again:';
+		}
+		else
+		{
+			txt += 'Security advice: ';
+			txt += 'Always make sure that the title of this popup is "ChromeGenPass" and not "The page at ... says".\n\n';
+			txt += 'Password "' + password['note'] + '" is locked.\n';
+			txt += 'Please unlock it by entering it in the field below:';
+		}
+		return prompt(txt)
+	}
 	/*
 		Reference for future use.
 		chrome.pageAction.show(sender.tab.id);

@@ -51,11 +51,6 @@ function init(){
 		// Get data
 		passwords = response['passwords'];
 		
-		// To avoid constant hashing, we will hash the entered text only after a certain timeout.
-		// This way if a user types fast, only the last keypress will trigger an intensive work.
-		// Pattern: bouncer
-		var timer = false;
-		
 		// Prepare the popup
 		var info = $('<div/>').css({
 			'position': 'absolute',
@@ -68,71 +63,81 @@ function init(){
 		info.appendTo('body');
 
 		// Main work
-		jQuery('input[type="password"]').live('keypress', function(e){
-			// Do NOT jQueryify this here, because this will be redundant work
-			var field = this;
-			
-			if (timer) clearTimeout(timer);
-			timer = setTimeout(function(){
-				var me = $(field);
-				
-				// Text a user has entered
-				var entered = me.val();
-
-				// This is our local hash to check if the password is correct.
-				// Note that settings ("domain" and length) are also saved in options.js
-				// It would be nice to refactor this and put them out in a separate file
-				var localHash = supergenpass(entered, 'chromegenpass-chrome-extension', 16);
-
-				for (i in passwords)
+		jQuery('input[type="password"]').live('keyup', function(e){
+			if (e.keyCode > 48 && e.keyCode < 59)
+			{
+				var me = $(this);
+				if (passwords.length < 10)
 				{
-					var item = passwords[i];
-					if (localHash == item['hash'])
+					var entered = parseInt(me.val());
+					if (entered > 0 && entered <= passwords.length)
 					{
-						// The real password for this domain
-						var password = supergenpass(entered, location.hostname, item['len']);
-
-						// Field
-						me
-							.val(password)
-							.data('bgcolor', me.css('background-color'))
-							.data('color', me.css('color'))
-							.css({
-								'background-color': '#DAFFB3',
-								'color': 'black'
+						var index = entered - 1;
+						var password = passwords[index];
+						if ('password' in password)
+						{ 
+							insert_password(me, info, passwords[index]);
+						}
+						else
+						{
+							chrome.extension.sendRequest({ 'password': index }, function(response) {
+								passwords = response['passwords'];
+								insert_password(me, info, passwords[index]);
 							});
-
-						// Info box
-						offset = me.offset();
-						info.css({
-							'opacity': 0, // Hide in case it was showing old info
-							'left': offset.left,
-							'top': offset.top + me.height() + 5, // 5 for padding
-						});
-						info.text('Updated to ' + item['note'])
-							.animate({'opacity': 0.8}, 'slow');
-						setTimeout(function(){
-							info.animate({'opacity': 0}, 'slow');
-						}, 3000);
-						
-						// Revert if entry has been changed
-						var test = setInterval(function(){
-							if (me.val() != password)
-							{
-								me.css({
-									'background-color': me.data('bgcolor'),
-									'color': me.data('color')
-								});
-								info.animate({'opacity': 0}, 'fast');
-								clearInterval(test);
-							}
-						}, 200);
-					}
+						}
+					} // end of correct input
 				}
-			}, 100);
+				else
+				{
+					alert('You have more than 10 passwords stored.\nAt this moment we are yet to implement the way to work with them.\nI am sorry.');
+				}
+			} // end of if e.keyCode in [0..9]
+		}); // end keypress live
+	}); // answer to send Request
+} // init()
+
+
+function insert_password(field, info, password)
+{
+	if (!('password' in password))
+		return false;
+		
+	field
+		.val(password['password'])
+		.data('bgcolor', field.css('background-color'))
+		.data('color', field.css('color'))
+		.css({
+			'background-color': '#DAFFB3',
+			'color': 'black'
 		});
+
+	// Info box
+	offset = field.offset();
+	info.css({
+		'opacity': 0, // Hide in case it was showing old info
+		'left': offset.left,
+		'top': offset.top + field.height() + 5, // 5 for padding
 	});
+	info.text('Updated to ' + password['note'])
+		.animate({'opacity': 0.8}, 'slow');
+	setTimeout(function(){
+		info.animate({'opacity': 0}, 'slow');
+	}, 3000);
+
+	// Revert if entry has been changed
+	var test = setInterval(function(){
+		if (field.val() != password['password'])
+		{
+			field.css({
+				'background-color': field.data('bgcolor'),
+				'color': field.data('color')
+			});
+			info.animate({'opacity': 0}, 'fast');
+			clearInterval(test);
+		}
+	}, 200);
 }
+
 
 // Update passwords on request
 chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
