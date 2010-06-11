@@ -192,14 +192,26 @@ function PopupFactory()
 		},
 		'text': function (txt)
 		{
-			if (typeof txt == 'object' && 'note' in txt[0])
-			{ // Passwords
-				var html = '<ol style="list-style-type:none;padding:0;margin:0">';
-				var confirm_key = passwords.length > 9 ? 'q' : '';
-				for (i in passwords)
-					html += '<li>' + (Number(i) + Number(1)) + confirm_key + ': ' + passwords[i]['note'];
-				html += '</ol>';
-				el.html(html)
+			if (typeof txt == 'object')
+			{
+				if (txt.length == 0)
+				{
+					url = chrome.extension.getURL('options/options.html');
+					html = '<em>ChromeGenPass</em><br>';
+					html += 'You have no passwords saved.<br>';
+					html += 'Add passwords on the ';
+					html += '<a href="'+url+'" style="color:white" target="_blank">options page</a>.';
+					el.html(html);
+				}
+				else
+				{ // Passwords
+					var html = '<ol style="list-style-type:none;padding:0;margin:0">';
+					var confirm_key = passwords.length > 9 ? 'q' : '';
+					for (i in passwords)
+						html += '<li>' + (Number(i) + Number(1)) + confirm_key + ': ' + passwords[i]['note'];
+					html += '</ol>';
+					el.html(html)
+				}
 			}
 			else
 			{
@@ -243,6 +255,7 @@ function insert_password(field, password)
 
 // Update passwords on request
 chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
+	console.log('received passwords:', req['passwords']);
 	if ('passwords' in req)
 		passwords = req['passwords'];
 	sendResponse({});
