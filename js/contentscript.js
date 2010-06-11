@@ -47,57 +47,160 @@ function init(){
 		eval(response['jquery']);
 		eval(response['supergenpass']);
 		window.jQuery = jQuery
+		Popup = PopupFactory();
 		
 		// Get data
 		passwords = response['passwords'];
 		
-		// Prepare the popup
-		var info = $('<div/>').css({
-			'position': 'absolute',
-			'opacity': '0',
-			'background-color': 'black',
-			'color': 'white',
-			'padding': '5px 10px',
-			'border-radius': '6px'
-		});
-		info.appendTo('body');
-
 		// Main work
+		jQuery('input[type="password"]').live('focus', function(e){
+			var me = $(this);
+			if (me.val() == '')
+				Popup.instructions(me, passwords);
+		});
+		jQuery('input[type="password"]').live('blur', function(e){
+			if (Popup.state() != 'updated-to')
+				Popup.hide('fast');
+		});
 		jQuery('input[type="password"]').live('keyup', function(e){
-			if (e.keyCode > 48 && e.keyCode < 59)
+			var me = $(this);
+			var value = me.val();
+			if (value == '')
+				Popup.instructions(me, passwords);	
+			else
 			{
-				var me = $(this);
-				if (passwords.length < 10)
-				{
-					var entered = parseInt(me.val());
-					if (entered > 0 && entered <= passwords.length)
-					{
-						var index = entered - 1;
-						var password = passwords[index];
-						if ('password' in password)
-						{ 
-							insert_password(me, info, passwords[index]);
-						}
-						else
-						{
-							chrome.extension.sendRequest({ 'password': index }, function(response) {
-								passwords = response['passwords'];
-								insert_password(me, info, passwords[index]);
-							});
-						}
-					} // end of correct input
-				}
+				if (Popup.state() != 'updated-to' && (e.keyCode < 49 || e.keyCode > 58))
+					Popup.hide('fast');
 				else
 				{
-					alert('You have more than 10 passwords stored.\nAt this moment we are yet to implement the way to work with them.\nI am sorry.');
-				}
-			} // end of if e.keyCode in [0..9]
+					if (passwords.length < 10)
+					{
+						var entered = parseInt(value);
+						if (entered > 0 && entered <= passwords.length)
+						{
+							var index = entered - 1;
+							var password = passwords[index];
+							if ('password' in password)
+							{ 
+								insert_password(me, passwords[index]);
+							}
+							else
+							{
+								chrome.extension.sendRequest({ 'password': index }, function(response) {
+									passwords = response['passwords'];
+									insert_password(me, passwords[index]);
+								});
+							}
+						} // end of correct input
+					}
+					else
+					{
+						alert('You have more than 10 passwords stored.\nAt this moment we are yet to implement the way to work with them.\nI am sorry.');
+					}
+				} // end of if e.keyCode in [0..9]
+			} // end of value is not empty
 		}); // end keypress live
 	}); // answer to send Request
 } // init()
 
 
-function insert_password(field, info, password)
+function PopupFactory()
+{
+	var el = $('<div/>').css({
+		'position': 'absolute',
+		'opacity': '0',
+		'background-color': 'rgba(0,0,0,0.7)',
+		'color': 'white',
+		'padding': '5px 10px',
+		'border-radius': '6px'
+	});
+	el.appendTo('body');
+	var my_state = null;
+	var on_state_change = null;
+	var hide_timeout = null;
+	
+	return {
+		'hide': function(speed)
+		{
+			if (speed)
+				el.animate({ 'opacity': 0 }, speed, function(){ my_state = null; })
+			else
+			{
+				el.css('opacity', 0);
+				my_state = null;
+			}
+			return this;
+		},
+		'hide_in': function(timeout, speed)
+		{
+			hide_timeout = setTimeout(function(){
+				Popup.hide(speed);
+			}, 3000);	
+		},
+		'instructions': function(field, passwords)
+		{
+			this
+				.state('instructions')
+				.hide().stop()
+				.text(passwords)
+				.move(field).show('fast');	
+		},
+		'move': function(field)
+		{
+			offset = field.offset();
+			el.css({
+				'left': offset.left,
+				'top': offset.top + field.height() + 5, // 5 for padding
+			});
+			return this;
+		},
+		'show': function(speed)
+		{
+			if (speed)
+				el.animate({ 'opacity': 1 }, speed)
+			else
+				el.css('opacity', 1);
+			return this;
+		},
+		'state': function (state, callback)
+		{
+			if (arguments.length == 0)
+				return my_state;
+			my_state = state;
+			if (on_state_change)
+				on_state_change(state);
+			clearTimeout(hide_timeout);
+			if (callback)
+				on_state_change = callback;
+			return this;
+		},
+		'stop': function ()
+		{
+			el.stop(true, true);
+			clearTimeout(hide_timeout);
+			return this;
+		},
+		'text': function (txt)
+		{
+			if (typeof txt == 'object' && 'note' in txt[0])
+			{ // Passwords
+				var html = '<ol style="list-style-type:none;padding:0;margin:0">';
+				for (i in passwords)
+					html += '<li>' + (Number(i) + Number(1)) + ': ' + passwords[i]['note'];
+				
+				html += '</ol>';
+				el.html(html)
+			}
+			else
+			{
+				el.text(txt);	
+			}
+			return this;
+		},
+	}
+}
+
+function insert_password(field, password)
 {
 	if (!('password' in password))
 		return false;
@@ -111,18 +214,7 @@ function insert_password(field, info, password)
 			'color': 'black'
 		});
 
-	// Info box
-	offset = field.offset();
-	info.css({
-		'opacity': 0, // Hide in case it was showing old info
-		'left': offset.left,
-		'top': offset.top + field.height() + 5, // 5 for padding
-	});
-	info.text('Updated to ' + password['note'])
-		.animate({'opacity': 0.8}, 'slow');
-	setTimeout(function(){
-		info.animate({'opacity': 0}, 'slow');
-	}, 3000);
+	Popup.hide().stop().state('updated-to').move(field).text('Updated to ' + password['note']).show('slow').hide_in(3000, 'slow');
 
 	// Revert if entry has been changed
 	var test = setInterval(function(){
@@ -132,7 +224,7 @@ function insert_password(field, info, password)
 				'background-color': field.data('bgcolor'),
 				'color': field.data('color')
 			});
-			info.animate({'opacity': 0}, 'fast');
+			Popup.hide('fast');
 			clearInterval(test);
 		}
 	}, 200);
