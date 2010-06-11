@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * I'd like to be as stealthy as possible.
  */
 
+CONFIRM_KEYCODES = [81, 113]; // Q, q
+
 var passwords = [];
 
 if (/type=['"]?password/.test(document.body.innerHTML))
@@ -65,39 +67,47 @@ function init(){
 		jQuery('input[type="password"]').live('keyup', function(e){
 			var me = $(this);
 			var value = me.val();
+			var confirm_key = passwords.length > 9;
 			if (value == '')
 				Popup.instructions(me, passwords);	
 			else
 			{
-				if (Popup.state() != 'updated-to' && (e.keyCode < 49 || e.keyCode > 58))
+				// Hide only if the popup is with instruction
+				// Hide only if entered text cannot be understood as a password number
+				if (Popup.state() == 'instructions' && (!confirm_key || !Number(value)))
 					Popup.hide('fast');
-				else
+
+				if ( 
+					   // If there are more than 10 passwords and the key is CONFIRM_KEY
+					   ( confirm_key && CONFIRM_KEYCODES.indexOf(e.keyCode) > -1)
+					   // OR there are less than 10 passwords and this is a number key
+					|| (!confirm_key && e.keyCode > 48 && e.keyCode < 59)
+				)
 				{
-					if (passwords.length < 10)
+					if (confirm_key) // Remove confirm key
+						value = value.substr(0, value.length - 1)
+					var entered = parseInt(value);
+					// If the string is incorrect, it will parse to NaN, which is
+					// neither bigger nor small than any other number
+					if (entered > 0 && entered <= passwords.length)
 					{
-						var entered = parseInt(value);
-						if (entered > 0 && entered <= passwords.length)
+						// 0-based array are cool 8)
+						// 1-based people are not :)
+						var index = entered - 1;
+						var password = passwords[index];
+						if ('password' in password)
+						{ 
+							insert_password(me, passwords[index]);
+						}
+						else
 						{
-							var index = entered - 1;
-							var password = passwords[index];
-							if ('password' in password)
-							{ 
+							chrome.extension.sendRequest({ 'password': index }, function(response) {
+								passwords = response['passwords'];
 								insert_password(me, passwords[index]);
-							}
-							else
-							{
-								chrome.extension.sendRequest({ 'password': index }, function(response) {
-									passwords = response['passwords'];
-									insert_password(me, passwords[index]);
-								});
-							}
-						} // end of correct input
-					}
-					else
-					{
-						alert('You have more than 10 passwords stored.\nAt this moment we are yet to implement the way to work with them.\nI am sorry.');
-					}
-				} // end of if e.keyCode in [0..9]
+							});
+						}
+					} // end of correct input
+				} // end of if e.keyCode in [0..9qQ]
 			} // end of value is not empty
 		}); // end keypress live
 	}); // answer to send Request
@@ -140,10 +150,10 @@ function PopupFactory()
 		'instructions': function(field, passwords)
 		{
 			this
-				.state('instructions')
 				.hide().stop()
+				.state('instructions')
 				.text(passwords)
-				.move(field).show('fast');	
+				.move(field).show('fast');
 		},
 		'move': function(field)
 		{
@@ -185,9 +195,9 @@ function PopupFactory()
 			if (typeof txt == 'object' && 'note' in txt[0])
 			{ // Passwords
 				var html = '<ol style="list-style-type:none;padding:0;margin:0">';
+				var confirm_key = passwords.length > 9 ? 'q' : '';
 				for (i in passwords)
-					html += '<li>' + (Number(i) + Number(1)) + ': ' + passwords[i]['note'];
-				
+					html += '<li>' + (Number(i) + Number(1)) + confirm_key + ': ' + passwords[i]['note'];
 				html += '</ol>';
 				el.html(html)
 			}
