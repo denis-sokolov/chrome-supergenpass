@@ -1,6 +1,6 @@
 {
 	"name": "ChromeGenPass",
-	"version": "2.0",
+	"version": "2.0.1",
 
 	"description": "Clickless use of SuperGenPass generated passwords",
 	"icons": {
