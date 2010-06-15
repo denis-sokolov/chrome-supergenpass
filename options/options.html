@@ -1,19 +1,21 @@
 <html>
 	<head>
 		<title>ChromeGenPass</title>
-		<script src="../js/jquery-1.4.2.min.js"></script>
-		<script src="../js/orig.js"></script>
-		<script src="../js/saveload.js"></script>
-		<script src="options.js"></script>
 		<style>
 			* { margin: 0; padding: 0 }
 			html { font-family: Georgia, serif }
 			#viewbox { min-width: 200px; max-width: 450px; margin: 1em auto; }
-			h1 {
-				margin: 50px 0 0 -20px;
-				font-size: 120%; font-variant: small-caps; font-weight: normal;  }
-			a { color: #00735A; }
+			h1, h2, h3 {
+				font-size: 140%; font-variant: small-caps; font-weight: normal;  }
+			h1 { margin: 50px 0 0 -20px }
+			h2 { font-size: 120%; margin-top: 1em; }
+			a { color: #00735A }
 			p { margin-bottom: 1ex }
+
+			.clarify { font-size: 70%; font-style: italic;}
+			.updated { padding: 1em; margin: 1em auto; background-color: #F0B16D; border-radius: 10px;
+				text-align: center; min-width: 300px; max-width: 700px; }
+			.updated p + p { margin-bottom: 0; margin-top: 1ex;}
 
 			#settings { list-style-type: none; padding: 0; }
 			#settings > li.new { display:none !important }
@@ -29,6 +31,13 @@
 
 			input { display: block; border: 1px dotted black; margin: 5px; padding: 5px; width: 100% }
 			#status { list-style-type: none; color: rgb(255,122,150) }
+
+			#help-h1 > a { border-bottom: 1px dashed black; font-style: normal; text-decoration: none; color: inherit; }
+			#help { height: 0; overflow: hidden }
+			#help:target, #help.target { height: auto; overflow: visible; }
+			#help ol { padding-left: 2em; padding-top: 1em }
+			#help ol li { margin-bottom: 2em; }
+			#help input { width: 15em; }
 
 			#credits { opacity: 0.5 }
 			#credits:hover { opacity: 1 }
@@ -54,6 +63,35 @@
 			</form>
 			<ol id="status">
 			</ol>
+			<h1 id="help-h1"><a href="#help">Help</a></h1>
+			<div id="help">
+				<h2>How to use</h2>
+				<ol>
+					<li>
+						<p>Store master password on this options page.
+						<p class="clarify">
+							Don&rsquo;t worry, the password itself is not stored,
+							only a one-way hash is stored.
+					<li>
+						<p>In a password box, choose your password from the menu.
+							<input type="password" placeholder="Try me">
+						<p class="clarify">
+							If you don&rsquo;t see a menu, then you don&rsquo;t have any passwords added.
+							<a href="#settings">Add now</a>.
+					<li>
+						<p>The first time you use a password after opening your browser,
+							the extensions will ask you to unlock it.
+						<p style="margin-left: -50px">
+							<img src="../img/ss/unlock-prompt.png">
+						<p class="clarify">
+							Careful!
+							<br>Evil website owners might want to steal your password,
+							so always make sure that the popup says
+							&lsquo;ChromeGenPass extension says&rsquo; and not &lsquo;The page at ... says:&rsquo;!
+					<li>
+						That&rsquo;s it! The password field is now filled with your generated password.
+				</ol>
+			</div>
 			<div id="credits">
 				<h1>Credits</h1>
 				<p>
@@ -64,5 +102,24 @@
 					<a href="http://sokolov.cc">Denis Sokolov</a>.
 			</div>
 		</div>
+		<script src="../js/jquery-1.4.2.min.js"></script>
+		<script src="../js/orig.js"></script>
+		<script src="../js/saveload.js"></script>
+		<script src="../js/contentscript.js"></script>
+		<script src="options.js"></script>
+		<script>
+			$(function(){
+				if (passwords.length == 0)
+				{
+					$('#help-h1').insertBefore('h1:first');
+					$('#help').insertAfter('#help-h1').addClass('target');
+				}
+		
+				if (localStorage['messages-seen'] < 1)
+				{
+					$('<div class="updated"><p>You have updated to version 2.0, which has quite a few changes in how to use it.</p><p>Consider taking a look at a new <a href="#help">help section</a> below.</p></div>').prependTo('body');
+				}
+			});
+		</script>
 	</body>
 </html>

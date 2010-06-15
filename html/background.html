@@ -40,6 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	get('js/jquery-1.4.2.min.js', function(res){ jQuery = res; });
 	get('js/orig.js', function(res){ eval(res); });
 	get('js/saveload.js', function(res){ eval(res); passwords = load(); });
+	get('messages/messages.js', function(res){ eval(res); })
 
 	chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 		var responded = false;
@@ -121,8 +122,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		}
 		else
 		{
-			txt += 'Security advice: ';
-			txt += 'Always make sure that the title of this popup is "ChromeGenPass" and not "The page at ... says".\n\n';
 			txt += 'Password "' + password['note'] + '" is locked.\n';
 			txt += 'Please unlock it by entering it in the field below:';
 		}
