@@ -47,6 +47,7 @@ function init(){
 	chrome.extension.sendRequest({ 'init': true }, function(response) {
 		// Get libraries
 		eval(response['jquery']);
+		var supergenpass = null;
 		eval(response['supergenpass']);
 		window.jQuery = jQuery
 		Popup = PopupFactory();
@@ -97,13 +98,15 @@ function init(){
 						var password = passwords[index];
 						if ('password' in password)
 						{ 
-							insert_password(me, passwords[index]);
+							var hash = supergenpass(password['password'], document.location.host, password['len']);
+							insert_password(me, hash, password['note']);
 						}
 						else
 						{
 							chrome.extension.sendRequest({ 'password': index }, function(response) {
 								passwords = response['passwords'];
-								insert_password(me, passwords[index]);
+								var hash = supergenpass(passwords[index]['password'], document.location.host, password['len']);								
+								insert_password(me, hash, password['note']);
 							});
 						}
 					} // end of correct input
@@ -222,13 +225,10 @@ function PopupFactory()
 	}
 }
 
-function insert_password(field, password)
+function insert_password(field, password, note)
 {
-	if (!('password' in password))
-		return false;
-		
 	field
-		.val(password['password'])
+		.val(password)
 		.data('bgcolor', field.css('background-color'))
 		.data('color', field.css('color'))
 		.css({
@@ -236,11 +236,11 @@ function insert_password(field, password)
 			'color': 'black'
 		});
 
-	Popup.hide().stop().state('updated-to').move(field).text('Updated to ' + password['note']).show('slow').hide_in(3000, 'slow');
+	Popup.hide().stop().state('updated-to').move(field).text('Updated to ' + note).show('slow').hide_in(3000, 'slow');
 
 	// Revert if entry has been changed
 	var test = setInterval(function(){
-		if (field.val() != password['password'])
+		if (field.val() != password)
 		{
 			field.css({
 				'background-color': field.data('bgcolor'),

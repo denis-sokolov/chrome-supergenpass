@@ -36,9 +36,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 	passwords = [];
 	supergenpass = null;
+	supergenpass_txt = null;
 
 	get('js/jquery-1.4.2.min.js', function(res){ jQuery = res; });
-	get('js/orig.js', function(res){ eval(res); });
+	get('js/orig.js', function(res){ supergenpass_txt = res; eval(res); });
 	get('js/saveload.js', function(res){ eval(res); passwords = load(); });
 	get('messages/messages.js', function(res){ eval(res); })
 
@@ -64,6 +65,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		{ // A new tab wants to work with us, let's give it info
 			sendResponse({
 				'passwords': passwords,
+				'supergenpass': supergenpass_txt,
 				'jquery': jQuery,
 			});
 			responded = true;
