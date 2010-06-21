@@ -83,7 +83,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					var entered = prompt_password(passwords[index], second_attempt);
 					if (entered == null)
 					{ // Cancelled
-						console.log('stopping');
 						stop = true;
 					}
 					else if (hash(entered) == passwords[index]['hash'])
