@@ -135,12 +135,10 @@ function PopupFactory()
 	
 	var hide = function(speed)
 	{
-		console.log('hiding');
 		if (speed)
 			el.animate({ 'opacity': 0 }, speed, function(){ my_state = null; el.hide(); })
 		else
 		{
-			console.log('without speed');
 			el.hide().css('opacity', 0);
 			my_state = null;
 		}
