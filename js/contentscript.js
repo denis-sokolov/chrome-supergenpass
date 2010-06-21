@@ -120,6 +120,7 @@ function init(){
 function PopupFactory()
 {
 	var el = $('<div/>').css({
+		'cursor': 'default',
 		'position': 'absolute',
 		'opacity': '0',
 		'background-color': 'rgba(0,0,0,0.7)',
@@ -132,18 +133,26 @@ function PopupFactory()
 	var on_state_change = null;
 	var hide_timeout = null;
 	
-	return {
-		'hide': function(speed)
+	var hide = function(speed)
+	{
+		console.log('hiding');
+		if (speed)
+			el.animate({ 'opacity': 0 }, speed, function(){ my_state = null; el.hide(); })
+		else
 		{
-			if (speed)
-				el.animate({ 'opacity': 0 }, speed, function(){ my_state = null; })
-			else
-			{
-				el.css('opacity', 0);
-				my_state = null;
-			}
-			return this;
-		},
+			console.log('without speed');
+			el.hide().css('opacity', 0);
+			my_state = null;
+		}
+		return this;
+	}
+	
+	el.click(function(){
+		hide('fast');
+	});
+	
+	return {
+		'hide': hide,
 		'hide_in': function(timeout, speed)
 		{
 			hide_timeout = setTimeout(function(){
@@ -170,9 +179,9 @@ function PopupFactory()
 		'show': function(speed)
 		{
 			if (speed)
-				el.animate({ 'opacity': 1 }, speed)
+				el.show().animate({ 'opacity': 1 }, speed)
 			else
-				el.css('opacity', 1);
+				el.show().css('opacity', 1);
 			return this;
 		},
 		'state': function (state, callback)
