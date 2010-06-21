@@ -28,7 +28,8 @@ CONFIRM_KEYCODES = [81, 113]; // Q, q
 var passwords = [];
 // Do not activate on chrome-extension pages and other,
 // because the result might not be what we expect.
-if (['http:','https:'].indexOf(document.location.protocol) > -1)
+if (['http:','https:'].indexOf(document.location.protocol) > -1
+	|| document.location.href == chrome.extension.getURL('options/options.html'))
 {
 	if (/type=['"]?password/.test(document.body.innerHTML))
 	{ // If password fields are present, prepare for work
@@ -59,62 +60,67 @@ if (['http:','https:'].indexOf(document.location.protocol) > -1)
 			passwords = response['passwords'];
 		
 			// Main work
-			jQuery('input[type="password"]').live('focus', function(e){
+			var inputs = jQuery('input[type="password"]');
+			if (['http:','https:'].indexOf(document.location.protocol) == -1)
+				inputs = jQuery('input[type="password"]:not([name])');
+				
+			inputs.live('focus', function(e){
 				var me = $(this);
 				if (me.val() == '')
 					Popup.instructions(me, passwords);
-			});
-			jQuery('input[type="password"]').live('blur', function(e){
-				if (Popup.state() != 'updated-to')
-					Popup.hide('fast');
-			});
-			jQuery('input[type="password"]').live('keyup', function(e){
-				var me = $(this);
-				var value = me.val();
-				var confirm_key = passwords.length > 9;
-				if (value == '')
-					Popup.instructions(me, passwords);	
-				else
-				{
-					// Hide only if the popup is with instruction
-					// Hide only if entered text cannot be understood as a password number
-					if (Popup.state() == 'instructions' && (!confirm_key || !Number(value)))
+			})
+				.live('blur', function(e){
+					if (Popup.state() != 'updated-to')
 						Popup.hide('fast');
-
-					if ( 
-						   // If there are more than 10 passwords and the key is CONFIRM_KEY
-						   ( confirm_key && CONFIRM_KEYCODES.indexOf(e.keyCode) > -1)
-						   // OR there are less than 10 passwords and this is a number key
-						|| (!confirm_key && e.keyCode > 48 && e.keyCode < 59)
-					)
+			})
+				.live('keyup', function(e){
+					var me = $(this);
+					var value = me.val();
+					var confirm_key = passwords.length > 9;
+					if (value == '')
+						Popup.instructions(me, passwords);	
+					else
 					{
-						if (confirm_key) // Remove confirm key
-							value = value.substr(0, value.length - 1)
-						var entered = parseInt(value);
-						// If the string is incorrect, it will parse to NaN, which is
-						// neither bigger nor small than any other number
-						if (entered > 0 && entered <= passwords.length)
+						// Hide only if the popup is with instruction
+						// Hide only if entered text cannot be understood as a password number
+						if (Popup.state() == 'instructions' && (!confirm_key || !Number(value)))
+							Popup.hide('fast');
+
+						if ( 
+							   // If there are more than 10 passwords and the key is CONFIRM_KEY
+							   ( confirm_key && CONFIRM_KEYCODES.indexOf(e.keyCode) > -1)
+							   // OR there are less than 10 passwords and this is a number key
+							|| (!confirm_key && e.keyCode > 48 && e.keyCode < 59)
+						)
 						{
-							// 0-based array are cool 8)
-							// 1-based people are not :)
-							var index = entered - 1;
-							var password = passwords[index];
-							if ('password' in password)
-							{ 
-								var hash = supergenpass(password['password'], document.location.host, password['len']);
-								insert_password(me, hash, password['note']);
-							}
-							else
+							if (confirm_key) // Remove confirm key
+								value = value.substr(0, value.length - 1)
+							var entered = parseInt(value);
+							// If the string is incorrect, it will parse to NaN, which is
+							// neither bigger nor small than any other number
+							if (entered > 0 && entered <= passwords.length)
 							{
-								chrome.extension.sendRequest({ 'password': index }, function(response) {
-									passwords = response['passwords'];
-									var hash = supergenpass(passwords[index]['password'], document.location.host, password['len']);								
+								// 0-based array are cool 8)
+								// 1-based people are not :)
+								var index = entered - 1;
+								var password = passwords[index];
+								if ('password' in password)
+								{ 
+									var hash = supergenpass(password['password'], document.location.host, password['len']);
 									insert_password(me, hash, password['note']);
-								});
-							}
-						} // end of correct input
-					} // end of if e.keyCode in [0..9qQ]
-				} // end of value is not empty
+								}
+								else
+								{
+									chrome.extension.sendRequest({ 'password': index }, function(response) {
+										passwords = response['passwords'];
+										var hash = supergenpass(passwords[index]['password'], document.location.host, password['len']);								
+										insert_password(me, hash, password['note']);
+									});
+								}
+							} // end of correct input
+						} // end of if e.keyCode in [0..9qQ]
+					} // end of value is not empty
+				  // Skipped indent
 			}); // end keypress live
 		}); // answer to send Request
 	} // init()
@@ -213,7 +219,7 @@ if (['http:','https:'].indexOf(document.location.protocol) > -1)
 						html = '<em>ChromeGenPass</em><br>';
 						html += 'You have no passwords saved.<br>';
 						html += 'Add passwords on the ';
-						html += '<a href="'+url+'" style="color:white" target="_blank">options page</a>.';
+						html += '<a href="'+url+'#settings" style="color:white" target="_blank">options page</a>.';
 						el.html(html);
 					}
 					else
