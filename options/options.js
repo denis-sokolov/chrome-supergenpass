@@ -103,5 +103,6 @@ $(document).ready(function(){
 			li.remove();
 		});
 		save(passwords);
+		chrome.extension.sendRequest({'passwords': passwords});
 	});
 });
