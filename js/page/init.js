@@ -34,6 +34,23 @@ function init(selector){
 					if (Popup.state() == 'instructions' && (!confirm_key || !Number(value)))
 						Popup.hide('fast');
 
+					/*
+						In certain layouts, there are different characters on number keys.
+						If a user has a wrong layout and presses 1, he does not see a 1, but a bullet.
+						He then waits for ChromeGenPass to do its bidding, but the extension
+						never sees a 1, it sees a strange character.
+						
+						So this checks for this scenario.
+						Any non-alphanumeric might mean that the layout is wrong.
+						
+						Moreover, in case everything is normal, we hide the popup both
+						after a delay and on any subsequent keypress.
+					*/
+					if (value.length == 1 && 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'.indexOf(value) == -1)
+						Popup.layout(me);
+					if (value.length > 1 && Popup.state() == 'layout')
+						Popup.hide('fast');
+
 					if ( 
 						   // If there are more than 10 passwords and the key is CONFIRM_KEY
 						   ( confirm_key && CONFIRM_KEYCODES.indexOf(e.keyCode) > -1)
@@ -111,6 +128,15 @@ function PopupFactory()
 				.state('instructions')
 				.text(passwords)
 				.move(field).show('fast');
+		},
+		'layout': function(field)
+		{
+			this
+				.hide().stop()
+				.state('layout')
+				.text('Make sure that you have the correct layout turned on.')
+				.move(field).show('fast');
+			this.hide_in(1500, 'slow');
 		},
 		'move': function(field)
 		{
