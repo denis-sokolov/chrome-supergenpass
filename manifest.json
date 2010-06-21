@@ -14,7 +14,7 @@
 	"content_scripts": [
 		{
 			"matches": ["http://*/*", "https://*/*"],
-			"js": ["js/contentscript.js"]
+			"js": ["js/page/init.js", "js/page/events.js", "js/page/main.js"]
 		}
 	],
 	"permissions": [
