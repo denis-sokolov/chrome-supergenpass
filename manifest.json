@@ -4,9 +4,9 @@
 
 	"description": "Clickless use of SuperGenPass generated passwords",
 	"icons": {
-		"16": "img/ktouch.png",
-		"48": "img/ktouch.png",
-		"128": "img/ktouch.png"
+		"16": "img/ktouch16.png",
+		"48": "img/ktouch48.png",
+		"128": "img/ktouch128.png"
 	},
 
 	"background_page": "html/background.html",
