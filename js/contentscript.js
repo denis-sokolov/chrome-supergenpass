@@ -104,19 +104,9 @@ if (['http:','https:'].indexOf(document.location.protocol) > -1
 								// 1-based people are not :)
 								var index = entered - 1;
 								var password = passwords[index];
-								if ('password' in password)
-								{ 
-									var hash = supergenpass(password['password'], document.location.host, password['len']);
-									insert_password(me, hash, password['note']);
-								}
-								else
-								{
-									chrome.extension.sendRequest({ 'password': index }, function(response) {
-										passwords = response['passwords'];
-										var hash = supergenpass(passwords[index]['password'], document.location.host, password['len']);								
-										insert_password(me, hash, password['note']);
-									});
-								}
+								chrome.extension.sendRequest({ 'password': index }, function(response) {
+									insert_password(me, response['hash'], password['note']);
+								});
 							} // end of correct input
 						} // end of if e.keyCode in [0..9qQ]
 					} // end of value is not empty
