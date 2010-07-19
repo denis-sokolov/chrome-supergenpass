@@ -17,6 +17,11 @@
 			"js": ["js/page/init.js", "js/page/events.js", "js/page/main.js"]
 		}
 	],
+	"page_action": {
+		"default_icon": "img/supergenpass.png",
+		"default_title": "Generate SuperGenPass passwords",
+		"default_popup": "pageAction/pageAction.html"
+	},
 	"permissions": [
 		"tabs", "http://*/*", "https://*/*"
 	]

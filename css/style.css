@@ -1,0 +1,9 @@
+* { margin: 0; padding: 0 }
+html { font-family: Georgia, serif }
+h1, h2, h3 {
+	font-size: 140%; font-variant: small-caps; font-weight: normal;  }
+h1 { margin: 50px 0 0 -20px }
+h2 { font-size: 120%; margin-top: 1em; }
+a { color: #00735A }
+p { margin-bottom: 1ex }
+input { display:block-inline; border: 1px dotted black; margin: 5px; padding: 5px }

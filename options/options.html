@@ -1,16 +1,9 @@
 <html>
 	<head>
 		<title>ChromeGenPass</title>
+		<link rel="stylesheet" href="../css/style.css">
 		<style>
-			* { margin: 0; padding: 0 }
-			html { font-family: Georgia, serif }
 			#viewbox { min-width: 200px; max-width: 450px; margin: 1em auto; }
-			h1, h2, h3 {
-				font-size: 140%; font-variant: small-caps; font-weight: normal;  }
-			h1 { margin: 50px 0 0 -20px }
-			h2 { font-size: 120%; margin-top: 1em; }
-			a { color: #00735A }
-			p { margin-bottom: 1ex }
 
 			.clarify { font-size: 70%; font-style: italic;}
 			.updated { padding: 1em; margin: 1em auto; background-color: #F0B16D; border-radius: 10px;
@@ -28,8 +21,7 @@
 			#settings > li:hover { color: red; text-decoration: line-through; cursor: pointer }
 			#settings            img { vertical-align: middle; visibility: hidden }
 			#settings > li:hover img { visibility: visible }
-
-			input { display: block; border: 1px dotted black; margin: 5px; padding: 5px; width: 100% }
+			input { display: block; width: 100% }
 			#status { list-style-type: none; color: rgb(255,122,150) }
 
 			#help-h1 > a { border-bottom: 1px dashed black; font-style: normal; text-decoration: none; color: inherit; }
@@ -50,7 +42,7 @@
 			<ol id="settings">
 				<li class="new">
 					<span class="note"></span> <span class="length"></span>
-					<img src="../img/cross.png" alt="[delete]">
+					<img src="../img/silk/cross.png" alt="[delete]">
 				</li>
 			</ol>
 			<h1>Add new</h1>
@@ -97,6 +89,8 @@
 					I love you, my cute magical kitten, and always will.
 				<p class="author">
 					<a href="http://sokolov.cc">Denis Sokolov</a>.
+				<p>
+					Thanks to Mark James for <a href="http://www.famfamfam.com/lab/icons/silk/">great icons</a>.
 			</div>
 		</div>
 		<script src="../js/jquery-1.4.2.min.js"></script>

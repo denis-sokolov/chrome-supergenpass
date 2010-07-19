@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="pageAction.css">
+<form>
+	<p>
+		<a href="#" name="url">
+			<span></span>
+			<img src="../img/silk/pencil.png" alt="pencil" title="Edit hostname">
+		</a>
+		<input id="url" name="url" type="url" formnovalidate>
+	<ol id="buttons">
+		<li class="new">
+			<a href="#">
+				Unexpected problem.
+			</a>
+		<li class="last">
+			<a href="#">
+				...
+			</a>
+	</ol>
+	<p id="passwordBox">
+		<input type="number" class="ghost" min="1" max="50" value="10">
+		<input type="password" name="password" required title="Password">
+		<input type="number" name="length" min="1" max="50" value="10" required title="Length of your generated hashes (usually 10)">
+	<p>
+		<input readonly id="result" placeholder="Result is shown here">
+</form>
+
+<script src="../js/orig.js"></script>
+<script src="../js/hash.js"></script>
+<script src="pageAction.js"></script>

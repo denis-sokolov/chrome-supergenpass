@@ -23,6 +23,8 @@ chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 	
 	else if ('init' in req)
 	{ // A new tab wants to work with us, let's give it info
+		if (sender.tab != null)
+			chrome.pageAction.show(sender.tab.id);
 		sendResponse({
 			'passwords': passwords,
 			'supergenpass': supergenpass,
@@ -33,7 +35,7 @@ chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 	else if ('password' in req)
 	{ // A page wants to enter a password into a field
 		var index = req['password'];
-		if (!('password' in passwords[index]))
+		if (!('password' in passwords[index]) && !('silent' in req))
 		{ // The password has not yet been cached
 			var stop = false;
 			var second_attempt = false;
@@ -56,11 +58,26 @@ chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 			}
 		}
 		if ('password' in passwords[index])
+		{
+			if ('hostname' in req)
+				var hostname = req['hostname']
+			else
+				var hostname = sender['tab']['url'];
 			sendResponse({
-				'hash': supergenpass(passwords[index]['password'], sender['tab']['url'], passwords[index]['len'])
+				'hash': supergenpass(passwords[index]['password'], hostname, passwords[index]['len'])
 			});
+		}
 		else
 			sendResponse({});
+	}
+	
+	else if ('store-password' in req)
+	{ // A page actions wants us to store a password hash
+		if ('index' in req)
+			passwords[req['index']]['password'] = req['store-password'];
+		else
+			console.error('index is not in a request')
+		sendResponse({});
 	}
 });
 
@@ -89,12 +106,3 @@ function get(src, callback)
 	xhr.open('GET', chrome.extension.getURL(src), true);
 	xhr.send();
 }
-
-/*
-	Reference for future use.
-	chrome.pageAction.show(sender.tab.id);
-
-	chrome.pageAction.onClicked.addListener(function(tab){
-		chrome.tabs.sendRequest(tab.id, 'run');
-	});
-*/

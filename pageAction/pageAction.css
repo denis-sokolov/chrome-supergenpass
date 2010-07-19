@@ -1,0 +1,24 @@
+form { padding: 1em 2em; text-align: center }
+
+
+a[name="url"] { display: inline-block; white-space: nowrap; text-decoration: none; margin-left: 20px }
+a[name="url"] img { opacity: 0.3 }
+a[name="url"]:hover img { opacity: 1 }
+input[name="url"] { display: none }
+
+#buttons { list-style-type: none }
+#buttons li { display: inline-block; padding: 1ex }
+#buttons .current a { text-decoration: none; cursor: default; color: inherit; }
+
+.new,#buttons .new { display: none }
+
+#passwordBox { margin: 0; height: auto; padding: 0; white-space: nowrap; }
+[name="password"] {
+	opacity: 0; padding: 1ex; margin: 5px;
+	-webkit-transition: all 0.4s;
+	border: 0;
+	}
+[name="password"].open { opacity: 1 }
+.ghost, [name="length"] { width: 25px; opacity: 0 }
+[name="length"].open { opacity: 0.5 }
+[name="length"]:focus { opacity: 1 }
