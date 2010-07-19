@@ -111,12 +111,6 @@
 					$('#help-h1').insertBefore('h1:first');
 					$('#help').insertAfter('#help-h1').addClass('target');
 				}
-		
-				if (localStorage['messages-seen'] < 2)
-				{
-					$('<div class="updated"><p>You have updated to version 2.0, which has quite a few changes in how to use it.</p><p>Consider taking a look at a new <a href="#help">help section</a> below.</p></div>').prependTo('body');
-					localStorage['messages-seen'] = 2;
-				}
 			});
 		</script>
 	</body>
