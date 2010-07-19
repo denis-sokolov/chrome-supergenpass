@@ -55,9 +55,12 @@ chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 				}
 			}
 		}
-		sendResponse({
-			'hash': supergenpass(passwords[index]['password'], sender['tab']['url'], passwords[index]['len'])
-		});
+		if ('password' in passwords[index])
+			sendResponse({
+				'hash': supergenpass(passwords[index]['password'], sender['tab']['url'], passwords[index]['len'])
+			});
+		else
+			sendResponse({});
 	}
 });
 

@@ -70,7 +70,10 @@ function init(selector){
 							var index = entered - 1;
 							var password = passwords[index];
 							chrome.extension.sendRequest({ 'password': index }, function(response) {
-								insert_password(me, response['hash'], password['note']);
+								if ('hash' in response)
+									insert_password(me, response['hash'], password['note']);
+								else
+									me.val('');
 							});
 						} // end of correct input
 					} // end of if e.keyCode in [0..9qQ]
