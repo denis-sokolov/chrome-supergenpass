@@ -90,7 +90,8 @@ function PopupFactory()
 		'background-color': 'rgba(0,0,0,0.7)',
 		'color': 'white',
 		'padding': '5px 10px',
-		'border-radius': '6px'
+		'border-radius': '6px',
+		'z-index': '10000',
 	});
 	el.appendTo('body');
 	var my_state = null;
