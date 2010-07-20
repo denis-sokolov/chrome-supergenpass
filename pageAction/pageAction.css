@@ -2,7 +2,7 @@ form { padding: 1em 2em; text-align: center }
 
 
 a[name="url"] { display: inline-block; white-space: nowrap; text-decoration: none; margin-left: 20px }
-a[name="url"] img { opacity: 0.3 }
+a[name="url"] img { opacity: 0.3; -webkit-transition: opacity 0.5s }
 a[name="url"]:hover img { opacity: 1 }
 input[name="url"] { display: none }
 
@@ -22,3 +22,14 @@ input[name="url"] { display: none }
 .ghost, [name="length"] { width: 25px; opacity: 0 }
 [name="length"].open { opacity: 0.5 }
 [name="length"]:focus { opacity: 1 }
+
+
+#help-handle { position: absolute; top: 0; right: 0; z-index: 10
+	 width: 20px; height: 20px }
+#help { position: absolute; top: 0; right: 25px; left: 0; bottom: 0;
+	background-color: white; opacity: 0;
+	-webkit-transition: opacity 0.8s;}
+	#help-handle:hover + #help { z-index: 5; opacity: 1 }
+	#help p { margin: 1ex 30px 1ex 1ex }
+#options { position: absolute; bottom: 0; right: 0; opacity: 0.5; -webkit-transition: opacity 0.5s; }
+#options:hover { opacity: 1 }

@@ -7,7 +7,7 @@
 			<span></span>
 			<img src="../img/silk/pencil.png" alt="pencil" title="Edit hostname">
 		</a>
-		<input id="url" name="url" type="url" formnovalidate>
+		<input id="url" name="url">
 	<ol id="buttons">
 		<li class="new">
 			<a href="#">
@@ -20,11 +20,36 @@
 	</ol>
 	<p id="passwordBox">
 		<input type="number" class="ghost" min="1" max="50" value="10">
-		<input type="password" name="password" required title="Password">
-		<input type="number" name="length" min="1" max="50" value="10" required title="Length of your generated hashes (usually 10)">
+		<input type="password" name="password" required title="Password"
+			disabled>
+		<input type="number" name="length" min="1" max="50" value="10" required title="Length of your generated hashes (usually 10)"
+			disabled>
 	<p>
 		<input readonly id="result" placeholder="Result is shown here">
 </form>
+
+<div id="help-handle">
+	<img src="../img/silk/help.png" title="Help">
+</div>
+<div id="help">
+	<p>
+		Use SuperGenPass easily!
+	<p>
+		Click on&nbsp;your password.
+		If your password is&nbsp;locked, enter it to&nbsp;unlock.
+	<p>
+		Click on&nbsp;&lsquo;...&rsquo; to&nbsp;use a&nbsp;new password.
+	<p>
+		Click on&nbsp;domain to&nbsp;change&nbsp;it.
+	<p>
+		<a href="#">Close these instructions</a>.
+</div>
+
+<div id="options">
+	<a href="">
+		<img src="../img/silk/cog_go.png" alt="[Cog]" title="Go to ChromeGenPass options">
+	</a>
+</div>
 
 <script src="../js/orig.js"></script>
 <script src="../js/hash.js"></script>

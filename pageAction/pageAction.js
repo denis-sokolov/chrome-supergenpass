@@ -3,6 +3,10 @@ chrome.extension.sendRequest({ 'init': true }, function(response) {
 	window.jQuery = jQuery;
 	passwords = response['passwords'];
 	
+	$('#options a').click(function(){
+		chrome.tabs.create({ 'url': '../options/options.html' });
+	});
+	
 	var password = (function(){
 		var me = $('[name="password"]');
 		var len = $('[name="length"]');
