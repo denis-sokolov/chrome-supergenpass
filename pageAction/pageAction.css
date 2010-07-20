@@ -24,12 +24,10 @@ input[name="url"] { display: none }
 [name="length"]:focus { opacity: 1 }
 
 
-#help-handle { position: absolute; top: 0; right: 0; z-index: 10
+#help-handle { position: absolute; bottom: 0; right: 0; z-index: 10
 	 width: 20px; height: 20px }
 #help { position: absolute; top: 0; right: 25px; left: 0; bottom: 0;
 	background-color: white; opacity: 0;
 	-webkit-transition: opacity 0.8s;}
 	#help-handle:hover + #help { z-index: 5; opacity: 1 }
 	#help p { margin: 1ex 30px 1ex 1ex }
-#options { position: absolute; bottom: 0; right: 0; opacity: 0.5; -webkit-transition: opacity 0.5s; }
-#options:hover { opacity: 1 }
