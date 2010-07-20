@@ -23,7 +23,7 @@ chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 	
 	else if ('init' in req)
 	{ // A new tab wants to work with us, let's give it info
-		if (sender.tab != null)
+		if (sender.tab != null && /^http/.test(sender.tab.url))
 			chrome.pageAction.show(sender.tab.id);
 		sendResponse({
 			'passwords': passwords,
