@@ -149,4 +149,10 @@ chrome.extension.sendRequest({ 'init': true }, function(response) {
 			});
 		}
 	});
+	
+	if (!passwords.length)
+	{
+		$('li.last').click();
+		$('#buttons').remove();
+	}
 });
