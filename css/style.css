@@ -1,5 +1,6 @@
 * { margin: 0; padding: 0 }
 html { font-family: Georgia, serif }
+body { background-color: white }
 h1, h2, h3 {
 	font-size: 140%; font-variant: small-caps; font-weight: normal;  }
 h1 { margin: 50px 0 0 -20px }
