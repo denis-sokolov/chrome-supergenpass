@@ -9,7 +9,7 @@
 		"128": "img/ktouch128.png"
 	},
 
-	"background_page": "html/background.html",
+	"background_page": "background/background.html",
 	"options_page": "options/options.html",
 	"content_scripts": [
 		{
