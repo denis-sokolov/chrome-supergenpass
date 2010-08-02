@@ -14,7 +14,7 @@
 	"content_scripts": [
 		{
 			"matches": ["http://*/*", "https://*/*"],
-			"js": ["js/page/init.js", "js/page/events.js", "js/page/main.js"]
+			"js": ["page/work.js", "page/events.js", "page/init.js"]
 		}
 	],
 	"page_action": {

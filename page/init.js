@@ -30,10 +30,10 @@ passwords = [];
 when_there_are_password_fields(function(){
 	// Turn on our toolkit on normal pages
 	if (['http:','https:'].indexOf(document.location.protocol) > -1)
-		init('input[type="password"]');
+		work('input[type="password"]');
 	// And for demonstration in help on options page
 	else if (document.location.href == chrome.extension.getURL('options/options.html'))
-		init('input[type="password"]:not([name])');
+		work('input[type="password"]:not([name])');
 })
 
 function when_there_are_password_fields(callback)

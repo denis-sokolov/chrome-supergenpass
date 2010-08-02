@@ -1,4 +1,4 @@
-function init(selector){
+function work(selector){
 	chrome.extension.sendRequest({ 'init': true }, function(response) {
 		// Globalize jQuery
 		eval(response['jquery']);
