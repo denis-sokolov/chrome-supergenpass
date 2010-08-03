@@ -16,13 +16,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*
- * All styles are in here not because I don't like separation, but because
- * I don't want to pollute DOM with extra classes.
- * Though that way would be clener and I'd prefer it in any other case,
- * I'd like to be as stealthy as possible.
- */
-
 // Preparation
 CONFIRM_KEYCODES = [81, 113]; // Q, q
 passwords = [];
