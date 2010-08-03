@@ -1,35 +1,55 @@
+/*!
+ChromeGenPass = Google Chrome + SuperGenPass love.
+Copyright (C) 2010 Denis Sokolov http://sokolov.cc
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 form { padding: 1em 5px 1em 30px; margin-right: 25px; text-align: center; background-color: white; }
+	.ghost { opacity: 0 }
+	.new { display: none }
+
+	#url {}
+		#url > a { display: inline-block; white-space: nowrap; text-decoration: none; margin-left: 20px }
+		#url > a img { opacity: 0.3; -webkit-transition: opacity 0.5s }
+		#url > a:hover img { opacity: 1 }
+		#url > input { display: none }
+
+	#buttons { list-style-type: none }
+		#buttons .new { display: none }
+		#buttons li { display: inline-block; padding: 1ex }
+		#buttons .current a { text-decoration: none; cursor: default; color: inherit }
+
+	#password { margin: 0; height: auto; padding: 0; white-space: nowrap; }
+		#password > .password { opacity: 0; padding: 1ex; margin: 5px; -webkit-transition: opacity 0.4s; border: 0 }
+			#password > .password.open { opacity: 1 }
+		#length { opacity: 0 }
+		#length, #password > .ghost { width: 25px }
+			#length.open { opacity: 0.5 }
+			#length:focus { opacity: 1 }
+
+	#result {}
+		#result a { vertical-align: middle; opacity: 0; -webkit-transition: opacity 0.4s }
+		#result.filled a { opacity: 1 }
 
 
-a[name="url"] { display: inline-block; white-space: nowrap; text-decoration: none; margin-left: 20px }
-a[name="url"] img { opacity: 0.3; -webkit-transition: opacity 0.5s }
-a[name="url"]:hover img { opacity: 1 }
-input[name="url"] { display: none }
-
-#buttons { list-style-type: none }
-#buttons li { display: inline-block; padding: 1ex }
-#buttons .current a { text-decoration: none; cursor: default; color: inherit; }
-
-.new,#buttons .new { display: none }
-
-#passwordBox { margin: 0; height: auto; padding: 0; white-space: nowrap; }
-[name="password"] {
-	opacity: 0; padding: 1ex; margin: 5px;
-	-webkit-transition: all 0.4s;
-	border: 0;
-	}
-[name="password"].open { opacity: 1 }
-.ghost, [name="length"] { width: 25px; opacity: 0 }
-[name="length"].open { opacity: 0.5 }
-[name="length"]:focus { opacity: 1 }
-
-
-#help-handle { position: absolute; bottom: 0; right: 0; z-index: 10
-	 width: 20px; height: 20px; opacity: 0.5; -webkit-transition: opacity 0.8s; }
-	#help-handle:hover { opacity: 1 }
 form { opacity: 1; -webkit-transition: opacity 0.8s; }
+#help-handle:hover + form { opacity: 0 }
+#help-handle { position: absolute; bottom: 0; right: 0; z-index: 10
+	 	width: 20px; height: 20px; opacity: 0.5; -webkit-transition: opacity 0.8s; }
+	#help-handle:hover { opacity: 1 }
 #help { position: absolute; top: 0; right: 25px; left: 0; bottom: 0;
 	background-color: white; z-index: -2; opacity: 1;
 	}
-	#help-handle:hover + form { opacity: 0 }
 	#help p { margin: 1ex 30px 1ex 1ex }

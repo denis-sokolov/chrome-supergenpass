@@ -1,3 +1,21 @@
+<!--!
+ChromeGenPass = Google Chrome + SuperGenPass love.
+Copyright (C) 2010 Denis Sokolov http://sokolov.cc
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
 <!DOCTYPE html>
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="pageAction.css">
@@ -7,30 +25,37 @@
 </div>
 
 <form>
-	<p>
-		<a href="#" name="url">
-			<span></span>
+	<!-- Hostname -->
+	<p id="url">
+		<a href="#">
+			<span></span> <!-- Span will contain the hostname itself. -->
 			<img src="../img/silk/pencil.png" alt="pencil" title="Edit hostname">
 		</a>
-		<input id="url" name="url">
+		<input required> <!-- Input will be shown on click on the hostname. -->
+		
+	<!-- Passwords -->
 	<ol id="buttons">
 		<li class="new">
-			<a href="#">
-				Unexpected problem.
-			</a>
+			<a href="#">Unexpected problem.</a>
 		<li class="last">
-			<a href="#">
-				...
-			</a>
+			<a href="#">...</a>
 	</ol>
-	<p id="passwordBox">
+	
+	<!-- Password box -->
+	<p id="password">
+		<!-- .ghost are for centering. Padding and margins could not help me center. -->
 		<input type="number" class="ghost" min="1" max="50" value="10">
-		<input type="password" name="password" required title="Password"
-			disabled>
-		<input type="number" name="length" min="1" max="50" value="10" required title="Length of your generated hashes (usually 10)"
-			disabled>
-	<p>
-		<input readonly id="result" placeholder="Result is shown here">
+		<input class="password" type="password" required disabled title="Password">
+		<input id="length" type="number" required disabled min="1" max="50" value="10"
+		 	title="Length of your generated hashes (usually 10)">
+	
+	<!-- Result -->
+	<p id="result">
+		<img src="../img/silk/control_fastforward.png" class="ghost" alt="">
+		<input readonly placeholder="Result is shown here" value="">
+		<a href="#" title="Fill password fields using this password">
+			<img src="../img/silk/control_fastforward.png" alt="[&gt;&gt;]">
+		</a>
 </form>
 
 <div id="help">
@@ -44,7 +69,8 @@
 	<p>
 		Click on&nbsp;domain to&nbsp;change&nbsp;it.
 	<p>
-		<a href="#">Close these instructions</a>.
+		Click on&nbsp;<img src="../img/silk/control_fastforward.png" alt="[&gt;&gt;]">
+		to fill the page with generated password.
 </div>
 
 <script src="../js/orig.js"></script>

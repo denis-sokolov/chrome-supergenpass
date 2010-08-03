@@ -1,3 +1,21 @@
+/*!
+ChromeGenPass = Google Chrome + SuperGenPass love.
+Copyright (C) 2010 Denis Sokolov http://sokolov.cc
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 chrome.extension.sendRequest({ 'init': true }, function(response) {
 	eval(response['jquery']);
 	window.jQuery = jQuery;
@@ -8,8 +26,8 @@ chrome.extension.sendRequest({ 'init': true }, function(response) {
 	});
 	
 	var password = (function(){
-		var me = $('[name="password"]');
-		var len = $('[name="length"]');
+		var me = $('#password .password');
+		var len = $('#length');
 		var currentIndex = null;
 		
 		var checkPassword = function(e){
@@ -69,29 +87,51 @@ chrome.extension.sendRequest({ 'init': true }, function(response) {
 	})();
 	
 	var result = (function(){
-		var me = $('#result');
+		var container = $('#result');
+		var me = container.find('input');
+		var stored = null;
 		return {
 			'el': me,
 			'enter': function(pass){
 				password.close();
-				me.val(pass)
+			 	stored = pass;
+				me.val(pass);
+				container.addClass('filled');
 				// me.focus(); // Does not work as expected.
 			},
 			'reset': function(){
 				me.val('');
+				stored = null;
+				container.removeClass('filled');
+			},
+			'val': function(){
+				return stored;
 			},
 		}
 	})();
 	
+	var filled = (function(){
+		var me = $('#result a');
+		me.bind('click.fill', function(e){
+			e.preventDefault();
+			chrome.tabs.getSelected(null, function(tab){
+				chrome.tabs.sendRequest(tab.id, {
+					'fill': result.val()
+				});
+			});
+		});
+		return null;
+	})();
+	
 	var hostname = (function(){
-		var a = $('a[name="url"]');
+		var a = $('#url a');
 		a.click(function(e){
 			e.preventDefault();
 			me.show();
 			a.remove();
 		});
 		
-		var me = $('input[name="url"]');
+		var me = $('#url input');
 		me.change(function(){
 			result.reset();
 			buttons.find('li').removeClass('current');
