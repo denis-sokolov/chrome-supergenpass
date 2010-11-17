@@ -79,6 +79,12 @@ $(document).ready(function(){
 		else if (!(len > 0)){
 			msg('Length parameter is wrong. If you don\'t know, type 10.');
 		}
+		else if (len < 3) {
+			msg('Length cannot be smaller than 3, because of SuperGenPass bug. And why would you need a password this short anyway?');
+		}
+		else if (len > 24) {
+			msg('SuperGenPass does not generate passwords longer than 24 symbols. I do not know why. :)');
+		}
 		else {
 			var p = {
 				'note': note,
