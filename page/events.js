@@ -1,5 +1,5 @@
 /*!
-ChromeGenPass = Google Chrome + SuperGenPass love.
+SuperGenPass for Google Chrome™ by Denis
 Copyright (C) 2010 Denis Sokolov http://sokolov.cc
 
 This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@ chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 	// Update passwords
 	if ('passwords' in req)
 		passwords = req['passwords'];
-		
+
 	// Fill page with password
 	if ('fill' in req)
 	{
@@ -28,6 +28,6 @@ chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 		Popup.moveToCenter().text('Passwords updated to ' + req['fill']).show('slow');
 		setTimeout(function(){ Popup.hide('slow'); }, 2000);
 	}
-	
+
 	sendResponse({});
 });

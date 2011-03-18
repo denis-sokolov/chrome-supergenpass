@@ -1,5 +1,5 @@
 /*!
-ChromeGenPass = Google Chrome + SuperGenPass love.
+SuperGenPass for Google Chrome™ by Denis
 Copyright (C) 2010 Denis Sokolov http://sokolov.cc
 
 This program is free software: you can redistribute it and/or modify
@@ -61,7 +61,7 @@ var Popup_init = function() {
 		{
 			hide_timeout = setTimeout(function(){
 				Popup.hide(speed);
-			}, 3000);	
+			}, 3000);
 		},
 		'instructions': function(field, passwords)
 		{
@@ -130,7 +130,7 @@ var Popup_init = function() {
 				if (txt.length == 0)
 				{
 					url = chrome.extension.getURL('options/options.html');
-					html = '<em>ChromeGenPass</em><br>';
+					html = '<em>SuperGenPass for Google Chrome™ by Denis</em><br>';
 					html += 'You have no passwords saved.<br>';
 					html += 'Add passwords on the ';
 					html += '<a href="'+url+'#settings" style="color:white" target="_blank">options page</a>.';
@@ -148,7 +148,7 @@ var Popup_init = function() {
 			}
 			else
 			{
-				el.text(txt);	
+				el.text(txt);
 			}
 			return this;
 		},

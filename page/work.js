@@ -1,5 +1,5 @@
 /*!
-ChromeGenPass = Google Chrome + SuperGenPass love.
+SuperGenPass for Google Chrome™ by Denis
 Copyright (C) 2010 Denis Sokolov http://sokolov.cc
 
 This program is free software: you can redistribute it and/or modify
@@ -27,13 +27,13 @@ function work(selector){
 	chrome.extension.sendRequest({ 'init': true }, function(response) {
 		// Globalize jQuery
 		eval(response['jquery']);
-		
+
 		Popup_init();
-		
+
 		// Data
 		passwords = response['passwords'];
-	
-		// Main work			
+
+		// Main work
 		jQuery(selector)
 			.live('focus', function(e){
 				var me = $(this);
@@ -49,7 +49,7 @@ function work(selector){
 				var value = me.val();
 				var confirm_key = passwords.length > 9;
 				if (value == '')
-					Popup.instructions(me, passwords);	
+					Popup.instructions(me, passwords);
 				else
 				{
 					// Hide only if the popup is with instruction
@@ -60,12 +60,12 @@ function work(selector){
 					/*
 						In certain layouts, there are different characters on number keys.
 						If a user has a wrong layout and presses 1, he does not see a 1, but a bullet.
-						He then waits for ChromeGenPass to do its bidding, but the extension
+						He then waits for SuperGenPass for Google Chrome™ by Denis to do its bidding, but the extension
 						never sees a 1, it sees a strange character.
-						
+
 						So this checks for this scenario.
 						Any non-alphanumeric might mean that the layout is wrong.
-						
+
 						Moreover, in case everything is normal, we hide the popup both
 						after a delay and on any subsequent keypress.
 					*/
@@ -74,7 +74,7 @@ function work(selector){
 					if (value.length > 1 && Popup.state() == 'layout')
 						Popup.hide('fast');
 
-					if ( 
+					if (
 						   // If there are more than 10 passwords and the key is CONFIRM_KEY
 						   ( confirm_key && CONFIRM_KEYCODES.indexOf(e.keyCode) > -1)
 						   // OR there are less than 10 passwords and this is a number key

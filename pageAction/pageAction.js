@@ -1,5 +1,5 @@
 /*!
-ChromeGenPass = Google Chrome + SuperGenPass love.
+SuperGenPass for Google Chrome™ by Denis
 Copyright (C) 2010 Denis Sokolov http://sokolov.cc
 
 This program is free software: you can redistribute it and/or modify
@@ -20,16 +20,16 @@ chrome.extension.sendRequest({ 'init': true }, function(response) {
 	eval(response['jquery']);
 	window.jQuery = jQuery;
 	passwords = response['passwords'];
-	
+
 	$('#options a').click(function(){
 		chrome.tabs.create({ 'url': '../options/options.html' });
 	});
-	
+
 	var password = (function(){
 		var me = $('#password .password');
 		var len = $('#length');
 		var currentIndex = null;
-		
+
 		var checkPassword = function(e){
 			var pass = passwords[currentIndex];
 			var entered = me.val();
@@ -55,9 +55,9 @@ chrome.extension.sendRequest({ 'init': true }, function(response) {
 			if (e.keyCode == 13)
 				submitCustom(e);
 		}
-		
+
 		len.bind('keyup.password', checkEnter);
-		
+
 		return {
 			'open': function(index){
 				me.unbind('.password');
@@ -75,7 +75,7 @@ chrome.extension.sendRequest({ 'init': true }, function(response) {
 					result.el.bind('click.password', submitCustom);
 					len.addClass('open').removeAttr('disabled');
 				}
-					
+
 				setTimeout(function(){
 					me.focus();
 				}, 100)
@@ -85,7 +85,7 @@ chrome.extension.sendRequest({ 'init': true }, function(response) {
 			}
 		}
 	})();
-	
+
 	var result = (function(){
 		var container = $('#result');
 		var me = container.find('input');
@@ -109,7 +109,7 @@ chrome.extension.sendRequest({ 'init': true }, function(response) {
 			},
 		}
 	})();
-	
+
 	var filled = (function(){
 		var me = $('#result a');
 		me.bind('click.fill', function(e){
@@ -122,7 +122,7 @@ chrome.extension.sendRequest({ 'init': true }, function(response) {
 		});
 		return null;
 	})();
-	
+
 	var hostname = (function(){
 		var a = $('#url a');
 		a.click(function(e){
@@ -130,21 +130,21 @@ chrome.extension.sendRequest({ 'init': true }, function(response) {
 			me.show();
 			a.remove();
 		});
-		
+
 		var me = $('#url input');
 		me.change(function(){
 			result.reset();
 			buttons.find('li').removeClass('current');
 			password.close();
 		});
-		
+
 		chrome.tabs.getSelected(null, function(tab) {
 			var hostNameFinder = new RegExp('//([^\/]+)/');
 			var hostname = hostNameFinder.exec(tab.url)[1];
 			a.find('span').text(hostname);
 			me.val(hostname)
 		});
-	
+
 		return {
 			'val': function(){
 				return me.val();
@@ -165,11 +165,11 @@ chrome.extension.sendRequest({ 'init': true }, function(response) {
 	}
 	buttons.delegate('li', 'click', function(){
 		var me = $(this);
-				
+
 		buttons.find('li').removeClass('current');
 		me.addClass('current');
 		result.reset();
-		
+
 		if (me.hasClass('last'))
 		{
 			password.open(-1);
@@ -189,7 +189,7 @@ chrome.extension.sendRequest({ 'init': true }, function(response) {
 			});
 		}
 	});
-	
+
 	if (!passwords.length)
 	{
 		$('li.last').click();
