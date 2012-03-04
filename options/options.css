@@ -26,6 +26,6 @@ input { display: block; width: 100% }
 #help ol li { margin-bottom: 2em; }
 #help input { width: 15em; }
 
-#credits { opacity: 0.5 }
+#credits { opacity: 0.5; -webkit-transition: opacity 0.5s }
 #credits:hover { opacity: 1 }
 .author { margin-top: 3ex; text-align: right; font-style: italic }

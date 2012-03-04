@@ -27,7 +27,7 @@ when_there_are_password_fields(function(){
 	// And for demonstration in help on options page
 	else if (document.location.href == chrome.extension.getURL('options/options.html'))
 		work('input[type="password"]:not([name])');
-})
+});
 
 function when_there_are_password_fields(callback)
 {
@@ -41,9 +41,9 @@ function when_there_are_password_fields(callback)
 			if (e.target.type == 'password')
 			{
 				callback();
-				document.removeEventListener('keypress', catchNewFields);
+				document.removeEventListener('focus', catchNewFields);
 			}
-		}
-		document.addEventListener('keypress', catchNewFields, false);
+		};
+		document.addEventListener('focus', catchNewFields, false);
 	}
 }

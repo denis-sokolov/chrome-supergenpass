@@ -20,28 +20,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 passwords = [];
 
 $(document).ready(function(){
-	{ // Functions
-		var msg = function(text){
-			var li = $('<li/>').text(text);
-			$('#status').prepend(li);
-			setTimeout(function(){
-				li.fadeOut('slow');
-			}, 2000);
-		}
+	// Functions
+	var msg = function(text){
+		var li = $('<li/>').text(text);
+		$('#status').prepend(li);
+		setTimeout(function(){
+			li.fadeOut('slow');
+		}, 2000);
+	};
 
 
-		// Careful, the same settings are written in html/background.html
-		// Change both. Will break all existing user settings!
-		var hash = function(text){
-			return supergenpass(text, 'chromegenpass-chrome-extension', 16);
-		}
+	// Careful, the same settings are written in html/background.html
+	// Change both. Will break all existing user settings!
+	var hash = function(text){
+		return supergenpass(text, 'chromegenpass-chrome-extension', 16);
+	};
 
-		var inputvalue = function(name, type){
-			var value = $('form [name="'+name+'"]').val();
-			if (type) value = parseInt(value);
-			return value;
-		}
-	}
+	var inputvalue = function(name, type){
+		var value = $('form [name="'+name+'"]').val();
+		if (type) value = parseInt(value, 10);
+		return value;
+	};
 
 	function addItemHTML(p, i)
 	{
@@ -59,7 +58,7 @@ $(document).ready(function(){
 	// Load options
 	passwords = load();
 	var li = $('#settings .new');
-	for (i in passwords)
+	for (var i in passwords)
 		addItemHTML(passwords[i], i);
 
 	// Adding new items
@@ -70,13 +69,13 @@ $(document).ready(function(){
 		var confirm = inputvalue('confirm');
 		var len = inputvalue('length', 'int');
 		var note = inputvalue('note');
-		if (password == ''){
+		if (!password){
 			msg('Password cannot be empty.');
 		}
 		else if (password != confirm){
 			msg('Passwords do not match.');
 		}
-		else if (!(len > 0)){
+		else if (len <= 0){
 			msg('Length parameter is wrong. If you don\'t know, type 10.');
 		}
 		else if (len < 3) {
@@ -89,8 +88,8 @@ $(document).ready(function(){
 			var p = {
 				'note': note,
 				'hash': hash(password),
-				'len': len,
-			}
+				'len': len
+			};
 			passwords.push(p);
 			addItemHTML(p, passwords.length);
 			save(passwords);

@@ -1,8 +1,7 @@
-{ // Initialization
-	var passwords = load();
-	var jQuery = null;
-	get('js/jquery-1.4.2.min.js', function(res){ jQuery = res; });
-}
+// Initialization
+var passwords = load();
+var jQuery = null;
+get('js/jquery-1.7.1.min.js', function(res){ jQuery = res; });
 
 chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 	if ('passwords' in req)
@@ -12,10 +11,10 @@ chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 		
 		// Inform all tabs
 		chrome.windows.getAll({ 'populate': true }, function(windows){
-			for (i in windows){ for (j in windows[i].tabs){
+			for (var i in windows){ for (var j in windows[i].tabs){
 				chrome.tabs.sendRequest(windows[i].tabs[j].id, {
-					'passwords': passwords,
-				})
+					'passwords': passwords
+				});
 			}}
 		});
 		sendResponse({});
@@ -23,12 +22,12 @@ chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 	
 	else if ('init' in req)
 	{ // A new tab wants to work with us, let's give it info
-		if (sender.tab != null && /^http/.test(sender.tab.url))
+		if (sender.tab !== null && /^http/.test(sender.tab.url))
 			chrome.pageAction.show(sender.tab.id);
 		sendResponse({
 			'passwords': passwords,
 			'supergenpass': supergenpass,
-			'jquery': jQuery,
+			'jquery': jQuery
 		});
 	}
 	
@@ -42,7 +41,7 @@ chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 			while (!stop)
 			{
 				var entered = prompt_password(passwords[index], second_attempt);
-				if (entered == null)
+				if (!entered)
 				{ // Cancelled
 					stop = true;
 				}
@@ -59,10 +58,11 @@ chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 		}
 		if ('password' in passwords[index])
 		{
+			var hostname;
 			if ('hostname' in req)
-				var hostname = req['hostname']
+				hostname = req['hostname'];
 			else
-				var hostname = sender['tab']['url'];
+				hostname = sender['tab']['url'];
 			sendResponse({
 				'hash': supergenpass(passwords[index]['password'], hostname, passwords[index]['len'])
 			});
@@ -76,7 +76,7 @@ chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 		if ('index' in req)
 			passwords[req['index']]['password'] = req['store-password'];
 		else
-			console.error('index is not in a request')
+			console.error('index is not in a request');
 		sendResponse({});
 	}
 });
@@ -94,7 +94,7 @@ function prompt_password(password, second_attempt)
 		txt += 'Password "' + password['note'] + '" is locked.\n';
 		txt += 'Please unlock it by entering it in the field below:';
 	}
-	return prompt(txt)
+	return prompt(txt);
 }
 
 function get(src, callback)

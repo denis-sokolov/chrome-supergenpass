@@ -25,88 +25,86 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 function work(selector){
 	chrome.extension.sendRequest({ 'init': true }, function(response) {
-		// Globalize jQuery
-		eval(response['jquery']);
+	// Globalize jQuery
+	eval(response['jquery']);
 
-		Popup_init();
+	var Popup = CreatePopup();
 
-		// Data
-		passwords = response['passwords'];
+	// Data
+	passwords = response['passwords'];
 
-		// Main work
-		jQuery(selector)
-			.live('focus', function(e){
-				var me = $(this);
-				if (me.val() == '')
-					Popup.instructions(me, passwords);
-			})
-			.live('blur', function(e){
-				if (Popup.state() != 'updated-to')
+	// Main work
+	jQuery('body')
+		.on('focus', selector, function(e){
+			var me = $(this);
+			if (me.val() === '')
+				Popup.instructions(me, passwords);
+		})
+		.on('blur', selector, function(e){
+			if (Popup.state() != 'updated-to')
+				Popup.hide('fast');
+		})
+		.on('keyup', selector, function(e){
+			var me = $(this);
+			var value = me.val();
+			var needsConfirm = passwords.length > 9;
+			if (!value)
+				Popup.instructions(me, passwords);
+			else
+			{
+				// Hide only if the popup is with instruction
+				// Hide only if entered text cannot be understood as a password number
+				if (Popup.state() == 'instructions' && (!needsConfirm || !Number(value)))
 					Popup.hide('fast');
-			})
-			.live('keyup', function(e){
-				var me = $(this);
-				var value = me.val();
-				var confirm_key = passwords.length > 9;
-				if (value == '')
-					Popup.instructions(me, passwords);
-				else
+
+				/*
+					In certain layouts, there are different characters on number keys.
+					If a user has a wrong layout and presses 1, he does not see a 1, but a bullet.
+					He then waits for SuperGenPass for Google Chrome™ by Denis to do its bidding, but the extension
+					never sees a 1, it sees a strange character.
+
+					So this checks for this scenario.
+					Any non-alphanumeric might mean that the layout is wrong.
+
+					Moreover, in case everything is normal, we hide the popup both
+					after a delay and on any subsequent keypress.
+				*/
+				if (value.length == 1 &&
+					'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'.indexOf(value) < 0)
+					Popup.layout(me);
+				else if (value.length > 1 && Popup.state() == 'layout')
+					Popup.hide('fast');
+				else if (
+					// OR there are less than 10 passwords and this is a number key
+					(!needsConfirm && e.keyCode > 48 && e.keyCode < 59) ||
+					// If there are more than 10 passwords and the key is CONFIRM_KEY
+					(needsConfirm && CONFIRM_KEYCODES.indexOf(e.keyCode) > -1)
+				)
 				{
-					// Hide only if the popup is with instruction
-					// Hide only if entered text cannot be understood as a password number
-					if (Popup.state() == 'instructions' && (!confirm_key || !Number(value)))
-						Popup.hide('fast');
-
-					/*
-						In certain layouts, there are different characters on number keys.
-						If a user has a wrong layout and presses 1, he does not see a 1, but a bullet.
-						He then waits for SuperGenPass for Google Chrome™ by Denis to do its bidding, but the extension
-						never sees a 1, it sees a strange character.
-
-						So this checks for this scenario.
-						Any non-alphanumeric might mean that the layout is wrong.
-
-						Moreover, in case everything is normal, we hide the popup both
-						after a delay and on any subsequent keypress.
-					*/
-					if (value.length == 1 && 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'.indexOf(value) == -1)
-						Popup.layout(me);
-					if (value.length > 1 && Popup.state() == 'layout')
-						Popup.hide('fast');
-
-					if (
-						   // If there are more than 10 passwords and the key is CONFIRM_KEY
-						   ( confirm_key && CONFIRM_KEYCODES.indexOf(e.keyCode) > -1)
-						   // OR there are less than 10 passwords and this is a number key
-						|| (!confirm_key && e.keyCode > 48 && e.keyCode < 59)
-					)
+					if (needsConfirm) // Remove confirm key
+						value = value.substr(0, value.length - 1);
+					var entered = parseInt(value, 10);
+					// If the string is incorrect, it will parse to NaN, which is
+					// neither bigger nor small than any other number
+					if (entered > 0 && entered <= passwords.length)
 					{
-						if (confirm_key) // Remove confirm key
-							value = value.substr(0, value.length - 1)
-						var entered = parseInt(value);
-						// If the string is incorrect, it will parse to NaN, which is
-						// neither bigger nor small than any other number
-						if (entered > 0 && entered <= passwords.length)
-						{
-							// 0-based array are cool 8)
-							// 1-based people are not :)
-							var index = entered - 1;
-							var password = passwords[index];
-							chrome.extension.sendRequest({ 'password': index }, function(response) {
-								if ('hash' in response)
-									insert_password(me, response['hash'], password['note']);
-								else
-									me.val('');
-							});
-						} // end of correct input
-					} // end of if e.keyCode in [0..9qQ]
-				} // end of value is not empty
-			}); // end keypress live
-		  // Skipped indent
+						var index = entered - 1;
+						var password = passwords[index];
+						chrome.extension.sendRequest({ 'password': index }, function(response) {
+							if ('hash' in response)
+								insert_password(Popup, me, response['hash'], password['note']);
+							else
+								me.val('');
+						});
+					} // end of correct input
+				} // end of if e.keyCode in [0..9qQ]
+			} // end of value is not empty
+		}); // end keypress live
+	// Skipped indent
 	}); // answer to send Request
 } // init()
 
-function insert_password(field, password, note)
+function insert_password(Popup, field, password, note)
 {
 	field
 		.val(password)

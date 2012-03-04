@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * I'd like to be as stealthy as possible.
  */
 
-var Popup_init = function() {
+var CreatePopup = function() {
 	var el = $('<div/>').css({
 		'cursor': 'default',
 		'position': 'absolute',
@@ -32,7 +32,7 @@ var Popup_init = function() {
 		'color': 'white',
 		'padding': '5px 10px',
 		'border-radius': '6px',
-		'z-index': '10000',
+		'z-index': '10000'
 	});
 	el.appendTo('body');
 	var my_state = null;
@@ -42,28 +42,29 @@ var Popup_init = function() {
 	var hide = function(speed)
 	{
 		if (speed)
-			el.animate({ 'opacity': 0 }, speed, function(){ my_state = null; el.hide(); })
+			el.animate({ 'opacity': 0 }, speed, function(){ my_state = null; el.hide(); });
 		else
 		{
 			el.hide().css('opacity', 0);
 			my_state = null;
 		}
 		return this;
-	}
+	};
 
 	el.click(function(){
 		hide('fast');
 	});
 
-	Popup = {
-		'hide': hide,
-		'hide_in': function(timeout, speed)
+	return {
+		hide: hide,
+		hide_in: function(timeout, speed)
 		{
+			var p = this;
 			hide_timeout = setTimeout(function(){
-				Popup.hide(speed);
+				p.hide(speed);
 			}, 3000);
 		},
-		'instructions': function(field, passwords)
+		instructions: function(field, passwords)
 		{
 			this
 				.hide().stop()
@@ -71,7 +72,7 @@ var Popup_init = function() {
 				.text(passwords)
 				.move(field).show('fast');
 		},
-		'layout': function(field)
+		layout: function(field)
 		{
 			this
 				.hide().stop()
@@ -80,34 +81,26 @@ var Popup_init = function() {
 				.move(field).show('fast');
 			this.hide_in(1500, 'slow');
 		},
-		'move': function(field)
+		move: function(field)
 		{
 			offset = field.offset();
 			el.css({
 				'left': offset.left,
-				'top': offset.top + field.height() + 5, // 5 for padding
+				'top': offset.top + field.height() + 5 // 5 for padding
 			});
 			return this;
 		},
-		'moveToCenter': function()
-		{
-			el.css({
-				'left': '40%',
-				'top': '50%',
-			});
-			return this;
-		},
-		'show': function(speed)
+		show: function(speed)
 		{
 			if (speed)
-				el.show().animate({ 'opacity': 1 }, speed)
+				el.show().animate({ 'opacity': 1 }, speed);
 			else
 				el.show().css('opacity', 1);
 			return this;
 		},
-		'state': function (state, callback)
+		state: function (state, callback)
 		{
-			if (arguments.length == 0)
+			if (!arguments.length)
 				return my_state;
 			my_state = state;
 			if (on_state_change)
@@ -117,17 +110,17 @@ var Popup_init = function() {
 				on_state_change = callback;
 			return this;
 		},
-		'stop': function ()
+		stop: function ()
 		{
 			el.stop(true, true);
 			clearTimeout(hide_timeout);
 			return this;
 		},
-		'text': function (txt)
+		text: function (txt)
 		{
 			if (typeof txt == 'object')
 			{
-				if (txt.length == 0)
+				if (!txt.length)
 				{
 					url = chrome.extension.getURL('options/options.html');
 					html = '<em>SuperGenPass for Google Chrome™ by Denis</em><br>';
@@ -140,10 +133,10 @@ var Popup_init = function() {
 				{ // Passwords
 					var html = '<ol style="list-style-type:none;padding:0;margin:0">';
 					var confirm_key = passwords.length > 9 ? 'q' : '';
-					for (i in passwords)
+					for (var i in passwords)
 						html += '<li>' + (Number(i) + Number(1)) + confirm_key + ': ' + passwords[i]['note'];
 					html += '</ol>';
-					el.html(html)
+					el.html(html);
 				}
 			}
 			else
@@ -151,10 +144,6 @@ var Popup_init = function() {
 				el.text(txt);
 			}
 			return this;
-		},
-	}
-};
-
-Popup = {
-	'init': Popup_init
+		}
+	};
 };

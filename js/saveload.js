@@ -16,31 +16,31 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-var field_separator = '//CGPSEP/$$}}//'
-var item_separator = '//CGPSEP2/$$}}//'
+var field_separator = '//CGPSEP/$$}}//';
+var item_separator = '//CGPSEP2/$$}}//';
 
 load = function ()
 {
-	if (!('passwords' in localStorage) || localStorage['passwords'] == '')
-		return []
-	passwords = []
+	if (!('passwords' in localStorage) || localStorage['passwords'] === '')
+		return [];
+	passwords = [];
 	var items = localStorage['passwords'].split(item_separator);
-	for (i in items)
+	for (var i in items)
 	{
-		item = items[i].split(field_separator)
+		item = items[i].split(field_separator);
 		passwords.push({
 			'note': item[0],
 			'len': item[1],
 			'hash': item[2]
-		})
+		});
 	}
-	return passwords
-}
+	return passwords;
+};
 
 save = function (passwords)
 {
 	var result = [];
-	for (i in passwords)
+	for (var i in passwords)
 	{
 		var item = passwords[i];
 		while (item['note'].indexOf(field_separator) >= 0)
@@ -50,4 +50,4 @@ save = function (passwords)
 		result.push([item['note'], item['len'], item['hash']].join(field_separator));
 	}
 	localStorage['passwords'] = result.join(item_separator);
-}
+};

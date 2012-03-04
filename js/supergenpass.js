@@ -142,6 +142,6 @@
 			throw 'supergenpass cannot handle password lengths less than 3';
 		var DisableTLD=false;
 		Domain=gp2_process_uri(Domain,DisableTLD);
-		return gp2_generate_passwd(Passwd+':'+Domain,Len)
-	}
+		return gp2_generate_passwd(Passwd+':'+Domain,Len);
+	};
 })();
