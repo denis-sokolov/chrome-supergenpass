@@ -44,6 +44,6 @@ function when_there_are_password_fields(callback)
 				document.removeEventListener('focus', catchNewFields);
 			}
 		};
-		document.addEventListener('focus', catchNewFields, false);
+		document.addEventListener('focus', catchNewFields, true);
 	}
 }
