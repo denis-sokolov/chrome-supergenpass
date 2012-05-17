@@ -96,8 +96,9 @@ $(document).ready(function(){
 	// Delete
 	$('.current').delegate('li', 'click', function(e){
 		e.preventDefault();
-		$(this).remove();
-		passwords.splice(i, 1);
+		var li = $(this);
+		passwords.splice(li.prevAll('li').length-1, 1);
+		li.remove();
 		storage.passwords(passwords);
 		chrome.extension.sendRequest({'passwords': passwords});
 	});
