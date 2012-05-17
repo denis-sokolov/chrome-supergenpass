@@ -1,9 +1,10 @@
 // Initialization
-var passwords = load();
+var passwords = storage.passwords();
 var jQuery = null;
 get('js/jquery-1.7.1.min.js', function(res){ jQuery = res; });
 
 chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
+	console.log('received request');
 	if ('passwords' in req)
 	{ // Options have been updated, new passwords available
 		// Update local passwords

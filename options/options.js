@@ -16,9 +16,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// This should be global
-passwords = [];
-
 $(document).ready(function(){
 	// Functions
 	var msg = function(text){
@@ -55,8 +52,7 @@ $(document).ready(function(){
 		}
 	}
 
-	// Load options
-	passwords = load();
+	var passwords = storage.passwords();
 	var li = $('#settings .new');
 	for (var i in passwords)
 		addItemHTML(passwords[i], i);
@@ -92,11 +88,10 @@ $(document).ready(function(){
 			};
 			passwords.push(p);
 			addItemHTML(p, passwords.length);
-			save(passwords);
+			storage.passwords(passwords);
 			chrome.extension.sendRequest({'passwords': passwords});
 		}
 	});
-
 
 	// Delete
 	$('#settings').delegate('li', 'click', function(e){
@@ -107,7 +102,14 @@ $(document).ready(function(){
 		li.animate({'width':'0','margin-left':'-'+li.css('margin-right')}, 'slow', function(){
 			li.remove();
 		});
-		save(passwords);
+		storage.passwords(passwords);
 		chrome.extension.sendRequest({'passwords': passwords});
 	});
+
+	// Show help on first run
+	if (passwords.length === 0)
+	{
+		$('#help-h1').insertBefore('h1:first');
+		$('#help').insertAfter('#help-h1').addClass('target');
+	}
 });
