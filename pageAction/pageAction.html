@@ -15,62 +15,44 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-
 <!DOCTYPE html>
+<meta charset="utf-8">
+<title>SuperGenPass mobile</title>
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="pageAction.css">
 
-<div id="help-handle">
-	<img src="../img/silk/help.png" title="Help">
-</div>
-
-<form>
-	<!-- Hostname -->
-	<p id="url">
-		<a href="#">
-			<span></span> <!-- Span will contain the hostname itself. -->
-			<img src="../img/silk/pencil.png" alt="pencil" title="Edit hostname">
-		</a>
-		<input required> <!-- Input will be shown on click on the hostname. -->
-
-	<!-- Passwords -->
-	<ol id="buttons">
-		<li class="new">
-			<a href="#">Unexpected problem.</a>
-		<li class="last">
-			<a href="#">...</a>
-	</ol>
-
-	<!-- Password box -->
-	<p id="password">
-		<!-- .ghost are for centering. Padding and margins could not help me center. -->
-		<input type="number" class="ghost" min="1" max="50" value="10">
-		<input class="password" type="password" required disabled title="Password">
-		<input id="length" type="number" required disabled min="1" max="50" value="10"
-		 	title="Length of your generated hashes (usually 10)">
-
-	<!-- Result -->
-	<p id="result">
-		<img src="../img/silk/control_fastforward.png" class="ghost" alt="">
-		<input readonly placeholder="Result is shown here" value="">
-		<a href="#" title="Fill password fields using this password">
-			<img src="../img/silk/control_fastforward.png" alt="[&gt;&gt;]">
-		</a>
-</form>
-
-<div id="help">
+<div id="app">
 	<p>
-		Use SuperGenPass easily!
+		<label>
+			Password:
+			<input id="pass" type=password>
+			<span class=predef>
+			</span>
+		</label>
+	</p>
 	<p>
-		Click on&nbsp;your password.
-		If your password is&nbsp;locked, enter it to&nbsp;unlock.
+		<label>
+			Result:
+			<input id="result" readonly>
+		</label>
+	</p>
 	<p>
-		Click on&nbsp;&lsquo;...&rsquo; to&nbsp;use a&nbsp;new password.
-	<p>
-		Click on&nbsp;domain to&nbsp;change&nbsp;it.
-	<p>
-		Click on&nbsp;<img src="../img/silk/control_fastforward.png" alt="[&gt;&gt;]">
-		to fill the page with generated password.
+		<label>
+			Domain:
+			<input id="domain" type=url autofocus>
+		</label>
+	</p>
+	<p class=length>
+		<label>
+			Length:
+			<br>
+			<input id="length" type=number min=3 max=24 value=16>
+			<span class=predef>
+				<button value=10>10</button>
+				<button value=16>16</button>
+			</span>
+		</label>
+	</p>
 </div>
 
 <script src="../js/supergenpass.js"></script>

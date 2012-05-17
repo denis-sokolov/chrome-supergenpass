@@ -15,41 +15,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-form { padding: 1em 5px 1em 30px; margin-right: 25px; text-align: center; background-color: white; }
-	.ghost { opacity: 0 }
-	.new { display: none }
-
-	#url {}
-		#url > a { display: inline-block; white-space: nowrap; text-decoration: none; margin-left: 20px }
-		#url > a img { opacity: 0.3; -webkit-transition: opacity 0.5s }
-		#url > a:hover img { opacity: 1 }
-		#url > input { display: none }
-
-	#buttons { list-style-type: none }
-		#buttons .new { display: none }
-		#buttons li { display: inline-block; padding: 1ex }
-		#buttons .current a { text-decoration: none; cursor: default; color: inherit }
-
-	#password { margin: 0; height: auto; padding: 0; white-space: nowrap; }
-		#password > .password { opacity: 0; padding: 1ex; margin: 5px; -webkit-transition: opacity 0.4s; border: 0 }
-			#password > .password.open { opacity: 1 }
-		#length { opacity: 0 }
-		#length, #password > .ghost { width: 25px }
-			#length.open { opacity: 0.5 }
-			#length:focus { opacity: 1 }
-
-	#result {}
-		#result a { vertical-align: middle; opacity: 0; -webkit-transition: opacity 0.4s }
-		#result.filled a { opacity: 1 }
-
-
-form { opacity: 1; -webkit-transition: opacity 0.8s; }
-#help-handle:hover + form { opacity: 0 }
-#help-handle { position: absolute; bottom: 0; right: 0; z-index: 10
-	 	width: 20px; height: 20px; opacity: 0.5; -webkit-transition: opacity 0.8s; }
-	#help-handle:hover { opacity: 1 }
-#help { position: absolute; top: 0; right: 25px; left: 0; bottom: 0;
-	background-color: white; z-index: -2; opacity: 1;
+.predef { opacity: 0.2; -webkit-transition: opacity 0.5s;}
+	.predef:hover { opacity: 1;}
+	.predef button {
+		padding: 0;
+		border: 0;
+		background: transparent;
+		border-bottom: 1px black dashed;
+		font-size: 100%; cursor:pointer;
 	}
-	#help p { margin: 1ex 30px 1ex 1ex }
+
+.length {}
+	.length input { width: 5em; display: inline-block; }
