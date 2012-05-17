@@ -17,45 +17,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 var storage = (function(){
-	var legacy = function(){
-		var passwords = [];
-		var items = localStorage['passwords'].split('//CGPSEP2/$$}}//');
-		for (var i in items)
-		{
-			item = items[i].split('//CGPSEP/$$}}//');
-			passwords.push({
+	var settings = {
+		passwords: []
+	};
+
+	var load = function(){ settings = JSON.parse(localStorage.settings); },
+		save = function(){ localStorage.settings = JSON.stringify(settings); };
+
+	if (!('settings' in localStorage))
+		save();
+
+	load();
+
+	// Retrieve legacy passwords
+	if ('passwords' in localStorage && localStorage.passwords.indexOf('//CGPSEP/$$}}//') > -1) {
+		$.each(localStorage.passwords.split('//CGPSEP2/$$}}//'), function(){
+			item = this.split('//CGPSEP/$$}}//');
+			settings.passwords.push({
 				'note': item[0],
 				'len': item[1],
 				'hash': item[2]
 			});
-		}
-		return passwords;
-	};
+		});
+		save();
+		delete localStorage.passwords;
+	}
 
-	var load = function(key, def) {
-		if (!(key in localStorage) || localStorage[key] === '') {
-			return def;
-		}
-		return JSON.parse(localStorage[key]);
-	};
-
-	var save = function(key, data) {
-		localStorage[key] = JSON.stringify(data);
-	};
-
-	return {
-		passwords: function(data) {
-			if (data) {
-				save('passwords', data);
-			} else {
-				// Legacy
-				if ('passwords' in localStorage && localStorage['passwords'].indexOf('//CGPSEP/$$}}//') > -1) {
-					var res = legacy();
-					save('passwords', res);
-					return res;
-				}
-				return load('passwords', []);
-			}
+	var api = function(data){
+		if (data) {
+			settings = data;
+			save();
+		} else {
+			return settings;
 		}
 	};
+
+	api.passwords = function(data){
+		if (data) {
+			settings.passwords = data;
+			save();
+		} else {
+			return settings.passwords;
+		}
+	};
+
+	return api;
 })();
