@@ -48,12 +48,12 @@ $(document).ready(function(){
 			li.clone().removeClass('new').attr('name', i)
 				.find('.note').text(p['note']).end()
 				.find('.length').text(p['len']).end()
-				.appendTo('#settings');
+				.appendTo('.current');
 		}
 	}
 
 	var passwords = storage.passwords();
-	var li = $('#settings .new');
+	var li = $('.current .new');
 	for (var i in passwords)
 		addItemHTML(passwords[i], i);
 
@@ -94,14 +94,10 @@ $(document).ready(function(){
 	});
 
 	// Delete
-	$('#settings').delegate('li', 'click', function(e){
+	$('.current').delegate('li', 'click', function(e){
 		e.preventDefault();
-		var li = $(this);
+		$(this).remove();
 		passwords.splice(i, 1);
-		// Margin animated, because on .remove margins collapse instantly.
-		li.animate({'width':'0','margin-left':'-'+li.css('margin-right')}, 'slow', function(){
-			li.remove();
-		});
 		storage.passwords(passwords);
 		chrome.extension.sendRequest({'passwords': passwords});
 	});

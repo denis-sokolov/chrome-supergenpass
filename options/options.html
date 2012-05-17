@@ -1,68 +1,85 @@
-<html>
-	<head>
-		<title>SuperGenPass for Google Chrome™ by Denis</title>
-		<link rel="stylesheet" href="../css/style.css">
-		<link rel="stylesheet" href="options.css">
-	</head>
-	<body>
-		<div id="viewbox">
-			<h1>Your stored password hashes</h1>
-			<ol id="settings">
-				<li class="new">
-					<span class="note"></span> <span class="length"></span>
-					<img src="../img/silk/cross.png" alt="[delete]">
-				</li>
-			</ol>
-			<h1>Add new</h1>
-			<form>
-				<input type="password" name="password" placeholder="Password" required>
-				<input type="password" name="confirm" placeholder="Confirm the password" required>
-				<input type="number" min="3" max="24" name="length" placeholder="Length of generated password (usually 10)">
-				<input name="note" placeholder="Note for self" required>
-				<input type="submit" value="Add new password">
-			</form>
-			<ol id="status">
-			</ol>
-			<h1 id="help-h1"><a href="#help">Help</a></h1>
-			<div id="help">
-				<h2>How to use</h2>
-				<ol>
-					<li>
-						<p>Store master password on this options page.
-						<p class="clarify">
-							Don&rsquo;t worry, the password itself is not stored,
-							only a one-way hash is stored.
-					<li>
-						<p>In a password box, choose your password from the menu by pressing button 1 to 9.
-					<li>
-						<p>The first time you use a password after opening your browser,
-							the extensions will ask you to unlock it.
-						<p style="margin-left: -50px">
-							<img src="../img/ss/unlock-prompt.png">
-						<p class="clarify">
-							Careful!
-							<br>Evil website owners might want to steal your password,
-							so always make sure that the popup says
-							&lsquo;SuperGenPass for Google Chrome™ by Denis extension says&rsquo; and not &lsquo;The page at ... says:&rsquo;!
-					<li>
-						That&rsquo;s it! The password field is now filled with your generated password.
-				</ol>
-			</div>
-			<div id="credits">
-				<h1>Credits</h1>
-				<p>
-					Devoted to the most beautiful and smart girl ever: <a href="http://pudlovskyte.lt">Monika</a>.
-				<p>
-					I love you, my cute magical kitten, and always will.
-				<p class="author">
-					<a href="http://sokolov.cc">Denis Sokolov</a>.
-				<p>
-					Thanks to Mark James for <a href="http://www.famfamfam.com/lab/icons/silk/">great icons</a>.
-			</div>
-		</div>
-		<script src="../js/jquery-1.7.1.min.js"></script>
-		<script src="../js/supergenpass.js"></script>
-		<script src="../js/saveload.js"></script>
-		<script src="options.js"></script>
-	</body>
-</html>
+<!--!
+SuperGenPass for Google Chrome™ by Denis
+Copyright (C) 2010 Denis Sokolov http://sokolov.cc
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!doctype html>
+<title>SuperGenPass for Google Chrome™ by Denis</title>
+<link rel=stylesheet href="../css/style.css">
+<link rel=stylesheet href="options.css">
+<div class=viewbox>
+
+	<h1>Your stored password hashes</h1>
+	<ol class=current>
+		<li class=new>
+			<span class=note></span> <span class=length></span>
+			<img src="../img/silk/cross.png" alt="[delete]">
+		</li>
+	</ol>
+
+	<h1>Add new</h1>
+	<form>
+		<input type=password name=password placeholder="Password" required>
+		<input type=password name=confirm placeholder="Confirm the password" required>
+		<input type=number min=3 max=24 name=length placeholder="Length of generated password (usually 10)">
+		<input name=note placeholder="Note for self" required>
+		<input type=submit value="Add new password">
+	</form>
+	<ol id="status">
+	</ol>
+	<h1 id="help-h1"><a href="#help">Help</a></h1>
+	<div id="help">
+		<h2>How to use</h2>
+		<ol>
+			<li>
+				<p>Store master password on this options page.
+				<p class=clarify>
+					Don&rsquo;t worry, the password itself is not stored,
+					only a one-way hash is stored.
+			<li>
+				<p>In a password box, choose your password from the menu by pressing button 1 to 9.
+			<li>
+				<p>The first time you use a password after opening your browser,
+					the extensions will ask you to unlock it.
+				<p style="margin-left: -50px">
+					<img src="../img/ss/unlock-prompt.png">
+				<p class=clarify>
+					Careful!
+					<br>
+					Evil website owners might want to steal your password,
+					so always make sure that the popup says
+					&lsquo;SuperGenPass for Google Chrome™ by Denis extension
+					says&rsquo; and not &lsquo;The page at ... says:&rsquo;!
+			<li>
+				That&rsquo;s it! The password field is now filled with your generated password.
+		</ol>
+	</div>
+	<div id="credits">
+		<h1>Credits</h1>
+		<p>
+			Devoted to the most beautiful and smart girl ever: <a href="http://pudlovskyte.lt">Monika</a>.
+		<p>
+			I love you, my cute magical kitten, and always will.
+		<p class="author">
+			<a href="http://sokolov.cc">Denis Sokolov</a>.
+		<p>
+			Thanks to Mark James for <a href="http://www.famfamfam.com/lab/icons/silk/">great icons</a>.
+	</div>
+</div>
+
+<script src="../js/jquery-1.7.1.min.js"></script>
+<script src="../js/supergenpass.js"></script>
+<script src="../js/saveload.js"></script>
+<script src="options.js"></script>
