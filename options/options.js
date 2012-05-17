@@ -17,21 +17,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 $(document).ready(function(){
-	// Functions
-	var msg = function(text){
-		var li = $('<li/>').text(text);
-		$('#status').prepend(li);
-		setTimeout(function(){
-			li.fadeOut('slow');
-		}, 2000);
-	};
-
-
 	// Careful, the same settings are written in html/background.html
 	// Change both. Will break all existing user settings!
 	var hash = function(text){
 		return supergenpass(text, 'chromegenpass-chrome-extension', 16);
 	};
+
+	var add = (function(){
+		var li = $('.current .new'),
+			list = $('.current ol');
+		return function(p){
+			li.clone().removeClass('new')
+				.find('.note').text(p['note']).end()
+				.find('.length').text(p['len']).end()
+				.appendTo(list);
+		};
+	})();
+
+	var passwords = storage.passwords();
+
+	$.each(passwords, function(){
+		add(this);
+	});
 
 	var inputvalue = function(name, type){
 		var value = $('form [name="'+name+'"]').val();
@@ -39,62 +46,58 @@ $(document).ready(function(){
 		return value;
 	};
 
-	function addItemHTML(p, i)
-	{
-		if (typeof p['len'] == 'undefined')
-			console.error('Password',p,'has len undefined!');
-		else
-		{
-			li.clone().removeClass('new').attr('name', i)
-				.find('.note').text(p['note']).end()
-				.find('.length').text(p['len']).end()
-				.appendTo('.current');
-		}
-	}
-
-	var passwords = storage.passwords();
-	var li = $('.current .new');
-	for (var i in passwords)
-		addItemHTML(passwords[i], i);
-
 	// Adding new items
-	var form = $('form');
-	form.submit(function(e){
-		e.preventDefault();
-		var password = inputvalue('password');
-		var confirm = inputvalue('confirm');
-		var len = inputvalue('length', 'int');
-		var note = inputvalue('note');
-		if (!password){
-			msg('Password cannot be empty.');
-		}
-		else if (password != confirm){
-			msg('Passwords do not match.');
-		}
-		else if (len <= 0){
-			msg('Length parameter is wrong. If you don\'t know, type 10.');
-		}
-		else if (len < 3) {
-			msg('Length cannot be smaller than 3, because of SuperGenPass bug. And why would you need a password this short anyway?');
-		}
-		else if (len > 24) {
-			msg('SuperGenPass does not generate passwords longer than 24 symbols. I do not know why. :)');
-		}
-		else {
+	(function(){
+		var form = $('form'),
+			el = {
+				password: form.find('[name="password"]'),
+				confirm: form.find('[name="confirm"]'),
+				len: form.find('[name="length"]'),
+				note: form.find('[name="note"]')
+			};
+
+		var msg = function(text){
+			var li = $('<li/>').text(text);
+			$('.status').prepend(li);
+			setTimeout(function(){
+				li.fadeOut('slow');
+			}, 2000);
+		};
+
+		form.submit(function(e){
+			e.preventDefault();
+
+			var password = el.password.val(),
+				confirm = el.confirm.val(),
+				len = parseInt(el.len.val(), 10),
+				note = el.note.val();
+
+			if (!password)
+				return msg('Password cannot be empty.');
+			if (password != confirm)
+				return msg('Passwords do not match.');
+			if (len <= 0)
+				return msg('Length parameter is wrong. If you don\'t know, type 10.');
+			if (len < 3)
+				return msg('Length cannot be smaller than 3, because of SuperGenPass bug. And why would you need a password this short anyway?');
+			if (len > 24)
+				return msg('SuperGenPass does not generate passwords longer than 24 symbols. I do not know why.');
+
 			var p = {
 				'note': note,
 				'hash': hash(password),
 				'len': len
 			};
+			$('.current').prop('open', true);
 			passwords.push(p);
-			addItemHTML(p, passwords.length);
+			add(p, passwords.length);
 			storage.passwords(passwords);
 			chrome.extension.sendRequest({'passwords': passwords});
-		}
-	});
+		});
+	})();
 
 	// Delete
-	$('.current').delegate('li', 'click', function(e){
+	$('.current').on('click', 'li', function(e){
 		e.preventDefault();
 		var li = $(this);
 		passwords.splice(li.prevAll('li').length-1, 1);
@@ -104,9 +107,8 @@ $(document).ready(function(){
 	});
 
 	// Show help on first run
-	if (passwords.length === 0)
-	{
-		$('#help-h1').insertBefore('h1:first');
-		$('#help').insertAfter('#help-h1').addClass('target');
+	if (!passwords.length) {
+		$('.current').prop('open', false);
+		$('.instructions').prop('open', true);
 	}
 });

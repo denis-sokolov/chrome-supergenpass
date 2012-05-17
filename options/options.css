@@ -1,27 +1,25 @@
+/* Global */
+body { overflow-y: scroll; }
 .viewbox { min-width: 200px; max-width: 450px; margin: 1em auto; }
 
-.clarify { font-size: 70%; font-style: italic;}
-.updated { padding: 1em; margin: 1em auto; background-color: #F0B16D; border-radius: 10px;
-	text-align: center; min-width: 300px; max-width: 700px; }
-.updated p + p { margin-bottom: 0; margin-top: 1ex;}
+/* Utility */
+.clarify { font-size: 70%; font-style: italic; margin-top: -0.6em;}
 
-.current { list-style-type: none; padding: 0; }
-.current > .new { display: none }
-.current > [name="0"] { margin-left: 5px }
-.current > li { display: inline-block; margin: 1em }
-.current > li:hover { color: red; text-decoration: line-through; cursor: pointer }
-.current            img { vertical-align: middle; visibility: hidden }
-.current > li:hover img { visibility: visible }
-input { display: block; width: 100% }
-#status { list-style-type: none; color: rgb(255,122,150) }
 
-#help-h1 > a { border-bottom: 1px dashed black; font-style: normal; text-decoration: none; color: inherit; }
-#help { height: 0; overflow: hidden }
-#help:target, #help.target { height: auto; overflow: visible; }
-#help ol { padding-left: 2em; padding-top: 1em }
-#help ol li { margin-bottom: 2em; }
-#help input { width: 15em; }
+.current ol { margin: 0; }
+	.current .new { display: none }
+	.current li { display: inline-block; margin-right: 1em }
+		.current li:hover { color: red; text-decoration: line-through; cursor: pointer }
 
-#credits { opacity: 0.5; -webkit-transition: opacity 0.5s }
-#credits:hover { opacity: 1 }
-.author { margin-top: 3ex; text-align: right; font-style: italic }
+.add {}
+	.add input { width: 70% }
+		.add .btn { width: 10em;}
+	.add .status { list-style-type: none; color: rgb(255, 122, 150); }
+
+.instructions {}
+	.instructions ol { padding-left: 2em; padding-top: 1em }
+		.instructions ol li { margin-bottom: 2em; }
+
+.credits { opacity: 0.5; -webkit-transition: opacity 0.5s; transition: opacity 0.5s; }
+	.credits:hover { opacity: 1 }
+	.author { margin-top: 3ex; text-align: right; font-style: italic }

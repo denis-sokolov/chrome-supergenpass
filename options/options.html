@@ -21,27 +21,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <link rel=stylesheet href="options.css">
 <div class=viewbox>
 
-	<h1>Your stored password hashes</h1>
-	<ol class=current>
-		<li class=new>
-			<span class=note></span> <span class=length></span>
-			<img src="../img/silk/cross.png" alt="[delete]">
-		</li>
+	<details class=current open>
+		<summary>Your stored password hashes</summary>
+		<ol>
+			<li class=new>
+				<span class=note></span> <span class=length></span>
+			</li>
+		</ol>
+	</details>
+
+	<details class=add open>
+		<summary>Add new</summary>
+		<form>
+			<input type=password name=password placeholder="Password" required>
+			<input type=password name=confirm placeholder="Confirm the password" required>
+			<input type=number min=3 max=24 name=length placeholder="Length of generated password (usually 10)">
+			<input name=note placeholder="Note for self" required>
+			<input type=submit class="btn btn-primary" value="Add new password">
+		</form>
+	</details>
+
+	<ol class=status>
 	</ol>
 
-	<h1>Add new</h1>
-	<form>
-		<input type=password name=password placeholder="Password" required>
-		<input type=password name=confirm placeholder="Confirm the password" required>
-		<input type=number min=3 max=24 name=length placeholder="Length of generated password (usually 10)">
-		<input name=note placeholder="Note for self" required>
-		<input type=submit value="Add new password">
-	</form>
-	<ol id="status">
-	</ol>
-	<h1 id="help-h1"><a href="#help">Help</a></h1>
-	<div id="help">
-		<h2>How to use</h2>
+	<details class=instructions>
+		<summary>Instructions</summary>
 		<ol>
 			<li>
 				<p>Store master password on this options page.
@@ -63,10 +67,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 					&lsquo;SuperGenPass for Google Chrome™ by Denis extension
 					says&rsquo; and not &lsquo;The page at ... says:&rsquo;!
 			<li>
-				That&rsquo;s it! The password field is now filled with your generated password.
+				<p>
+					That&rsquo;s it! The password field is now filled with your generated password.
 		</ol>
-	</div>
-	<div id="credits">
+	</details>
+
+	<div class=credits>
 		<h1>Credits</h1>
 		<p>
 			Devoted to the most beautiful and smart girl ever: <a href="http://pudlovskyte.lt">Monika</a>.
@@ -75,7 +81,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 		<p class="author">
 			<a href="http://sokolov.cc">Denis Sokolov</a>.
 		<p>
-			Thanks to Mark James for <a href="http://www.famfamfam.com/lab/icons/silk/">great icons</a>.
+			Additional thanks go to to
+			<a href="http://www.famfamfam.com/lab/icons/silk/">Mark James</a>,
+			<a href="http://twitter.github.com/bootstrap/">Twitter</a>, and
+			<a href="http://www.fontsquirrel.com/license/open-sans">Ascender Fonts</a>.
 	</div>
 </div>
 

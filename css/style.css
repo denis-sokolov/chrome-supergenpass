@@ -1,10 +1,41 @@
-* { margin: 0; padding: 0 }
-html { font-family: Georgia, serif }
-body { background-color: white }
-h1, h2, h3 {
-	font-size: 140%; font-variant: small-caps; font-weight: normal;  }
-h1 { margin: 50px 0 0 -20px }
-h2 { font-size: 120%; margin-top: 1em; }
-a { color: #00735A }
-p { margin-bottom: 1ex }
-input { display:block-inline; border: 1px dotted black; margin: 5px; padding: 5px }
+@import url('fonts.css');
+@import url('twitter.css');
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	color: #333;
+	background-color: white;
+}
+
+h1, h2, h3, summary {
+	font-size: 140%;
+	font-variant: small-caps;
+	font-weight: normal;
+}
+
+h1, summary {
+	margin: 30px 0 0 -20px
+}
+
+a {
+	display: inline-block;
+	color: hsl(167, 100%, 23%);
+	text-decoration: none;
+	line-height: 1;
+	border-bottom: 1px solid hsla(167, 100%, 23%, .3);
+}
+
+details {}
+	summary {
+		display: inline-block;
+		margin-bottom: 0.5em;
+		border-bottom: 1px dashed #555;
+		cursor: pointer;
+	}
+
+	summary::-webkit-details-marker { display: none; }
+	details[open] summary { border-color: #ccc ;}
+
+p {
+	margin-bottom: 1ex;
+}
