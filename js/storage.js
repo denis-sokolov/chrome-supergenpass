@@ -31,8 +31,8 @@ var storage = (function(){
 
 	// Retrieve legacy passwords
 	if ('passwords' in localStorage && localStorage.passwords.indexOf('//CGPSEP/$$}}//') > -1) {
-		$.each(localStorage.passwords.split('//CGPSEP2/$$}}//'), function(){
-			item = this.split('//CGPSEP/$$}}//');
+		localStorage.passwords.split('//CGPSEP2/$$}}//').forEach(function(password){
+			item = password.split('//CGPSEP/$$}}//');
 			settings.passwords.push({
 				'note': item[0],
 				'len': item[1],

@@ -18,12 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 	// Update passwords
-	if ('passwords' in req)
-		passwords = req['passwords'];
-
-	// Fill page with password
-	if ('fill' in req)
-		$('input[type="password"]').val(req['fill']);
+	if ('settings' in req)
+		passwords = req.settings.passwords;
 
 	sendResponse({});
 });

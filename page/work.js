@@ -25,13 +25,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 function work(selector){
 	chrome.extension.sendRequest({ 'init': true }, function(response) {
+	if (!('passwords' in response)) {
+		return;
+	}
+
 	// Globalize jQuery
-	eval(response['jquery']);
+	eval(response.jquery);
 
 	var Popup = CreatePopup();
 
 	// Data
-	passwords = response['passwords'];
+	passwords = response.passwords;
 
 	// Main work
 	jQuery('body')
@@ -41,7 +45,7 @@ function work(selector){
 				Popup.instructions(me, passwords);
 		})
 		.on('blur', selector, function(e){
-			if (Popup.state() != 'updated-to')
+			if (Popup.state() !== 'updated-to')
 				Popup.hide('fast');
 		})
 		.on('keyup', selector, function(e){
@@ -90,9 +94,9 @@ function work(selector){
 					{
 						var index = entered - 1;
 						var password = passwords[index];
-						chrome.extension.sendRequest({ 'password': index }, function(response) {
+						chrome.extension.sendRequest({ password: index }, function(response) {
 							if ('hash' in response)
-								insert_password(Popup, me, response['hash'], password['note']);
+								insert_password(Popup, me, response.hash, password.note);
 							else
 								me.val('');
 						});

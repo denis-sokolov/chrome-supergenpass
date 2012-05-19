@@ -36,9 +36,7 @@ $(document).ready(function(){
 
 	var passwords = storage.passwords();
 
-	$.each(passwords, function(){
-		add(this);
-	});
+	passwords.forEach(add);
 
 	var inputvalue = function(name, type){
 		var value = $('form [name="'+name+'"]').val();
@@ -92,7 +90,7 @@ $(document).ready(function(){
 			passwords.push(p);
 			add(p, passwords.length);
 			storage.passwords(passwords);
-			chrome.extension.sendRequest({'passwords': passwords});
+			chrome.extension.sendRequest({'settings': storage()});
 		});
 	})();
 
@@ -103,7 +101,7 @@ $(document).ready(function(){
 		passwords.splice(li.prevAll('li').length-1, 1);
 		li.remove();
 		storage.passwords(passwords);
-		chrome.extension.sendRequest({'passwords': passwords});
+		chrome.extension.sendRequest({'settings': storage()});
 	});
 
 	// Show help on first run
