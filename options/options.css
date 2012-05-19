@@ -21,5 +21,5 @@ body { overflow-y: scroll; }
 		.instructions ol li { margin-bottom: 2em; }
 
 .credits { opacity: 0.5; -webkit-transition: opacity 0.5s; transition: opacity 0.5s; }
-	.credits:hover { opacity: 1 }
-	.author { margin-top: 3ex; text-align: right; font-style: italic }
+	.credits:hover { opacity: 1; }
+	.credits .extra { margin-top: 2em; }

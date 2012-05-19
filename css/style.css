@@ -36,6 +36,15 @@ details {}
 	summary::-webkit-details-marker { display: none; }
 	details[open] summary { border-color: #ccc ;}
 
+kbd {
+	display: inline-block;
+	padding: 1px 2px;
+	line-height: 1;
+	border: 1px solid #999;
+	background: #fafafa;
+	border-radius: 2px;
+}
+
 p {
 	margin-bottom: 1ex;
 }
