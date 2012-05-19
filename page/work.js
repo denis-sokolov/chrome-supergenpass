@@ -51,6 +51,7 @@ function work(selector){
 		.on('keyup', selector, function(e){
 			var me = $(this);
 			var value = me.val();
+
 			var needsConfirm = passwords.length > 9;
 			if (!value)
 				Popup.instructions(me, passwords);

@@ -20,6 +20,10 @@ body { overflow-y: scroll; }
 	.instructions ol { padding-left: 2em; padding-top: 1em }
 		.instructions ol li { margin-bottom: 2em; }
 
+.whitelist { width: 70%; }
+	.whitelist textarea {
+		width: 100%; height: 5em;}
+
 .credits { opacity: 0.5; -webkit-transition: opacity 0.5s; transition: opacity 0.5s; }
 	.credits:hover { opacity: 1; }
 	.credits .extra { margin-top: 2em; }

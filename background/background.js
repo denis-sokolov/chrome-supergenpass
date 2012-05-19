@@ -27,11 +27,26 @@ chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 	{ // A new tab wants to work with us, let's give it info
 		if (sender.tab !== null && /^http/.test(sender.tab.url))
 			chrome.pageAction.show(sender.tab.id);
-		sendResponse({
-			passwords: settings.passwords,
-			supergenpass: supergenpass,
-			jquery: jQuery
+		var whitelisted = false;
+		settings.whitelist.forEach(function(pattern){
+			// Escape special characters
+			var regex = pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+
+			regex = '^http://.*' + regex + '/';
+
+			if (sender.tab.url.match(regex)) {
+				whitelisted = true;
+				return false;
+			}
 		});
+		if (whitelisted)
+			sendResponse({});
+		else
+			sendResponse({
+				passwords: settings.passwords,
+				supergenpass: supergenpass,
+				jquery: jQuery
+			});
 	}
 
 	else if ('password' in req)

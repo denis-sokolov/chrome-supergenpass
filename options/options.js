@@ -46,7 +46,7 @@ $(document).ready(function(){
 
 	// Adding new items
 	(function(){
-		var form = $('form'),
+		var form = $('.add form'),
 			el = {
 				password: form.find('[name="password"]'),
 				confirm: form.find('[name="confirm"]'),
@@ -109,4 +109,18 @@ $(document).ready(function(){
 		$('.current').prop('open', false);
 		$('.instructions').prop('open', true);
 	}
+
+	// Whitelist
+	(function(){
+		$('.whitelist textarea')
+			.val(storage.whitelist().join('\n'))
+			.change(function(){
+				storage.whitelist(this.value.split('\n').map(function(domain){
+					return domain.trim();
+				}).filter(function(domain){
+					return domain && domain !== '';
+				}));
+				chrome.extension.sendRequest({'settings': storage()});
+			});
+	})();
 });

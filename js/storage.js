@@ -18,7 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 var storage = (function(){
 	var settings = {
-		passwords: []
+		passwords: [],
+		whitelist: []
 	};
 
 	var load = function(){ settings = JSON.parse(localStorage.settings); },
@@ -58,6 +59,15 @@ var storage = (function(){
 			save();
 		} else {
 			return settings.passwords;
+		}
+	};
+
+	api.whitelist = function(data) {
+		if (data) {
+			settings.whitelist = data;
+			save();
+		} else {
+			return settings.whitelist;
 		}
 	};
 
