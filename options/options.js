@@ -74,8 +74,8 @@ $(document).ready(function(){
 				return msg('Password cannot be empty.');
 			if (password != confirm)
 				return msg('Passwords do not match.');
-			if (len <= 0)
-				return msg('Length parameter is wrong. If you don\'t know, type 10.');
+			if (len <= 0 || isNaN(len))
+				return msg('Length parameter is wrong. Popular value is 10.');
 			if (len < 3)
 				return msg('Length cannot be smaller than 3, because of SuperGenPass bug. And why would you need a password this short anyway?');
 			if (len > 24)
