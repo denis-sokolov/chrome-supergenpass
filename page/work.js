@@ -88,20 +88,22 @@ function work(selector){
 				{
 					if (needsConfirm) // Remove confirm key
 						value = value.substr(0, value.length - 1);
-					var entered = parseInt(value, 10);
-					// If the string is incorrect, it will parse to NaN, which is
-					// neither bigger nor small than any other number
-					if (entered > 0 && entered <= passwords.length)
-					{
-						var index = entered - 1;
-						var password = passwords[index];
-						chrome.extension.sendRequest({ password: index }, function(response) {
-							if ('hash' in response)
-								insert_password(Popup, me, response.hash, password.note);
-							else
-								me.val('');
-						});
-					} // end of correct input
+					if ('123456789'.indexOf(value.substr(0, 1)) >= 0) {
+						var entered = parseInt(value, 10);
+						// If the string is incorrect, it will parse to NaN, which is
+						// neither bigger nor small than any other number
+						if (entered > 0 && entered <= passwords.length)
+						{
+							var index = entered - 1;
+							var password = passwords[index];
+							chrome.extension.sendRequest({ password: index }, function(response) {
+								if ('hash' in response)
+									insert_password(Popup, me, response.hash, password.note);
+								else
+									me.val('');
+							});
+						} // end of correct input
+					}
 				} // end of if e.keyCode in [0..9qQ]
 			} // end of value is not empty
 		}); // end keypress live
