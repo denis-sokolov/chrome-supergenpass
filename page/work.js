@@ -75,7 +75,7 @@ function work(selector){
 					after a delay and on any subsequent keypress.
 				*/
 				if (value.length == 1 &&
-					'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'.indexOf(value) < 0)
+					'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 '.indexOf(value) < 0)
 					Popup.layout(me);
 				else if (value.length > 1 && Popup.state() == 'layout')
 					Popup.hide('fast');
