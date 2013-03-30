@@ -1,4 +1,6 @@
 {
+	"manifest_version": 2,
+
 	"name": "SuperGenPass for Google Chrome™ by Denis",
 	"version": "5.0",
 
@@ -9,7 +11,15 @@
 		"128": "img/ktouch128.png"
 	},
 
-	"background_page": "background/background.html",
+	"background": {
+		"scripts": [
+			"messages/messages.js",
+			"js/storage.js",
+			"js/supergenpass.js",
+			"js/hash.js",
+			"background/background.js"
+		]
+	},
 	"options_page": "options/options.html",
 	"content_scripts": [
 		{
