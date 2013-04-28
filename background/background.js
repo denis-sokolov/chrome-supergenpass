@@ -2,7 +2,7 @@
 var jQuery = null,
 	settings = storage();
 
-get('js/jquery-1.7.1.min.js', function(res){ jQuery = res; });
+get('js/jquery-2.0.0.min.js', function(res){ jQuery = res; });
 
 chrome.extension.onRequest.addListener(function(req, sender, sendResponse){
 	if ('settings' in req)
