@@ -15,7 +15,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 var storage = (function(){
 	var settings = {
 		passwords: [],
@@ -26,14 +25,16 @@ var storage = (function(){
 		save = function(){ localStorage.settings = JSON.stringify(settings); };
 
 	if (!('settings' in localStorage))
+	{
 		save();
+	}
 
 	load();
 
 	// Retrieve legacy passwords
 	if ('passwords' in localStorage && localStorage.passwords.indexOf('//CGPSEP/$$}}//') > -1) {
 		localStorage.passwords.split('//CGPSEP2/$$}}//').forEach(function(password){
-			item = password.split('//CGPSEP/$$}}//');
+			var item = password.split('//CGPSEP/$$}}//');
 			settings.passwords.push({
 				'note': item[0],
 				'len': item[1],

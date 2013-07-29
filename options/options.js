@@ -15,8 +15,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 $(document).ready(function(){
+	'use strict';
+	/*global chrome:false,storage:false,supergenpass:false*/
+
 	// Careful, the same settings are written in html/background.html
 	// Change both. Will break all existing user settings!
 	var hash = function(text){
@@ -28,8 +30,8 @@ $(document).ready(function(){
 			list = $('.current ol');
 		return function(p){
 			li.clone().removeClass('new')
-				.find('.note').text(p['note']).end()
-				.find('.length').text(p['len']).end()
+				.find('.note').text(p.note).end()
+				.find('.length').text(p.len).end()
 				.appendTo(list);
 		};
 	})();
@@ -37,12 +39,6 @@ $(document).ready(function(){
 	var passwords = storage.passwords();
 
 	passwords.forEach(add);
-
-	var inputvalue = function(name, type){
-		var value = $('form [name="'+name+'"]').val();
-		if (type) value = parseInt(value, 10);
-		return value;
-	};
 
 	// Adding new items
 	(function(){
@@ -70,16 +66,21 @@ $(document).ready(function(){
 				len = parseInt(el.len.val(), 10),
 				note = el.note.val();
 
-			if (!password)
+			if (!password) {
 				return msg('Password cannot be empty.');
-			if (password != confirm)
+			}
+			if (password !== confirm) {
 				return msg('Passwords do not match.');
-			if (len <= 0 || isNaN(len))
+			}
+			if (len <= 0 || isNaN(len)) {
 				return msg('Length parameter is wrong. Popular value is 10.');
-			if (len < 3)
+			}
+			if (len < 3) {
 				return msg('Length cannot be smaller than 3, because of SuperGenPass bug. And why would you need a password this short anyway?');
-			if (len > 24)
+			}
+			if (len > 24) {
 				return msg('SuperGenPass does not generate passwords longer than 24 symbols. I do not know why.');
+			}
 
 			var p = {
 				'note': note,
