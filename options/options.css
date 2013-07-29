@@ -3,7 +3,7 @@ body { overflow-y: scroll; }
 .viewbox { min-width: 200px; max-width: 450px; margin: 1em auto; }
 
 /* Utility */
-.clarify { font-size: 70%; font-style: italic; margin-top: -0.6em;}
+.clarify { font-size: 70%; font-style: italic; margin-top: -0.6em; margin-bottom: 1em;}
 
 
 .current ol { margin: 0; }
