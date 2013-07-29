@@ -54,7 +54,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 				// Escape special characters
 				var regex = pattern.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
 
-				regex = '^http://.*' + regex + '/';
+				// Optional protocol, optional subdomains, optional port
+				regex = '^([^/]+://)?[^/]*' + regex + '(:\\d+)?/';
 
 				if (sender.tab.url.match(regex)) {
 					whitelisted = true;
