@@ -34,5 +34,8 @@
 	},
 	"permissions": [
 		"tabs", "http://*/*", "https://*/*"
+	],
+	"web_accessible_resources": [
+		"options/options.html"
 	]
 }
