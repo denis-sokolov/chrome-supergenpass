@@ -126,7 +126,7 @@ var CreatePopup = function() {
 					html = '<em>SuperGenPass for Google Chrome™ by Denis</em><br>';
 					html += 'You have no passwords saved.<br>';
 					html += 'Add passwords on the ';
-					html += '<a href="'+url+'#settings" style="color:white" target="_blank">options page</a>.';
+					html += '<a href="'+url+'#settings" style="color:white;text-decoration:underline" target="_blank">options page</a>.';
 					el.html(html);
 				}
 				else
