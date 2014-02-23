@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 		else if ('init' in req)
 		{ // A new tab wants to work with us, let's give it info
-			if (sender.tab !== null && /^http/.test(sender.tab.url))
+			if (sender.tab && /^http/.test(sender.tab.url))
 			{
 				chrome.pageAction.show(sender.tab.id);
 			}
