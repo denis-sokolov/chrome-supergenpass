@@ -21,6 +21,10 @@
 		]
 	},
 	"options_page": "options/options.html",
+
+	// Eval for jQuery in pageAction
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+
 	"content_scripts": [
 		{
 			"matches": ["http://*/*", "https://*/*"],
