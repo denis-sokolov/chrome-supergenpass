@@ -1,0 +1,120 @@
+<!doctype html>
+<title data-msg="name"></title>
+
+<link rel=stylesheet href=twitter.css>
+<link rel=stylesheet href=options.css>
+
+<nav class=main-nav>
+	<h1 data-msg="name"></h1>
+	<ul>
+	</ul>
+</nav>
+
+<article class=tab id="passwords">
+	<h2 data-msg="options_passwords"></h2>
+	<ol class=passwords>
+		<li></li>
+	</ol>
+
+	<h2 data-msg="options_passwords_add"></h2>
+	<form class=add>
+		<fieldset>
+			<input type=password name=password placeholder="Password" required>
+			<input type=password name=confirm placeholder="Confirm the password" required>
+			<input type=number min=3 max=24 name=length placeholder="Length of generated password (usually 10)" required>
+			<input type=text name=note placeholder="Note for self" required>
+			<input type=submit class="btn btn-primary" value="Add new password">
+		</fieldset>
+		<ul class=errors>
+		</ul>
+	</form>
+</article>
+
+<article class=tab id="instructions">
+	<h2 data-msg"options_instructions"></h2>
+	<ol>
+		<li>
+			<p>Store master password on <a href="#passwords">this options page</a>.
+			<p class=clarify>
+				Don&rsquo;t worry, the password itself is not stored,
+				only its hash is.
+		<li>
+			<p>On any website, focus a password box and choose your password
+				from the menu by pressing buttons <kbd>1</kbd> to <kbd>9</kbd>.
+		<li>
+			<p>The first time you use a password since opening your browser,
+				the extension will ask you to unlock it.
+			<p style="margin-left: -50px">
+				<img src="unlock-prompt.png">
+			<p class=clarify>
+				Careful!
+				Evil website owners might want to steal your password,
+				so always make sure that the popup says
+				&lsquo;SuperGenPass for Google Chrome™ by Denis extension
+				says&rsquo; and not &lsquo;The page at ... says:&rsquo;!
+		<li>
+			<p>
+				That&rsquo;s it,
+				the password field is now filled with your generated password.
+	</ol>
+</article>
+
+<article class=tab id="whitelist">
+	<h2 data-msg="options_whitelist"></h2>
+	<p>
+		If you do not want for this extension to run on some domains
+		(say, you have your own password there), you can whitelist
+		that domain in this field.
+	</p>
+	<form>
+		<textarea name=whitelist placeholder="wikipedia.org
+																	google.com"></textarea>
+	</form>
+</article>
+
+
+<article class=tab id="about">
+	<!-- <h2 data-msg="options_about"></h2> -->
+
+	<h2 data-msg="options_about_credits"></h2>
+	<p>
+		Devoted to the most beautiful and
+		smart girl ever: <a href="http://pudlovskyte.lt/">Monika</a>.
+		<br>
+		I love you, my cute magical kitten, and always will.
+
+	<p class=extra>
+		Additional thanks go to
+		<a href="http://www.famfamfam.com/lab/icons/silk/">Mark James</a>,
+		<a href="http://twitter.github.com/bootstrap/">Twitter</a>.
+	<p>
+		Created by <a href="http://sokolov.cc">Denis Sokolov</a>.
+</article>
+
+
+<article class=tab id="support">
+	<h2 data-msg="options_support"></h2>
+	<p>
+		The password field does not mask the characters because it is
+		technologically impossible to do in a secure way at the moment.
+		<br>
+		With Chrome improving it may soon be possible,
+		and the extension will then be updated.
+
+
+	<p>
+		For questions, suggestions and bug reports, please visit
+		<a href="https://github.com/denis-sokolov/chrome-supergenpass/issues">our GitHub page</a>.
+
+	<p>
+		You can also contact the author privately at
+		<a href="mailto:denis@sokolov.cc">denis@sokolov.cc</a>.
+
+</article>
+
+
+<script src="../../jquery.min.js"></script>
+<script src="../../supergenpass.js"></script>
+<script src="../hash.js"></script>
+<script src="../storage.js"></script>
+<script src="options.js"></script>

@@ -1,10 +1,10 @@
 {
 	"manifest_version": 2,
+	"name": "__MSG_name__",
+	"version": "6.0",
 
-	"name": "SuperGenPass for Google Chrome™ by Denis",
-	"version": "5.4",
-
-	"description": "Generate passwords for websites without any clicks and with an extra portable SuperGenPass engine.",
+	"default_locale": "en",
+	"description": "__MSG_description__",
 	"icons": {
 		"16": "img/ktouch16.png",
 		"48": "img/ktouch48.png",
@@ -13,33 +13,27 @@
 
 	"background": {
 		"scripts": [
-			"messages/messages.js",
-			"js/storage.js",
-			"js/supergenpass.js",
-			"js/hash.js",
-			"background/background.js"
-		]
+			"supergenpass.js",
+			"src/hash.js",
+			"src/storage.js",
+			"src/events.js"
+		],
+		"persistent": false
 	},
-	"options_page": "options/options.html",
-
-	// Eval for jQuery in pageAction
-	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-
 	"content_scripts": [
 		{
 			"matches": ["http://*/*", "https://*/*"],
-			"js": ["page/popup.js", "page/work.js", "page/events.js", "page/init.js"]
+			"js": ["src/page/bootstrap.js"]
 		}
 	],
-	"page_action": {
-		"default_icon": "img/supergenpass.png",
-		"default_title": "Generate SuperGenPass passwords",
-		"default_popup": "pageAction/pageAction.html"
-	},
+	"minimum_chrome_version": "33",
+	"options_page": "src/options/options.html",
+	"optional_permissions": [],
 	"permissions": [
-		"tabs", "http://*/*", "https://*/*"
+		"storage",
+		"http://*/*", "https://*/*"
 	],
 	"web_accessible_resources": [
-		"options/options.html"
+		"src/options/options.html"
 	]
 }

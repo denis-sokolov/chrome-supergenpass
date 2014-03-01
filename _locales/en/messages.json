@@ -1,0 +1,25 @@
+{
+	"name": { "message": "SuperGenPass for Google Chrome™ by Denis" },
+	"description": { "message": "Generate passwords for websites without any clicks and with an extra portable SuperGenPass engine." },
+	"uustring": { "message": "supergenpass-chrome-by-denis-sokolov" },
+
+
+	"options_about": { "message": "About the extension" },
+	"options_about_nav": { "message": "About" },
+	"options_about_credits": { "message": "Credits" },
+
+	"options_passwords": { "message": "Your stored password hashes" },
+	"options_passwords_nav": { "message": "Passwords" },
+	"options_passwords_add": { "message": "Add a new password" },
+
+	"options_instructions": { "message": "Instructions" },
+	"options_instructions_nav": { "message": "Instructions" },
+
+	"options_whitelist": { "message": "Whitelist" },
+	"options_whitelist_nav": { "message": "Whitelist" },
+
+	"options_support": { "message": "Support" },
+	"options_support_nav": { "message": "Support" },
+
+	"__end": { "message": "Trailing comma workaround" }
+}

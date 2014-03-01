@@ -1,0 +1,22 @@
+.__MSG_uustring__ {
+	position: absolute;
+
+	display: inline-block;
+	margin: 0; padding: 5px 10px;
+	width: auto;
+
+	color: white;
+	background-color: rgba(0, 0, 0, 0.7);
+	border-radius: 2px;
+
+	z-index: 10000;
+}
+
+.__MSG_uustring__ a {
+	color: inherit !important;
+	text-decoration: underline !important;
+}
+
+.__MSG_uustring__ p {
+	margin: 0 !important;
+}

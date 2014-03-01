@@ -1,0 +1,27 @@
+{
+	"globals": {
+		"chrome": false,
+		"Promise": false,
+
+		"storage": true,
+		"hash": true,
+		"supergenpass": true
+	},
+
+	"noempty": true,
+	"latedef": true,
+	"quotmark": "single",
+
+	"bitwise": true,
+	"browser": true,
+	"eqeqeq": true,
+	"forin": true,
+	"jquery": true,
+	"noarg": true,
+	"regexdash": true,
+	"smarttabs": true,
+	"trailing": true,
+	"undef": true,
+	"unused": true,
+	"wsh": false
+}

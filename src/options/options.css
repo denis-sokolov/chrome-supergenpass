@@ -1,0 +1,72 @@
+body {}
+h2 { font-size: 120%; margin-bottom: 0; }
+label { font-weight: inherit; cursor: pointer; }
+ul { list-style-type: none; margin: 0; }
+a.current {
+	text-decoration: none;
+	color: inherit;
+	cursor: default;
+}
+
+.main-nav {
+	padding: 0 3em;
+	background-color: #ded;
+}
+.main-nav h1 {
+	display: inline;
+	font-size: 100%;
+}
+.main-nav ul { display: inline; }
+.main-nav li { display: inline; margin-left: 1em;}
+
+.tab { display: none; }
+.tab:target {
+	display: inline-block;
+	padding: 0 3em;
+}
+
+
+
+/* Utility */
+.clarify { font-size: 70%; font-style: italic; margin-top: -0.6em; margin-bottom: 1em;}
+
+.passwords ol { }
+	.passwords li {  }
+		.passwords li:hover { color: red; text-decoration: line-through; cursor: pointer }
+
+.add { }
+	.add fieldset { display: inline-block; min-width: 25em; }
+	.add input {
+		margin: 0.5em;
+		width: 100%;
+	}
+		.add .btn { }
+	.add .errors {
+		display: inline-block;
+		vertical-align: top;
+		margin-left: 2em;
+	}
+		.add .errors li {
+			padding: 0.5em;
+			color: #f66;
+			left: 0;
+		}
+		.add .errors .old {
+			transition: all 1s linear;
+			position: relative;
+			left: 100%;
+			opacity: 0;
+		}
+
+.instructions {}
+	.instructions ol { padding-left: 2em; padding-top: 1em }
+		.instructions ol li { margin-bottom: 2em; }
+
+#whitelist textarea {
+	min-width: 20em; max-width: 40em;
+	min-height: 15em;
+}
+
+.credits { opacity: 0.5; -webkit-transition: opacity 0.5s; transition: opacity 0.5s; }
+	.credits:hover { opacity: 1; }
+	.credits .extra { margin-top: 2em; }
