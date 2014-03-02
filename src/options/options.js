@@ -21,15 +21,19 @@
 
 
 		// Passwords
+		var password_section = $('.password-list')
 		var passwords = $('.passwords');
 		var updateNames = function(passes){
 			passwords.empty();
 			passes.forEach(function(pass){
 				$('<li>').text(pass.name+' ('+pass.len+')').appendTo(passwords);
 			});
+			if (passes.length) {
+				password_section.show();
+			}
 		};
 		var update = function(){
-			passwords.empty();
+			password_section.hide();
 			storage.passwords.list().then(updateNames);
 		};
 		update();
