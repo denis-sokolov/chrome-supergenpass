@@ -1,4 +1,4 @@
-# SuperGenPass for Google Chrome™ by Denis
+# SuperGenPass for Google Chrome
 
 This Chrome extension allows generating unique passwords for every website
 without storing those passwords using the [SuperGenPass engine](http://supergenpass.com/)
