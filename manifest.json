@@ -23,7 +23,8 @@
 	"content_scripts": [
 		{
 			"matches": ["http://*/*", "https://*/*"],
-			"js": ["src/page/bootstrap.js"]
+			"js": ["src/page/bootstrap.js"],
+			"all_frames": true
 		}
 	],
 	"minimum_chrome_version": "33",

@@ -1,4 +1,8 @@
 jQuery(function($){
+	if ($('div.'+chrome.i18n.getMessage('uustring')).length) {
+		return;
+	}
+
 	var popup = (function(){
 		var positionAt = function(popup, el) {
 			var offset = el.offset();
@@ -14,7 +18,7 @@ jQuery(function($){
 
 		// This is the active popup that the user is focused on, as opposed
 		// to multiple possible floating status popups.
-		var main = $('<div>').addClass(chrome.i18n.getMessage('uustring')).appendTo('body');
+		var main = $('<div>').addClass(chrome.i18n.getMessage('uustring')).hide().appendTo('body');
 
 		var api = {
 			hide: function() { main.hide(); },
