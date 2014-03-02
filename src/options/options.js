@@ -84,14 +84,14 @@
 
 		// Whitelist
 		var whitelist = $('[name="whitelist"]').prop('disabled', true);
-		storage.whitelist.get().then(function(data){
-			whitelist.val(data).prop('disabled', false);
+		storage.whitelist.get().then(function(whitelists){
+			whitelist.val(whitelists.join('\n')).prop('disabled', false);
 		});
 		whitelist.on('change', function(){
-			storage.whitelist.set(whitelist.val());
+			storage.whitelist.set(whitelist.val().split('\n'));
 		});
 		$(window).on('unload', function(){
-			storage.whitelist.set(whitelist.val());
+			storage.whitelist.set(whitelist.val().split('\n'));
 		});
 
 
