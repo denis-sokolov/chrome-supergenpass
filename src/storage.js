@@ -91,6 +91,11 @@
 					})
 				);
 			}
+
+			if (v5.whitelist) {
+				global.storage.whitelist.set(v5.whitelist);
+			}
+
 			delete localStorage.settings;
 			return;
 		});
