@@ -88,15 +88,14 @@
 
 		// Whitelist
 		var whitelist = $('[name="whitelist"]').prop('disabled', true);
+		var whitelist_store = function(){
+			storage.whitelist.set(whitelist.val().split('\n').map(function(d){return d.trim();}));
+		};
 		storage.whitelist.get().then(function(whitelists){
 			whitelist.val(whitelists.join('\n')).prop('disabled', false);
 		});
-		whitelist.on('change', function(){
-			storage.whitelist.set(whitelist.val().split('\n'));
-		});
-		$(window).on('unload', function(){
-			storage.whitelist.set(whitelist.val().split('\n'));
-		});
+		whitelist.on('change', whitelist_store);
+		$(window).on('unload', whitelist_store);
 
 
 

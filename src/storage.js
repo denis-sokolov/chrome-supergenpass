@@ -66,7 +66,7 @@
 		},
 		whitelist: {
 			get: function() {
-				return read('whitelist', '');
+				return read('whitelist', []);
 			},
 			set: function(newValue) {
 				return write('whitelist', newValue);
@@ -93,7 +93,10 @@
 			}
 
 			if (v5.whitelist) {
-				global.storage.whitelist.set(v5.whitelist);
+				global.storage.whitelist.get().then(function(whites){
+					whites = whites.concat(v5.whitelist);
+					global.storage.whitelist.set(whites);
+				});
 			}
 
 			delete localStorage.settings;
