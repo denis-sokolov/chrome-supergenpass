@@ -52,7 +52,7 @@ jQuery(function($){
 	$('body').on('focus', 'input[type="password"]', function(){
 		popup.instructions($(this));
 	}).on('blur', 'input[type="password"]', function(){
-		// popup.hide();
+		popup.hide();
 	}).on('keyup', 'input[type="password"]', function(e){
 		// If the user has escaped (27) or used space key (32) to cancel
 		// the auth dialog, we want to avoid triggering that auth window again.
