@@ -21,6 +21,13 @@
 		});
 	};
 
+
+	var addRaw = function(newPasswords){
+		return list().then(function(passwords){
+			passwords = passwords.concat(newPasswords);
+			return write('passwords', passwords).then(list);
+		});
+	};
 	var list = function() {
 		return read('passwords', []);
 	};
@@ -31,10 +38,7 @@
 	global.storage = {
 		passwords: {
 			add: function(name, len, password) {
-				return list().then(function(passwords){
-					passwords.push({name:name, len:len, hash:hash(password)});
-					return write('passwords', passwords).then(list);
-				});
+				return addRaw([{name:name, len:len, hash:hash(password)}]);
 			},
 			get: function(pass, domain) {
 				if (!cache[pass.name]) {
@@ -69,4 +73,26 @@
 			}
 		}
 	};
+
+	// Migrate old settings
+	if ('settings' in localStorage) {
+		list().then(function(passwords){
+			var v5 = JSON.parse(localStorage.settings);
+			if (v5.passwords && v5.passwords.length) {
+				addRaw(
+					v5.passwords.filter(function(password){
+						return !passwords.some(function(curr){
+							return curr.name === password.note &&
+								curr.len === password.len &&
+								curr.hash === password.hash;
+						});
+					}).map(function(p){
+						return {name:p.note, len:p.len, hash:p.hash};
+					})
+				);
+			}
+			delete localStorage.settings;
+			return;
+		});
+	}
 })(this);
