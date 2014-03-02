@@ -89,7 +89,7 @@ jQuery(function($){
 					// .trigger('change') does not work probably because
 					// Chrome separates extensions and scripts on the page
 					// I did expect .trigger to trigger a native event, though.
-					el.get(0).dispatchEvent(new Event('change'));
+					el.get(0).dispatchEvent(new window.Event('change'));
 				});
 			});
 		}
