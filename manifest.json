@@ -11,6 +11,7 @@
 		"128": "img/ktouch128.png"
 	},
 
+	"author": "http://sokolov.cc/",
 	"background": {
 		"scripts": [
 			"supergenpass.js",
