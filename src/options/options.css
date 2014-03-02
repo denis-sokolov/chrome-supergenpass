@@ -36,10 +36,14 @@ a.current {
 
 .add { }
 	.add fieldset { display: inline-block; min-width: 25em; }
+	.add label { display: block; }
 	.add input {
-		margin: 0.5em;
-		width: 100%;
+		margin-bottom: 1em;
 	}
+		.add input[type="text"],
+		.add input[type="password"] {
+			width: 100%;
+		}
 		.add .btn { }
 	.add .errors {
 		display: inline-block;

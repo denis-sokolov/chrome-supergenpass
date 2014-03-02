@@ -19,10 +19,22 @@
 	<h2 data-msg="options_passwords_add"></h2>
 	<form class=add>
 		<fieldset>
-			<input type=password name=password placeholder="Password" required>
-			<input type=password name=confirm placeholder="Confirm the password" required>
-			<input type=number min=3 max=24 name=length placeholder="Length of generated password (usually 10)" required>
-			<input type=text name=note placeholder="Note for self" required>
+			<label>
+				Password:
+				<input type=password name=password required>
+			</label>
+			<label>
+				Confirm the password:
+				<input type=password name=confirm required>
+			</label>
+			<label>
+				Length of generated password:
+				<input type=number min=3 max=24 name=length value=10 required>
+			</label>
+			<label>
+				Note for yourself to identify the password:
+				<input type=text name=note placeholder="Note for self" required>
+			</label>
 			<input type=submit class="btn btn-primary" value="Add new password">
 		</fieldset>
 		<ul class=errors>
