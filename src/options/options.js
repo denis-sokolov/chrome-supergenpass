@@ -25,7 +25,7 @@
 		var updateNames = function(passes){
 			passwords.empty();
 			passes.forEach(function(pass){
-				$('<li>').text(pass.name).appendTo(passwords);
+				$('<li>').text(pass.name+' ('+pass.len+')').appendTo(passwords);
 			});
 		};
 		var update = function(){
