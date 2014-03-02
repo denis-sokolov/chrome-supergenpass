@@ -21,7 +21,7 @@
 
 
 		// Passwords
-		var password_section = $('.password-list')
+		var password_section = $('.password-list');
 		var passwords = $('.passwords');
 		var updateNames = function(passes){
 			passwords.empty();
