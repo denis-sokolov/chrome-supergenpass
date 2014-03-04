@@ -1,13 +1,15 @@
 {
-	"name": "chrome-supergenpass-by-denis",
-	"description": "SuperGenPass for Google Chrome™ by Denis",
-	"repository": {"type":"git", "url":"https://github.com/denis-sokolov/chrome-supergenpass"},
-
-	"version": "0.0.1",
-	"scripts": {
- 		"test": "node_modules/.bin/jshint src"
-	},
-	"devDependencies": {
-		"jshint": "0.9"
-	}
+  "name": "chrome-supergenpass-by-denis",
+  "description": "SuperGenPass for Google Chrome™ by Denis",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/denis-sokolov/chrome-supergenpass"
+  },
+  "version": "0.0.1",
+  "scripts": {
+    "test": "node_modules/.bin/jshint src"
+  },
+  "devDependencies": {
+    "jshint": "0.9"
+  }
 }
