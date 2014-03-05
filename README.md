@@ -9,3 +9,7 @@ a password manually by visiting [sgp.sokolov.cc](http://sgp.sokolov.cc/),
 or by using any other SuperGenPass tool.
 
 Install the extension [on Chrome Web Store](https://chrome.google.com/webstore/detail/supergenpass-for-google-c/bmmmhbgdbpnbfefmacdlbpfgegcibkjo).
+
+
+[![Build Status](https://travis-ci.org/denis-sokolov/chrome-supergenpass.png?branch=master)](https://travis-ci.org/denis-sokolov/chrome-supergenpass)
+[![Code Climate](https://codeclimate.com/github/denis-sokolov/chrome-supergenpass.png)](https://codeclimate.com/github/denis-sokolov/chrome-supergenpas)
