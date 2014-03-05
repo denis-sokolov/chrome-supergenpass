@@ -29,7 +29,20 @@
 		});
 	};
 	var list = function() {
-		return read('passwords', []);
+		return read('passwords', []).then(function(passwords){
+			var seen = [];
+
+			// Filter out duplicates
+			// chrome.sync can add duplicates among different computers
+			return passwords.filter(function(pass){
+				var key = pass.name + ';' + pass.len + ';' + pass.hash;
+				if (seen.indexOf(key) < 0) {
+					seen.push(key);
+					return true;
+				}
+				return false;
+			});
+		});
 	};
 
 
@@ -76,31 +89,23 @@
 
 	// Migrate old settings
 	if ('settings' in localStorage) {
-		list().then(function(passwords){
-			var v5 = JSON.parse(localStorage.settings);
-			if (v5.passwords && v5.passwords.length) {
-				addRaw(
-					v5.passwords.filter(function(password){
-						return !passwords.some(function(curr){
-							return curr.name === password.note &&
-								curr.len === password.len &&
-								curr.hash === password.hash;
-						});
-					}).map(function(p){
-						return {name:p.note, len:p.len, hash:p.hash};
-					})
-				);
-			}
+		var v5 = JSON.parse(localStorage.settings);
+		if (v5.passwords && v5.passwords.length) {
+			addRaw(
+				v5.passwords.map(function(p){
+					return {name:p.note, len:p.len, hash:p.hash};
+				})
+			);
+		}
 
-			if (v5.whitelist) {
-				global.storage.whitelist.get().then(function(whites){
-					whites = whites.concat(v5.whitelist);
-					global.storage.whitelist.set(whites);
-				});
-			}
+		if (v5.whitelist) {
+			global.storage.whitelist.get().then(function(whites){
+				whites = whites.concat(v5.whitelist);
+				global.storage.whitelist.set(whites);
+			});
+		}
 
-			delete localStorage.settings;
-			return;
-		});
+		delete localStorage.settings;
+		return;
 	}
 })(this);
