@@ -7,9 +7,7 @@ var boot = function(event){
 };
 document.addEventListener('focusin', boot);
 
-/* explicitly fire a focus event for autofocused password fields */
-if (document.activeElement && document.activeElement.tagName == 'INPUT' && document.activeElement.type == 'password') {
-    var event =  document.createEvent("HTMLEvents");
-    event.initEvent("focusin", true, true);
-    document.activeElement.dispatchEvent(event);
+/* Trigger a virtual focusin on autofocus elements */
+if (document.activeElement) {
+    boot({target: document.activeElement});
 }
