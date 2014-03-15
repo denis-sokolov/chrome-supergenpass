@@ -1,6 +1,6 @@
 var boot = function(event){
 	var el = event.target;
-	if (el.tagName === 'INPUT' && el.type === 'password') {
+	if (el.tagName === 'INPUT' && el.type && el.type.toLowerCase() === 'password') {
 		chrome.runtime.sendMessage(['init', document.location.hostname]);
 		document.removeEventListener('focusin', boot);
 	}

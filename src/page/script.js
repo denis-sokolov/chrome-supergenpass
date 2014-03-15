@@ -57,11 +57,12 @@ jQuery(function($){
 	})();
 
 
-	$('body').on('focus', 'input[type="password"]', function(){
+	// :password is case insensitive, while type="password" is
+	$('body').on('focus', 'input:password', function(){
 		popup.instructions($(this));
-	}).on('blur', 'input[type="password"]', function(){
+	}).on('blur', 'input:password', function(){
 		popup.hide();
-	}).on('keyup', 'input[type="password"]', function(e){
+	}).on('keyup', 'input:password', function(e){
 		// If the user has escaped (27) or used space key (32) to cancel
 		// the auth dialog, we want to avoid triggering that auth window again.
 		if (e.which < 40) {
