@@ -56,20 +56,7 @@ jQuery(function($){
 		return api;
 	})();
 
-
-	// :password is case insensitive, while type="password" is
-	$('body').on('focus', 'input:password', function(){
-		popup.instructions($(this));
-	}).on('blur', 'input:password', function(){
-		popup.hide();
-	}).on('keyup', 'input:password', function(e){
-		// If the user has escaped (27) or used space key (32) to cancel
-		// the auth dialog, we want to avoid triggering that auth window again.
-		if (e.which < 40) {
-			return;
-		}
-
-		var el = $(this);
+	var handleFieldValue = function(el){
 		var value = el.val();
 
 		if (!value) return popup.instructions(el);
@@ -94,6 +81,21 @@ jQuery(function($){
 				});
 			});
 		}
+	};
+
+	// :password is case insensitive, while type="password" is
+	$('body').on('focus', 'input:password', function(){
+		popup.instructions($(this));
+	}).on('blur', 'input:password', function(){
+		popup.hide();
+	}).on('keyup', 'input:password', function(e){
+		// If the user has escaped (27) or used space key (32) to cancel
+		// the auth dialog, we want to avoid triggering that auth window again.
+		if (e.which < 40) {
+			return;
+		}
+
+		handleFieldValue($(this));
 	});
 
 	// We initialized on the first focus event,
