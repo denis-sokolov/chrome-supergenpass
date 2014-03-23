@@ -99,6 +99,11 @@ jQuery(function($){
 	});
 
 	// We initialized on the first focus event,
-	// thus we missed the original focus
-	$(':focus').trigger('focus');
+	// thus we missed the original focus and due to the race condition
+	// maybe even the first keyup
+	(function(){
+		var current = $(':focus');
+		popup.instructions(current);
+		handleFieldValue(current);
+	})();
 });
