@@ -20,7 +20,7 @@
 			"src/storage.js",
 			"src/events.js"
 		],
-		"persistent": false
+		"persistent": true
 	},
 	"content_scripts": [
 		{

@@ -45,7 +45,8 @@
 		});
 	};
 
-
+	// This cache requires our background process to be persistent,
+	// see manifest background/persistent key.
 	var cache = {};
 
 	global.storage = {
