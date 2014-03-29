@@ -12,6 +12,7 @@
   "devDependencies": {
     "jshint": "0.9",
     "gulp": "^3.6.0",
-    "gulp-zip": "^0.3.2"
+    "gulp-zip": "^0.3.2",
+    "gulp-shell": "^0.2.4"
   }
 }
