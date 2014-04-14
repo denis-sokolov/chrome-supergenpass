@@ -12,9 +12,20 @@
 		});
 
 		// i18n
+		var msg = function(name){
+			return chrome.i18n.getMessage(name) || ('[' + name + ']');
+		};
 		$('[data-msg]').each(function(){
 			var el = $(this);
-			el.text(chrome.i18n.getMessage(el.data('msg')) || ('[' + el.data('msg') + ']'));
+			el.text(msg(el.data('msg')));
+		});
+		$('[data-value-msg]').each(function(){
+			var el = $(this);
+			el.val(msg(el.data('value-msg')));
+		});
+		$('[data-placeholder-msg]').each(function(){
+			var el = $(this);
+			el.prop('placeholder', msg(el.data('placeholder-msg')));
 		});
 
 
