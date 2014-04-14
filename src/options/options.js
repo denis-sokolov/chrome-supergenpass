@@ -17,7 +17,13 @@
 		};
 		$('[data-msg]').each(function(){
 			var el = $(this);
-			el.text(msg(el.data('msg')));
+			var args = el.data('msg').split(';');
+			var m = msg(args.shift());
+			m = el.text(m).html();
+			args.forEach(function(replacement, index){
+				m = m.replace('%'+(index+1), replacement.trim());
+			});
+			el.html(m);
 		});
 		$('[data-value-msg]').each(function(){
 			var el = $(this);
