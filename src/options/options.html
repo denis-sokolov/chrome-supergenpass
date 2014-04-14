@@ -22,22 +22,24 @@
 	<form class=add>
 		<fieldset>
 			<label>
-				Password:
+				<span data-msg="options_passwords_add_password"></span>
 				<input type=password name=password required>
 			</label>
 			<label>
-				Confirm the password:
+				<span data-msg="options_passwords_add_confirm"></span>
 				<input type=password name=confirm required>
 			</label>
 			<label>
-				Length of generated password:
+				<span data-msg="options_passwords_add_length"></span>
 				<input type=number min=3 max=24 name=length value=10 required>
 			</label>
 			<label>
-				Note for yourself to identify the password:
-				<input type=text name=note placeholder="Note for self" required>
+				<span data-msg="options_passwords_add_note"></span>
+				<input type=text name=note
+					data-placeholder-msg="options_passwords_add_note_placeholder" required>
 			</label>
-			<input type=submit class="btn btn-primary" value="Add new password">
+			<input type=submit class="btn btn-primary"
+				data-value-msg="options_passwords_add_submit">
 		</fieldset>
 		<ul class=errors>
 		</ul>
@@ -48,38 +50,23 @@
 	<h2 data-msg"options_instructions"></h2>
 	<ol>
 		<li>
-			<p>Store master password on <a href="#passwords">this options page</a>.
-			<p class=clarify>
-				Don&rsquo;t worry, the password itself is not stored,
-				only its hash is.
+			<p data-msg="options_instructions_store;<a href=#passwords>;</a>">
+			<p class=clarify data-msg="options_instructions_store_clarify">
 		<li>
-			<p>On any website, focus a password box and choose your password
-				from the menu by pressing buttons <kbd>1</kbd> to <kbd>9</kbd>.
+			<p data-msg="options_instructions_keys;<kbd>;</kbd>;<kbd>;</kbd>">
 		<li>
-			<p>The first time you use a password since opening your browser,
-				the extension will ask you to unlock it.
+			<p data-msg="options_instructions_unlock">
 			<p style="margin-left: -50px">
 				<img src="unlock-prompt.png">
-			<p class=clarify>
-				Careful!
-				Evil website owners might want to steal your password,
-				so always make sure that the popup says
-				&lsquo;SuperGenPass for Google Chrome™ by Denis extension
-				says&rsquo; and not &lsquo;The page at ... says:&rsquo;!
+			<p class=clarify data-msg="options_instructions_unlock_clarify">
 		<li>
-			<p>
-				That&rsquo;s it,
-				the password field is now filled with your generated password.
+			<p data-msg="options_instructions_done">
 	</ol>
 </article>
 
 <article class=tab id="whitelist">
 	<h2 data-msg="options_whitelist"></h2>
-	<p>
-		If you do not want for this extension to run on some domains
-		(say, you have your own password there), you can whitelist
-		that domain in this field.
-	</p>
+	<p data-msg="options_whitelist_explain"></p>
 	<form>
 		<textarea name=whitelist placeholder="wikipedia.org
 																	google.com"></textarea>
@@ -91,41 +78,23 @@
 	<!-- <h2 data-msg="options_about"></h2> -->
 
 	<h2 data-msg="options_about_credits"></h2>
-	<p>
-		Devoted to the most beautiful and
-		smart girl ever: <a href="http://pudlovskyte.lt/">Monika</a>.
-		<br>
-		I love you, my cute magical kitten, and always will.
+	<p data-msg="options_about_credits_kitten;<a href='http://pudlovskyte.lt/'>;</a>;<br>">
 
-	<p class=extra>
-		Additional thanks go to
-		<a href="http://pajhome.org.uk/crypt/md5/">Paul Johnston</a>,
-		<a href="https://github.com/chriszarate/supergenpass">Chris Zarate</a>,
-		<a href="http://www.famfamfam.com/lab/icons/silk/">Mark James</a>,
-		and <a href="http://twitter.github.com/bootstrap/">Twitter</a>.
-	<p>
-		Created by <a href="http://sokolov.cc">Denis Sokolov</a>.
+	<p class=extra data-msg="options_about_credits_extra;
+		<a href='http://pajhome.org.uk/crypt/md5/'>;</a>;
+		<a href='https://github.com/chriszarate/supergenpass'>;</a>;
+		<a href='http://www.famfamfam.com/lab/icons/silk/'>;</a>;
+		<a href='http://twitter.github.com/bootstrap/'>;</a>">
+	<p data-msg="options_about_credits_denis;<a href='http://sokolov.cc'>;</a>">
 </article>
 
 
 <article class=tab id="support">
 	<h2 data-msg="options_support"></h2>
-	<p>
-		The password field does not mask the characters because it is
-		technologically impossible to do in a secure way at the moment.
-		<br>
-		With Chrome improving it may soon be possible,
-		and the extension will then be updated.
-
-
-	<p>
-		For questions, suggestions and bug reports, please visit
-		<a href="https://github.com/denis-sokolov/chrome-supergenpass/issues">our GitHub page</a>.
-
-	<p>
-		You can also contact the author privately at
-		<a href="mailto:denis@sokolov.cc">denis@sokolov.cc</a>.
-
+	<p data-msg="options_support_masking;<br>">
+	<p data-msg="options_support_github;
+		<a href='https://github.com/denis-sokolov/chrome-supergenpass/issues'>;</a>">
+	<p data-msg="options_support_email;<a href='mailto:denis@sokolov.cc'>;</a>">
 </article>
 
 
