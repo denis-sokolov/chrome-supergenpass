@@ -56,7 +56,7 @@
 			},
 			get: function(pass, domain) {
 				if (!cache[pass.name]) {
-					var attempt = window.prompt('Password for '+pass.name);
+					var attempt = window.prompt(chrome.i18n.getMessage('unlock_prompt', pass.name));
 					while(true){
 						if (!attempt) {
 							return Promise.reject(new Error('User did not authenticate'));
@@ -65,7 +65,7 @@
 							cache[pass.name] = attempt;
 							break;
 						}
-						attempt = window.prompt('Previous attempt was incorrect. Try again or cancel.\nPassword for '+pass.name);
+						attempt = window.prompt(chrome.i18n.getMessage('unlock_prompt_retry', pass.name));
 					}
 				}
 				return Promise.resolve(supergenpass(cache[pass.name], domain, pass.len));
