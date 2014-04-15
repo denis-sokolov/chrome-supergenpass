@@ -22,7 +22,7 @@
 	"options_instructions_store": { "message": "Store master password on %1this options page%2." },
 	"options_instructions_store_clarify": { "message": "Don’t worry, the password itself is not stored, only its hash is." },
 	"options_instructions_keys": { "message": "On any website, focus a password box and choose your password from the menu by pressing buttons %11%2 to %39%4." },
-	"options_instructions_unlock": { "message": "The first time you use a password since opening your browser, athe extension will ask you to unlock it." },
+	"options_instructions_unlock": { "message": "The first time you use a password since opening your browser, the extension will ask you to unlock it." },
 	"options_instructions_unlock_clarify": { "message": "Careful! Evil website owners might want to steal your password, so always make sure that the popup says ‘SuperGenPass for Google Chrome™ by Denis extension says’ and not ‘The page at ... says:’!" },
 	"options_instructions_done": { "message": "That’s it, the password field is now filled with your generated password." },
 
