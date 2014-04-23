@@ -18,6 +18,7 @@
 			"supergenpass.js",
 			"src/hash.js",
 			"src/storage.js",
+			"src/messages.js",
 			"src/events.js"
 		],
 		"persistent": true
