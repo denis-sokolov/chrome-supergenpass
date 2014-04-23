@@ -78,6 +78,19 @@
 				});
 			}
 		},
+		unseen: function(key){
+			return new Promise(function(resolve, reject){
+				read('seen', []).then(function(keys){
+					if (keys.indexOf(key) < 0) {
+						keys.push(key);
+						write('seen', keys);
+						resolve();
+					} else {
+						reject();
+					}
+				});
+			});
+		},
 		whitelist: {
 			get: function() {
 				return read('whitelist', []);
