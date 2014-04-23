@@ -1,3 +1,38 @@
+/**
+ * Abstract Chrome synchronized storage away with convenient access functions.
+ *
+ * This file globalizes a single name "storage".
+ * All methods return promises.
+ *
+ * storage.passwords
+ *
+ *   storage.passwords.add(name, len, password)
+ *     Resolves if succeeds
+ *
+ *   storage.passwords.get(pass, domain)
+ *     pass here is an object with name, hash and len properties
+ *     domain is a string
+ *     Resolves to a string of generated password
+ *
+ *   storage.passwords.list()
+ *     Resolves to a list of {name, len, hash} objects
+ *
+ *   storage.passwords.remove(i)
+ *     Resolves if succeeds
+ *
+ *
+ * storage.unseen(key)
+ *   Resolves if this is the first time we run with key
+ *
+ *
+ * storage.whitelist
+ *
+ *   storage.whitelist.get()
+ *     Resolves to an array of string
+ *
+ *   storage.whitelist.set(array[string])
+ *     Resolves if succeeds
+ */
 (function(global){
 	var read = function(name, deflt) {
 		return new Promise(function(resolve){
