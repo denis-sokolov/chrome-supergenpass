@@ -43,7 +43,8 @@
 		var updateNames = function(passes){
 			passwords.empty();
 			passes.forEach(function(pass){
-				$('<li>').text(pass.name+' ('+pass.len+')').appendTo(passwords);
+				$('<li>').data('pass', pass)
+					.text(pass.name+' ('+pass.len+')').appendTo(passwords);
 			});
 			if (passes.length) {
 				password_section.show();
@@ -56,7 +57,7 @@
 		update();
 		passwords.on('click', 'li', function(){
 			var el = $(this);
-			storage.passwords.remove(el.prevAll('li').length).then(updateNames);
+			storage.passwords.remove(el.data('pass')).then(updateNames);
 		});
 		// Add
 		(function(){

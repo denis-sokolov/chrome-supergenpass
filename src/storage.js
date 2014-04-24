@@ -17,8 +17,9 @@
  *   storage.passwords.list()
  *     Resolves to a list of {name, len, hash} objects
  *
- *   storage.passwords.remove(i)
- *     Resolves if succeeds
+ *   storage.passwords.remove(pass)
+ *     pass here is an object with name, hash and len properties
+ *     Resolves to a list of current passwords
  *
  *
  * storage.unseen(key)
@@ -106,9 +107,11 @@
 				return Promise.resolve(supergenpass(cache[pass.name], domain, pass.len));
 			},
 			list: list,
-			remove: function(i) {
+			remove: function(pass) {
 				return list().then(function(passwords){
-					passwords.splice(i, 1);
+					passwords = passwords.filter(function(p){
+						return JSON.stringify(p) !== JSON.stringify(pass);
+					});
 					return write('passwords', passwords).then(list);
 				});
 			}
