@@ -14,5 +14,8 @@
     "gulp": "^3.6.0",
     "gulp-zip": "^0.3.2",
     "gulp-shell": "^0.2.4"
+  },
+  "dependencies": {
+    "gulp-clean": "^0.2.4"
   }
 }

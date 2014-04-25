@@ -1,7 +1,13 @@
 /* jshint node: true */
 var gulp = require('gulp');
+var clean = require('gulp-clean');
 var shell = require('gulp-shell');
 var zip = require('gulp-zip');
+
+gulp.task('clean', function(){
+	gulp.src('dist.zip', {read: false})
+		.pipe(clean());
+});
 
 gulp.task('default', function() {
 	gulp.src([
