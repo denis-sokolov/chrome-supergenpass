@@ -11,6 +11,7 @@
 	"options_passwords_nav": { "message": "Passwords" },
 	"options_passwords_add": { "message": "Add a new password" },
 	"options_passwords_add_password": { "message": "Password:" },
+	"options_passwords_add_password_match": { "message": "Passwords do not match" },
 	"options_passwords_add_confirm": { "message": "Confirm the password:" },
 	"options_passwords_add_length": { "message": "Length of generated password" },
 	"options_passwords_add_note": { "message": "Note for yourself to identify the password:" },
@@ -42,6 +43,9 @@
 	"options_support_masking": { "message": "The password field does not mask the characters because it is technologically impossible to do in a secure way at the moment. %1 With Chrome improving it may soon be possible, and the extension will then be updated." },
 	"options_support_github": { "message": "For questions, suggestions and bug reports, please visit our GitHub page." },
 	"options_support_email": { "message": "You can also contact the author privately at denis@sokolov.cc" },
+
+	"nopasswords": { "message": "No passwords saved for SuperGenPass." },
+	"nopasswords_link": { "message": "Add passwords in %1the options%2." },
 
 	"__end": { "message": "Trailing comma workaround" }
 }

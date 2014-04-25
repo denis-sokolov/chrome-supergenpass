@@ -16,6 +16,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
 
 			var tabId = sender.tab && sender.tab.id;
 			chrome.tabs.executeScript(tabId, {file: 'jquery.min.js', allFrames: true});
+			chrome.tabs.executeScript(tabId, {file: 'src/i18n.js', allFrames: true});
 			chrome.tabs.executeScript(tabId, {file: 'src/page/script.js', allFrames: true});
 			chrome.tabs.insertCSS(tabId, {file: 'src/page/styles.css', allFrames: true});
 			sendResponse({});

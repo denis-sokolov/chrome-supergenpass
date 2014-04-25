@@ -71,7 +71,7 @@
 					note = els.note.val();
 
 				if (password !== confirm) {
-					return error('Passwords do not match.');
+					return error(i18n('options_passwords_add_password_match'));
 				}
 
 				storage.passwords.add(note, len, password).then(updateNames);

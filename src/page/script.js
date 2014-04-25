@@ -45,9 +45,11 @@ jQuery(function($){
 						return $('<div>').text((i+1).toString() + ' ' + pass.name).appendTo(main);
 					});
 				} else {
-					main.append('<p>No passwords saved for SuperGenPass.</p>');
+					main.append($('<p>').text(i18n('nopasswords')));
 					var url = chrome.extension.getURL('src/options/options.html');
-					main.append('<p>Add passwords in <a href="'+url+'">the options</a>.</p>');
+					main.append(
+						i18n.html($('<p>'), 'nopasswords_link', ['<a href="'+url+'">', '</a>'])
+					);
 				}
 				api.to(el);
 			});
