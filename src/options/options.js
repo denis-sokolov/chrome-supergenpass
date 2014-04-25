@@ -1,4 +1,4 @@
-(function($,storage){
+(function($,storage,i18n){
 	$(function(){
 		'use strict';
 
@@ -11,31 +11,7 @@
 			nav.append(li);
 		});
 
-		// i18n
-		var msg = function(name){
-			return chrome.i18n.getMessage(name) || ('[' + name + ']');
-		};
-		$('[data-msg]').each(function(){
-			var el = $(this);
-			var args = el.data('msg').split(';');
-			var m = msg(args.shift());
-			m = el.text(m).html();
-			args.forEach(function(replacement, index){
-				m = m.replace('%'+(index+1), replacement.trim());
-			});
-			el.html(m);
-		});
-		$('[data-value-msg]').each(function(){
-			var el = $(this);
-			el.val(msg(el.data('value-msg')));
-		});
-		$('[data-placeholder-msg]').each(function(){
-			var el = $(this);
-			el.prop('placeholder', msg(el.data('placeholder-msg')));
-		});
-
-
-
+		i18n.page($);
 
 		// Passwords
 		var password_section = $('.password-list');
@@ -127,4 +103,4 @@
 			$('a[href="'+document.location.hash+'"]').addClass('current');
 		}).trigger('hashchange');
 	});
-})(jQuery, storage);
+})(jQuery, storage, i18n);

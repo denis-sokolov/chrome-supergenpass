@@ -4,6 +4,7 @@
 		"Promise": false,
 
 		"storage": true,
+		"i18n": true,
 		"hash": true,
 		"supergenpass": true
 	},
