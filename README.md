@@ -13,3 +13,4 @@ Install the extension [on Chrome Web Store](https://chrome.google.com/webstore/d
 
 [![Build Status](https://travis-ci.org/denis-sokolov/chrome-supergenpass.png?branch=master)](https://travis-ci.org/denis-sokolov/chrome-supergenpass)
 [![Code Climate](https://codeclimate.com/github/denis-sokolov/chrome-supergenpass.png)](https://codeclimate.com/github/denis-sokolov/chrome-supergenpass)
+[![Dependency Status](https://gemnasium.com/denis-sokolov/chrome-supergenpass.svg)](https://gemnasium.com/denis-sokolov/chrome-supergenpass)
