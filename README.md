@@ -11,6 +11,6 @@ or by using any other SuperGenPass tool.
 Install the extension [on Chrome Web Store](https://chrome.google.com/webstore/detail/supergenpass-for-google-c/bmmmhbgdbpnbfefmacdlbpfgegcibkjo).
 
 
-[![Build Status](https://travis-ci.org/denis-sokolov/chrome-supergenpass.png?branch=master)](https://travis-ci.org/denis-sokolov/chrome-supergenpass)
-[![Code Climate](https://codeclimate.com/github/denis-sokolov/chrome-supergenpass.png)](https://codeclimate.com/github/denis-sokolov/chrome-supergenpass)
+[![Build Status](https://travis-ci.org/denis-sokolov/chrome-supergenpass.svg?branch=master)](https://travis-ci.org/denis-sokolov/chrome-supergenpass)
+[![Code Climate](http://img.shields.io/codeclimate/github/denis-sokolov/chrome-supergenpass.svg)](https://codeclimate.com/github/denis-sokolov/chrome-supergenpass)
 [![Dependency Status](https://gemnasium.com/denis-sokolov/chrome-supergenpass.svg)](https://gemnasium.com/denis-sokolov/chrome-supergenpass)
