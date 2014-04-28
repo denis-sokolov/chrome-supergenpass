@@ -104,7 +104,9 @@
 						attempt = window.prompt(chrome.i18n.getMessage('unlock_prompt_retry', pass.name));
 					}
 				}
-				return Promise.resolve(supergenpass(cache[pass.name], domain, pass.len));
+				return Promise.resolve(supergenpass(cache[pass.name], domain, {
+					length: pass.len
+				}));
 			},
 			list: list,
 			remove: function(pass) {

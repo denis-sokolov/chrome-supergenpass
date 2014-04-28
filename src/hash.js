@@ -1,3 +1,5 @@
 hash = function(text){
-	return supergenpass(text, 'chromegenpass-chrome-extension', 16);
+	return supergenpass(text, 'chromegenpass-chrome-extension', {
+		length: 16
+	});
 };
