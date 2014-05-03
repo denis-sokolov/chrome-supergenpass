@@ -1,15 +1,12 @@
 /* jshint node: true */
 var gulp = require('gulp');
-var clean = require('gulp-clean');
 var shell = require('gulp-shell');
 var zip = require('gulp-zip');
 
-gulp.task('clean', function(){
-	gulp.src('dist.zip', {read: false})
-		.pipe(clean());
-});
-
 gulp.task('default', function() {
+	var destination = process.env.BUILD_DESTINATION ||
+		(process.env.HOME ? process.env.HOME + '/Desktop/' : './');
+
 	gulp.src([
 		'_locales',
 		'3rd',
@@ -19,8 +16,8 @@ gulp.task('default', function() {
 		'manifest.json',
 		'README.md',
 	])
-		.pipe(zip('dist.zip'))
-		.pipe(gulp.dest('.'));
+		.pipe(zip('chrome-supergenpass.zip'))
+		.pipe(gulp.dest(destination));
 });
 
 gulp.task('jquery', shell.task([
