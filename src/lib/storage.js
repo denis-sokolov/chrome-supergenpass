@@ -61,6 +61,16 @@
 		});
 	};
 
+	/**
+	 * Calculate a string hahs that identifies the current object.
+	 * Useful for comparison of two Passwords.
+	 */
+	var passwordSettingsHash = function(pass){
+		return Object.keys(pass).map(function(k){
+			return pass[k];
+		}).join(';');
+	};
+
 	var addRaw = function(newPasswords){
 		return list().then(function(passwords){
 			passwords = passwords.concat(newPasswords);
@@ -74,9 +84,7 @@
 			// Filter out duplicates
 			// chrome.sync can add duplicates among different computers
 			return passwords.filter(function(pass){
-				var key = Object.keys(pass).map(function(k){
-					return pass[k];
-				}).join(';');
+				var key = passwordSettingsHash(pass);
 				if (seen.indexOf(key) < 0) {
 					seen.push(key);
 					return true;
@@ -118,8 +126,9 @@
 			list: list,
 			remove: function(pass) {
 				return list().then(function(passwords){
+					var hashToRemove = passwordSettingsHash(pass);
 					passwords = passwords.filter(function(p){
-						return JSON.stringify(p) !== JSON.stringify(pass);
+						return passwordSettingsHash(p) !== hashToRemove;
 					});
 					return write('passwords', passwords).then(list);
 				});
