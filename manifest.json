@@ -15,7 +15,7 @@
 	"author": "http://sokolov.cc/",
 	"background": {
 		"scripts": [
-			"supergenpass.min.js",
+			"3rd/supergenpass.min.js",
 			"src/lib/hash.js",
 			"src/lib/storage.js",
 			"src/messages.js",
