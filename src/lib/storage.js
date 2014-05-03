@@ -4,21 +4,25 @@
  * This file globalizes a single name "storage".
  * All methods return promises.
  *
+ * Password is an object with the following properties:
+ *  hash: string
+ *  len: number
+ *  name: string
+ *
  * storage.passwords
  *
- *   storage.passwords.add(name, len, password)
+ *   storage.passwords.add(pass)
+ *     pass here is a Password with a password field instead of a hash field
  *     Resolves if succeeds
  *
- *   storage.passwords.get(pass, domain)
- *     pass here is an object with name, hash and len properties
+ *   storage.passwords.get(Password, domain)
  *     domain is a string
  *     Resolves to a string of generated password
  *
  *   storage.passwords.list()
- *     Resolves to a list of {name, len, hash} objects
+ *     Resolves to a list of Password objects
  *
- *   storage.passwords.remove(pass)
- *     pass here is an object with name, hash and len properties
+ *   storage.passwords.remove(Password)
  *     Resolves to a list of current passwords
  *
  *
@@ -57,7 +61,6 @@
 		});
 	};
 
-
 	var addRaw = function(newPasswords){
 		return list().then(function(passwords){
 			passwords = passwords.concat(newPasswords);
@@ -71,7 +74,9 @@
 			// Filter out duplicates
 			// chrome.sync can add duplicates among different computers
 			return passwords.filter(function(pass){
-				var key = pass.name + ';' + pass.len + ';' + pass.hash;
+				var key = Object.keys(pass).map(function(k){
+					return pass[k];
+				}).join(';');
 				if (seen.indexOf(key) < 0) {
 					seen.push(key);
 					return true;
@@ -87,8 +92,10 @@
 
 	global.storage = {
 		passwords: {
-			add: function(name, len, password) {
-				return addRaw([{name:name, len:len, hash:hash(password)}]);
+			add: function(pass) {
+				pass.hash = hash(pass.password);
+				delete pass.password;
+				return addRaw([pass]);
 			},
 			get: function(pass, domain) {
 				if (!cache[pass.name]) {
