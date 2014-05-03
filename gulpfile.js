@@ -3,6 +3,8 @@ var gulp = require('gulp');
 var shell = require('gulp-shell');
 var zip = require('gulp-zip');
 
+var manifest = require('./manifest.json');
+
 gulp.task('default', function() {
 	var destination = process.env.BUILD_DESTINATION ||
 		(process.env.HOME ? process.env.HOME + '/Desktop/' : './');
@@ -16,7 +18,7 @@ gulp.task('default', function() {
 		'manifest.json',
 		'README.md',
 	])
-		.pipe(zip('chrome-supergenpass.zip'))
+		.pipe(zip('chrome-supergenpass.'+manifest.version+'.zip'))
 		.pipe(gulp.dest(destination));
 });
 
