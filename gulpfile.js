@@ -24,7 +24,11 @@ gulp.task('default', function() {
 });
 
 gulp.task('jquery', shell.task([
-	'git clone --depth=1 git@github.com:jquery/jquery.git',
+	'git clone --depth=1 --branch' +
+		' $(git ls-remote --tags git@github.com:jquery/jquery.git |' +
+			' cut -f 2 | cut -d/ -f 3 | grep -E \'^(\\d|\\.)+$\' |' +
+			' sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n | tail -n 1)' +
+		' git@github.com:jquery/jquery.git',
 	'cd jquery && npm install',
 	'./jquery/node_modules/.bin/grunt --gruntfile jquery/Gruntfile.js' +
 		' custom:-ajax,-deprecated,-effects,-deferred,-wrap,-event/alias,-core/ready',
