@@ -9,6 +9,7 @@
  *  len: number
  *  method: string "md5" or "sha512"
  *  name: string
+ *  secret: string, usually empty
  *
  * storage.passwords
  *
@@ -93,6 +94,7 @@
 				return false;
 			}).map(function(pass){
 				pass.method = pass.method || 'md5';
+				pass.secret = pass.secret || '';
 				return pass;
 			});
 		});
@@ -126,7 +128,8 @@
 				}
 				return Promise.resolve(supergenpass(cache[currentHash], domain, {
 					length: pass.len,
-					method: pass.method
+					method: pass.method,
+					secret: pass.secret
 				}));
 			},
 			list: list,
@@ -169,7 +172,7 @@
 		if (v5.passwords && v5.passwords.length) {
 			addRaw(
 				v5.passwords.map(function(p){
-					return {name:p.note, len:p.len, method:'md5', hash:p.hash};
+					return {name:p.note, len:p.len, method:'md5', hash:p.hash, secret: ''};
 				})
 			);
 		}

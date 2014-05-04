@@ -19,8 +19,16 @@
 		var updateNames = function(passes){
 			passwords.empty();
 			passes.forEach(function(pass){
-				var text = pass.name+
-					' ('+pass.len+(pass.method !== 'md5' ? ', '+pass.method : '')+')';
+				var extras = [pass.len];
+				if (pass.method !== 'md5') {
+					extras.push(pass.method);
+				}
+				if (pass.secret) {
+					extras.push(i18n('options_passwords_list_secret'));
+				}
+
+				var text = pass.name+' ('+
+					extras.join(i18n('options_passwords_list_extras_separator'))+')';
 
 				$('<li>').data('pass', pass)
 					.text(text).appendTo(passwords);
@@ -46,7 +54,8 @@
 				confirm: form.find('[name="confirm"]'),
 				len: form.find('[name="length"]'),
 				methods: form.find('[name="method"]'),
-				note: form.find('[name="note"]')
+				note: form.find('[name="note"]'),
+				secret: form.find('[name="secret"]')
 			};
 
 			var error = (function(){
@@ -73,7 +82,8 @@
 					confirm = els.confirm.val(),
 					len = parseInt(els.len.val(), 10),
 					method = els.methods.filter(':checked').val(),
-					note = els.note.val();
+					note = els.note.val(),
+					secret = els.secret.val();
 
 				if (password !== confirm) {
 					return error(i18n('options_passwords_add_password_match'));
@@ -83,7 +93,8 @@
 					len: len,
 					method: method,
 					name: note,
-					password: password
+					password: password,
+					secret: secret
 				}).then(updateNames);
 			});
 		})();
