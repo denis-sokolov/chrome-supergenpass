@@ -114,7 +114,7 @@
 			get: function(pass, domain) {
 				var currentHash = passwordSettingsHash(pass);
 				if (!cache[currentHash]) {
-					var attempt = window.prompt(chrome.i18n.getMessage('unlock_prompt', pass.name));
+					var attempt = window.prompt(i18n('unlock_prompt', pass.name));
 					while(true){
 						if (!attempt) {
 							return Promise.reject(new Error('User did not authenticate'));
@@ -123,7 +123,7 @@
 							cache[currentHash] = attempt;
 							break;
 						}
-						attempt = window.prompt(chrome.i18n.getMessage('unlock_prompt_retry', pass.name));
+						attempt = window.prompt(i18n('unlock_prompt_retry', pass.name));
 					}
 				}
 				return Promise.resolve(supergenpass(cache[currentHash], domain, {

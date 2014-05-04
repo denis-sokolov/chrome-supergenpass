@@ -1,5 +1,5 @@
 jQuery(function($){
-	if ($('div.'+chrome.i18n.getMessage('uustring')).length) {
+	if ($('div.'+i18n('uustring')).length) {
 		return;
 	}
 
@@ -18,7 +18,7 @@ jQuery(function($){
 
 		// This is the active popup that the user is focused on, as opposed
 		// to multiple possible floating status popups.
-		var main = $('<div>').addClass(chrome.i18n.getMessage('uustring')).hide().appendTo('body');
+		var main = $('<div>').addClass(i18n('uustring')).hide().appendTo('body');
 		main.on('mousedown', 'a', function(){
 			// Workaround for popup disappearing when the user click on it
 			document.location = $(this).prop('href');

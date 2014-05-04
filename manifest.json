@@ -17,6 +17,7 @@
 		"scripts": [
 			"3rd/supergenpass.min.js",
 			"src/lib/hash.js",
+			"src/lib/i18n.js",
 			"src/lib/storage.js",
 			"src/messages.js",
 			"src/events.js"
