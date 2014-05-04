@@ -3,8 +3,8 @@
  *
  * This file globalizes a single name "i18n".
  *
- * i18n(message_code)
- *   Returns a text value for message_code
+ * i18n(message_code, [...args])
+ *   Returns a text value for message_code and args
  *
  *   i18n.html(element, message_code, htmls)
  *     Fills the element with a text value for message_code, with %n replaced
@@ -18,7 +18,9 @@
 	'use strict';
 
 	var msg = function(name){
-		return chrome.i18n.getMessage(name) || ('[' + name + ']');
+		var args = Array.prototype.slice.call(arguments);
+		args.shift();
+		return chrome.i18n.getMessage.call(chrome.i18n, name, args) || ('[' + name + ']');
 	};
 
 	var html = function(el, key, htmls){
