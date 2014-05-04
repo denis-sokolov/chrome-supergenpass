@@ -19,8 +19,11 @@
 		var updateNames = function(passes){
 			passwords.empty();
 			passes.forEach(function(pass){
+				var text = pass.name+
+					' ('+pass.len+(pass.method !== 'md5' ? ', '+pass.method : '')+')';
+
 				$('<li>').data('pass', pass)
-					.text(pass.name+' ('+pass.len+')').appendTo(passwords);
+					.text(text).appendTo(passwords);
 			});
 			if (passes.length) {
 				password_section.show();
@@ -42,6 +45,7 @@
 				password: form.find('[name="password"]'),
 				confirm: form.find('[name="confirm"]'),
 				len: form.find('[name="length"]'),
+				methods: form.find('[name="method"]'),
 				note: form.find('[name="note"]')
 			};
 
@@ -68,6 +72,7 @@
 				var password = els.password.val(),
 					confirm = els.confirm.val(),
 					len = parseInt(els.len.val(), 10),
+					method = els.methods.filter(':checked').val(),
 					note = els.note.val();
 
 				if (password !== confirm) {
@@ -76,6 +81,7 @@
 
 				storage.passwords.add({
 					len: len,
+					method: method,
 					name: note,
 					password: password
 				}).then(updateNames);

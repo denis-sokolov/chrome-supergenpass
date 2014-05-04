@@ -7,6 +7,7 @@
  * Password is an object with the following properties:
  *  hash: string
  *  len: number
+ *  method: string "md5" or "sha512"
  *  name: string
  *
  * storage.passwords
@@ -90,6 +91,9 @@
 					return true;
 				}
 				return false;
+			}).map(function(pass){
+				pass.method = pass.method || 'md5';
+				return pass;
 			});
 		});
 	};
@@ -121,7 +125,8 @@
 					}
 				}
 				return Promise.resolve(supergenpass(cache[currentHash], domain, {
-					length: pass.len
+					length: pass.len,
+					method: pass.method
 				}));
 			},
 			list: list,
@@ -164,7 +169,7 @@
 		if (v5.passwords && v5.passwords.length) {
 			addRaw(
 				v5.passwords.map(function(p){
-					return {name:p.note, len:p.len, hash:p.hash};
+					return {name:p.note, len:p.len, method:'md5', hash:p.hash};
 				})
 			);
 		}

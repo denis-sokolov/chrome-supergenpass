@@ -33,6 +33,17 @@
 				<span data-msg="options_passwords_add_length"></span>
 				<input type=number min=3 max=24 name=length value=10 required>
 			</label>
+			<fieldset class=method>
+				<span data-msg="options_passwords_add_method"></span>
+				<label>
+					<input type=radio name=method value="md5" checked>
+					<span data-msg="options_passwords_add_method_md5"></span>
+				</label>
+				<label>
+					<input type=radio name=method value="sha512">
+					<span data-msg="options_passwords_add_method_sha512"></span>
+				</label>
+			</fieldset>
 			<label>
 				<span data-msg="options_passwords_add_note"></span>
 				<input type=text name=note
