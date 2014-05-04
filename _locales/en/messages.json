@@ -9,6 +9,7 @@
 
 	"options_passwords": { "message": "Your stored password hashes" },
 	"options_passwords_nav": { "message": "Passwords" },
+	"options_passwords_list_len": { "message": "length: $1" },
 	"options_passwords_list_secret": { "message": "secret" },
 	"options_passwords_list_extras_separator": { "message": ", " },
 	"options_passwords_add": { "message": "Add a new password" },

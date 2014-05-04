@@ -19,7 +19,10 @@
 		var updateNames = function(passes){
 			passwords.empty();
 			passes.forEach(function(pass){
-				var extras = [pass.len];
+				var extras = [];
+				if (pass.len !== 10) {
+					extras.push(i18n('options_passwords_list_len', pass.len));
+				}
 				if (pass.method !== 'md5') {
 					extras.push(pass.method);
 				}
@@ -27,8 +30,9 @@
 					extras.push(i18n('options_passwords_list_secret'));
 				}
 
-				var text = pass.name+' ('+
-					extras.join(i18n('options_passwords_list_extras_separator'))+')';
+				var text = pass.name;
+				if (extras.length)
+					text += ' ('+extras.join(i18n('options_passwords_list_extras_separator'))+')';
 
 				$('<li>').data('pass', pass)
 					.text(text).appendTo(passwords);
