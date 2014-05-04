@@ -20,42 +20,43 @@
 
 	<h2 data-msg="options_passwords_add"></h2>
 	<form class=add>
-		<fieldset>
-			<label>
-				<span data-msg="options_passwords_add_password"></span>
-				<input type=password name=password required>
-			</label>
-			<label>
-				<span data-msg="options_passwords_add_confirm"></span>
-				<input type=password name=confirm required>
-			</label>
+		<label>
+			<span data-msg="options_passwords_add_password"></span>
+			<input type=password name=password required>
+		</label>
+		<label>
+			<span data-msg="options_passwords_add_confirm"></span>
+			<input type=password name=confirm required>
+		</label>
+		<details class=optional>
+			<summary data-msg="options_passwords_add_optional"></summary>
 			<label>
 				<span data-msg="options_passwords_add_length"></span>
 				<input type=number min=3 max=24 name=length value=10 required>
 			</label>
 			<fieldset class=method>
-				<span data-msg="options_passwords_add_method"></span>
+				<span class=field-label data-msg="options_passwords_add_method"></span>
 				<label>
 					<input type=radio name=method value="md5" checked>
-					<span data-msg="options_passwords_add_method_md5"></span>
+					<span class=radio-label tabindex=0 data-msg="options_passwords_add_method_md5"></span>
 				</label>
 				<label>
 					<input type=radio name=method value="sha512">
-					<span data-msg="options_passwords_add_method_sha512"></span>
+					<span class=radio-label tabindex=0 data-msg="options_passwords_add_method_sha512"></span>
 				</label>
 			</fieldset>
 			<label>
 				<span data-msg="options_passwords_add_secret"></span>
 				<input type=password name=secret>
 			</label>
-			<label>
-				<span data-msg="options_passwords_add_note"></span>
-				<input type=text name=note
-					data-placeholder-msg="options_passwords_add_note_placeholder" required>
-			</label>
-			<input type=submit class="btn btn-primary"
-				data-value-msg="options_passwords_add_submit">
-		</fieldset>
+		</details>
+		<label>
+			<span data-msg="options_passwords_add_note"></span>
+			<input type=text name=note
+				data-placeholder-msg="options_passwords_add_note_placeholder" required>
+		</label>
+		<input type=submit class="btn btn-primary"
+			data-value-msg="options_passwords_add_submit">
 		<ul class=errors>
 		</ul>
 	</form>

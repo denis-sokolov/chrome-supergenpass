@@ -1,6 +1,7 @@
 body {}
 h2 { font-size: 120%; margin-bottom: 0; }
 label { font-weight: inherit; cursor: pointer; }
+summary { cursor: pointer; }
 ul { list-style-type: none; margin: 0; }
 a.current {
 	text-decoration: none;
@@ -26,18 +27,24 @@ a.current {
 }
 
 
-
 /* Utility */
 .clarify { font-size: 70%; font-style: italic; margin-top: -0.6em; margin-bottom: 1em;}
+
+label { margin-top: 1em; }
+	fieldset label { margin-top: 0; }
+input[type="radio"] { display: none; }
+.radio-label { color: rgb(66, 139, 202); border-bottom: 1px dashed;}
+:checked + .radio-label { color: inherit; border: none; cursor: default; }
 
 .passwords ol { }
 	.passwords li {  }
 		.passwords li:hover { color: red; text-decoration: line-through; cursor: pointer }
 
 .add { }
-	.add fieldset { display: inline-block; min-width: 25em; }
 	.add label { display: block; }
-	.add input {
+	.add fieldset label { display: inline-block; margin-right: 1em; }
+	.add .field-label { display: block; }
+		.add input {
 		margin-bottom: 1em;
 	}
 		.add input[type="text"],
@@ -61,6 +68,23 @@ a.current {
 			left: 100%;
 			opacity: 0;
 		}
+	.add .optional {
+		padding-left: 20px;
+		padding-right: 20px;
+		background-color: #eee;
+		margin-bottom: 1em;
+	}
+		.add .optional[open] {
+			padding-bottom: 0.5em;
+			background-color: #ddd;
+		}
+		.add .optional summary {
+			margin: 0 -20px 1em;
+			padding: 3px 20px 3px 10px;
+		}
+			.add .optional[open] summary {
+				padding-top: 0.5em;
+			}
 
 .instructions {}
 	.instructions ol { padding-left: 2em; padding-top: 1em }
