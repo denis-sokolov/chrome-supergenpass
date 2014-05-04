@@ -106,20 +106,21 @@
 				return addRaw([pass]);
 			},
 			get: function(pass, domain) {
-				if (!cache[pass.name]) {
+				var currentHash = passwordSettingsHash(pass);
+				if (!cache[currentHash]) {
 					var attempt = window.prompt(chrome.i18n.getMessage('unlock_prompt', pass.name));
 					while(true){
 						if (!attempt) {
 							return Promise.reject(new Error('User did not authenticate'));
 						}
 						if (hash(attempt) === pass.hash) {
-							cache[pass.name] = attempt;
+							cache[currentHash] = attempt;
 							break;
 						}
 						attempt = window.prompt(chrome.i18n.getMessage('unlock_prompt_retry', pass.name));
 					}
 				}
-				return Promise.resolve(supergenpass(cache[pass.name], domain, {
+				return Promise.resolve(supergenpass(cache[currentHash], domain, {
 					length: pass.len
 				}));
 			},
