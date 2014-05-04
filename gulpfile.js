@@ -10,14 +10,14 @@ gulp.task('default', function() {
 		(process.env.HOME ? process.env.HOME + '/Desktop/' : './');
 
 	gulp.src([
-		'_locales',
-		'3rd',
-		'img',
-		'src',
+		'_locales/**/*',
+		'3rd/**/*',
+		'img/**/*',
+		'src/**/*',
 		'LICENSE',
 		'manifest.json',
 		'README.md',
-	])
+	], { base: __dirname })
 		.pipe(zip('chrome-supergenpass.'+manifest.version+'.zip'))
 		.pipe(gulp.dest(destination));
 });
