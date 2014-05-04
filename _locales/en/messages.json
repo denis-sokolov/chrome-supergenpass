@@ -19,6 +19,7 @@
 	"options_passwords_add_note_placeholder": { "message": "Note for self" },
 	"options_passwords_add_submit": { "message": "Add new password" },
 	"options_passwords_add_optional": { "message": "Optional settings" },
+	"options_passwords_add_optional_explanation": { "message": "These settings may be used to increase the security of your passwords, but changing any defaults means you have to remember more to generate your passwords on a computer without this extension." },
 		"options_passwords_add_length": { "message": "Length of generated password:" },
 		"options_passwords_add_method": { "message": "Hashing method:" },
 		"options_passwords_add_method_md5": { "message": "MD5" },
