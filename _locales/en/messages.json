@@ -44,7 +44,7 @@
 	"options_about_nav": { "message": "About" },
 	"options_about_credits": { "message": "Credits" },
 	"options_about_credits_kitten": { "message": "Devoted to the most beautiful and smart girl ever: %1Monika%2." },
-	"options_about_credits_extra": { "message": "Additional thanks go to %1Paul Johnston%2, %3Chris Zarate%4, %5Mark James%6, and %7Twitter%8." },
+	"options_about_credits_extra": { "message": "Additional thanks go to %1Paul Johnston%2, %3Chris Zarate%4, %5Mark James%6, %7Twitter%8, and %9Gustav Salomonsson%10." },
 	"options_about_credits_denis": { "message": "Created by %1Denis Sokolov%2." },
 
 	"options_support": { "message": "Support" },

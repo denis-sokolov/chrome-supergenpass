@@ -7,9 +7,9 @@
 	"default_locale": "en",
 	"description": "__MSG_description__",
 	"icons": {
-		"16": "img/ktouch16.png",
-		"48": "img/ktouch48.png",
-		"128": "img/ktouch128.png"
+		"16": "img/logo/16.png",
+		"48": "img/logo/48.png",
+		"128": "img/logo/128.png"
 	},
 
 	"author": "http://sokolov.cc/",
