@@ -27,8 +27,17 @@
 		htmls = htmls || [];
 
 		var m = el.text(msg(key)).html();
-		htmls.forEach(function(replacement, index){
-			m = m.replace('%'+(index+1), replacement.trim());
+
+		// Reverse is requires to replace %10 before %1
+		// Although we replace only a single entry,
+		// it can be reordered in a messages file.
+		htmls.map(function(html, index){
+			return {
+				index: index + 1,
+				html: html.trim()
+			};
+		}).forEach(function(r){
+			m = m.replace('%'+r.index, r.html);
 		});
 
 		return el.html(m);
