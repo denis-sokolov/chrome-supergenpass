@@ -11,12 +11,17 @@ a.current {
 }
 
 .main-nav {
-	padding: 0 3em;
+	padding: 5px 3em;
 	background-color: #ded;
 }
 .main-nav h1 {
-	display: inline;
-	font-size: 100%;
+	margin: 0;
+	padding-top: 5px;
+	display: inline-block;
+	background: transparent url('../../img/logo/horizontal.png') no-repeat left center;
+	background-size: 210px 50px;
+	font-size: 0;
+	vertical-align: 7px;
 }
 .main-nav ul { display: inline; }
 .main-nav li { display: inline; margin-left: 1em;}
