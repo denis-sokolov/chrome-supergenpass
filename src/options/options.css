@@ -1,5 +1,5 @@
 body {}
-h2 { font-size: 120%; margin-bottom: 0; }
+h2 { font-size: 120%; }
 label { font-weight: inherit; cursor: pointer; }
 p { max-width: 40em; line-height: 1.3; }
 summary { cursor: pointer; }
@@ -16,12 +16,13 @@ a.current {
 }
 .main-nav h1 {
 	margin: 0;
-	padding-top: 5px;
 	display: inline-block;
+	width: 210px;
+	height: 50px;
 	background: transparent url('../../img/logo/horizontal.png') no-repeat left center;
 	background-size: 210px 50px;
 	font-size: 0;
-	vertical-align: 7px;
+	vertical-align: 34px;
 }
 .main-nav ul { display: inline; }
 .main-nav li { display: inline; margin-left: 1em;}
