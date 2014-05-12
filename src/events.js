@@ -25,7 +25,14 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
 	}
 	if (message[0] === 'password') {
 		if (!message[2]) throw new Error('Include password array and the domain.');
-		storage.passwords.get(message[1], message[2]).then(sendResponse, function(){sendResponse('');});
+
+		// sendResponse can only take a JSON-ifiable object, so we can not
+		// send the promise itself
+		storage.passwords.get(message[1], message[2]).then(function(generated){
+			sendResponse({ success: true, generated: generated });
+		}, function(err){
+			sendResponse({ success: false, err: err });
+		});
 		return true;
 	}
 	sendResponse({});

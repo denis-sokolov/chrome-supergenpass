@@ -66,20 +66,23 @@ jQuery(function($){
 			if (!Number(value)) return popup.hide();
 			popup.getPassword(Number(value)).then(function(password){
 				chrome.runtime.sendMessage(['password', password, document.location.hostname], function(result){
-					// If result is empty (failed), we want to blank the input
-					// to remove the digit the user has entered
-					el.val(result);
+					if (result.success) {
+						el.val(result.generated);
 
-					// Some JavaScript frameworks store the value of the field
-					// internally and disregard the actual value when the form
-					// is submit. This is a similar problem to browser
-					// autocomplete not modifying state of such frameworks:
-					// https://github.com/angular/angular.js/issues/1460
-					//
-					// .trigger('change') does not work probably because
-					// Chrome separates extensions and scripts on the page
-					// I did expect .trigger to trigger a native event, though.
-					el.get(0).dispatchEvent(new window.Event('change'));
+						// Some JavaScript frameworks store the value of the field
+						// internally and disregard the actual value when the form
+						// is submit. This is a similar problem to browser
+						// autocomplete not modifying state of such frameworks:
+						// https://github.com/angular/angular.js/issues/1460
+						//
+						// .trigger('change') does not work probably because
+						// Chrome separates extensions and scripts on the page
+						// I did expect .trigger to trigger a native event, though.
+						el.get(0).dispatchEvent(new window.Event('change'));
+					} else {
+						// Blank the input to remove the digit the user has entered
+						el.val('');
+					}
 				});
 			});
 		}
