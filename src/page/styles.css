@@ -12,6 +12,15 @@
 	z-index: 10000;
 }
 
+.__MSG_uustring__ div {
+	/**
+	 * When a website defines the default color using
+	 * a dumb mass selector, such as body,p,div,a...,
+	 * they can overwrite our color.
+	 */
+	color: inherit;
+}
+
 .__MSG_uustring__ a {
 	color: inherit !important;
 	text-decoration: underline !important;
