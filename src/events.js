@@ -1,8 +1,12 @@
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
+
+	// Get all configured passwords
 	if (message === 'passwords') {
 		storage.passwords.list().then(sendResponse);
 		return true; // Keep the channel open
 	}
+
+	// Begin a page script
 	if (message[0] === 'init') {
 		var domain = message[1];
 		storage.whitelist.get().then(function(whitelists){
@@ -23,6 +27,8 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
 		});
 		return true;
 	}
+
+	// Generate a password
 	if (message[0] === 'password') {
 		if (!message[2]) throw new Error('Include password array and the domain.');
 
