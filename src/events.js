@@ -1,9 +1,13 @@
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
 
+	// Returning true from this function keeps the message channel
+	// open for a response to be sent asynchronously.
+	// https://developer.chrome.com/extensions/runtime#event-onMessage
+
 	// Get all configured passwords
 	if (message === 'passwords') {
 		storage.passwords.list().then(sendResponse);
-		return true; // Keep the channel open
+		return true;
 	}
 
 	// Begin a page script
@@ -41,5 +45,4 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
 		});
 		return true;
 	}
-	sendResponse({});
 });
