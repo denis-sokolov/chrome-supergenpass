@@ -6,9 +6,8 @@ jQuery(function($){
 	var popup = (function(){
 		var positionAt = function(popup, el) {
 			var offset = el.offset();
-			popup.css({ left: offset.left, top: offset.top + el.height() + 8 });
-			popup.show();
-			return this;
+			popup.css({ left: offset.left, top: offset.top + el.height() + 8 })
+				.show();
 		};
 
 		// We store the passwords on the popup, so that if the passwords have
