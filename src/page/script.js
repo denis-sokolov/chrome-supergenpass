@@ -24,8 +24,7 @@ jQuery(function($){
 		});
 
 		var api = {
-			hide: function() { main.hide(); },
-			to: function(el) { positionAt(main, el); }
+			hide: function() { main.hide(); }
 		};
 
 		api.getPassword = function(index) {
@@ -50,7 +49,7 @@ jQuery(function($){
 						i18n.html($('<p>'), 'nopasswords_link', ['<a href="'+url+'">', '</a>'])
 					);
 				}
-				api.to(el);
+				positionAt(main, el);
 			});
 		};
 
