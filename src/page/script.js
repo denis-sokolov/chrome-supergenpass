@@ -23,10 +23,12 @@ jQuery(function($){
 			document.location = $(this).prop('href');
 		});
 
-		var api = {
-			hide: function() { main.hide(); }
-		};
+		var api = {};
 
+		// Hides the popup
+		api.hide = function() { main.hide(); };
+
+		// Returns the password object displayed in the popup at the index
 		api.getPassword = function(index) {
 			return new Promise(function(resolve){
 				if (!passwords[index-1]) throw new Error('No index '+index);
@@ -34,6 +36,7 @@ jQuery(function($){
 			});
 		};
 
+		// Presents a list of password instructions at the element el
 		api.instructions = function(el) {
 			chrome.runtime.sendMessage('passwords', function(passes){
 				passwords = passes;
