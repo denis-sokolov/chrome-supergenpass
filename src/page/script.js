@@ -1,4 +1,6 @@
 jQuery(function($){
+	/* global i18n */
+
 	if ($('div.'+i18n('uustring')).length) {
 		return;
 	}

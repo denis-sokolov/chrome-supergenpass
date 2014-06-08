@@ -1,4 +1,5 @@
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
+	/* global storage */
 
 	// Returning true from this function keeps the message channel
 	// open for a response to be sent asynchronously.

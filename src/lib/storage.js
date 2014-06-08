@@ -40,7 +40,9 @@
  *   storage.whitelist.set(array[string])
  *     Resolves if succeeds
  */
-(function(global){
+this.storage = (function(){
+	/* global i18n */
+
 	var read = function(name, deflt) {
 		return new Promise(function(resolve){
 			chrome.storage.sync.get([name], function(result){
@@ -104,7 +106,7 @@
 	// see manifest background/persistent key.
 	var cache = {};
 
-	global.storage = {
+	var api = {
 		passwords: {
 			add: function(pass) {
 				pass.hash = hash(pass.password);
@@ -178,13 +180,15 @@
 		}
 
 		if (v5.whitelist) {
-			global.storage.whitelist.get().then(function(whites){
+			api.whitelist.get().then(function(whites){
 				whites = whites.concat(v5.whitelist);
-				global.storage.whitelist.set(whites);
+				api.whitelist.set(whites);
 			});
 		}
 
 		delete localStorage.settings;
 		return;
 	}
-})(this);
+
+	return api;
+})();

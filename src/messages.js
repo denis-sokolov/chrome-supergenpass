@@ -2,6 +2,8 @@
  * This file deals with messages to the user
  */
 
+/* global storage */
+
 storage.unseen('instructions').then(function(){
 	return storage.passwords.list();
 }).then(function(passwords){

@@ -14,7 +14,7 @@
  *     Runs using jQuery on a page and populates all data-*-msg values.
  *     Use data-msg=key, data-value-msg, and data-placeholder-msg.
  */
-(function(global){
+this.i18n = (function(){
 	'use strict';
 
 	var msg = function(name){
@@ -65,5 +65,5 @@
 		});
 	};
 
-	global.i18n = api;
-})(this);
+	return api;
+})();
