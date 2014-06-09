@@ -1,7 +1,8 @@
 var storage = require('../lib/storage.js');
 var i18n = require('../lib/i18n.js');
+var $ = require('jquery');
 
-jQuery(function($){
+$(function(){
 	'use strict';
 
 	// Navigation

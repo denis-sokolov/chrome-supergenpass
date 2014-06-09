@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var browserify = require('gulp-browserify');
-var shell = require('gulp-shell');
 var zip = require('gulp-zip');
 
 var manifest = require('./manifest.json');
@@ -36,17 +35,3 @@ gulp.task('watch', function(){
 		'src/**/*.js'
 	], ['build']);
 });
-
-
-gulp.task('jquery', shell.task([
-	'git clone --depth=1 --branch' +
-		' $(git ls-remote --tags git@github.com:jquery/jquery.git |' +
-			' cut -f 2 | cut -d/ -f 3 | grep -E \'^(\\d|\\.)+$\' |' +
-			' sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n | tail -n 1)' +
-		' git@github.com:jquery/jquery.git',
-	'cd jquery && npm install',
-	'./jquery/node_modules/.bin/grunt --gruntfile jquery/Gruntfile.js' +
-		' custom:-ajax,-deprecated,-effects,-deferred,-wrap,-event/alias,-core/ready',
-	'grep -v sourceMappingURL jquery/dist/jquery.min.js > 3rd/jquery.min.js',
-	'rm -rf jquery'
-]));
