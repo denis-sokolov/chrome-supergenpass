@@ -14,5 +14,6 @@
     "gulp": "^3.6.0",
     "gulp-zip": "^0.3.2",
     "gulp-shell": "^0.2.4"
-  }
+  },
+  "private": true
 }
