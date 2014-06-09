@@ -5,6 +5,8 @@ If you want to experiment with the code and maybe even send a pull request,
 here's how to start working on the extension:
 
 1. Clone the repository anywhere on your disk;
+1. Run `npm install`;
+1. Run `gulp` to build the extension and watch for changes. If you do not have [gulp](http://gulpjs.com/), consider installing it or run `node_modules/.bin/gulp`;
 1. Open your Chrome to the extension settings page;
 1. Enable the developer mode checkbox;
 1. Use `Load unpacked extension` button and choose the newly cloned directory;
