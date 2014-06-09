@@ -11,7 +11,9 @@ gulp.task('build', function(){
 	gulp.src(['src/options/options.js']).pipe(browserify()).pipe(gulp.dest('./build/'));
 });
 
-gulp.task('default', function() {
+gulp.task('default', ['build', 'watch']);
+
+gulp.task('pack', function() {
 	var destination = process.env.BUILD_DESTINATION ||
 		(process.env.HOME ? process.env.HOME + '/Desktop/' : './');
 
@@ -28,6 +30,13 @@ gulp.task('default', function() {
 		.pipe(zip('chrome-supergenpass.'+manifest.version+'.zip'))
 		.pipe(gulp.dest(destination));
 });
+
+gulp.task('watch', function(){
+	gulp.watch([
+		'src/**/*.js'
+	], ['build']);
+});
+
 
 gulp.task('jquery', shell.task([
 	'git clone --depth=1 --branch' +
