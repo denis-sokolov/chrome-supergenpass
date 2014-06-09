@@ -5,7 +5,7 @@ var zip = require('gulp-zip');
 var manifest = require('./manifest.json');
 
 gulp.task('build', function(){
-	gulp.src(['src/events.js']).pipe(browserify()).pipe(gulp.dest('./build/'));
+	gulp.src(['src/background/background.js']).pipe(browserify()).pipe(gulp.dest('./build/'));
 	gulp.src(['src/page/script.js']).pipe(browserify()).pipe(gulp.dest('./build/'));
 	gulp.src(['src/options/options.js']).pipe(browserify()).pipe(gulp.dest('./build/'));
 });

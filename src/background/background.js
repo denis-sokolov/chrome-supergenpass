@@ -1,4 +1,4 @@
-var storage = require('./lib/storage.js');
+var storage = require('../lib/storage.js');
 
 require('./messages.js')(storage);
 
