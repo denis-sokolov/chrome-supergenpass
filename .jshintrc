@@ -1,9 +1,7 @@
 {
 	"globals": {
 		"chrome": false,
-		"Promise": false,
-
-		"supergenpass": true
+		"Promise": false
 	},
 
 	"node": true,

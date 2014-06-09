@@ -43,6 +43,7 @@
 
 var i18n = require('./i18n.js');
 var hash = require('./hash.js');
+var supergenpass = require('supergenpass-lib');
 
 var read = function(name, deflt) {
 	return new Promise(function(resolve){
