@@ -10,10 +10,10 @@
     "test": "node_modules/.bin/jshint src"
   },
   "devDependencies": {
-    "jshint": "^2.5.0",
     "gulp": "^3.6.0",
+    "gulp-shell": "^0.2.4",
     "gulp-zip": "^0.3.2",
-    "gulp-shell": "^0.2.4"
+    "jshint": "^2.5.0"
   },
   "private": true
 }
