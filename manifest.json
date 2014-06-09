@@ -16,7 +16,6 @@
 	"background": {
 		"scripts": [
 			"3rd/supergenpass-lib.min.js",
-			"src/lib/hash.js",
 			"build/events.js"
 		],
 		"persistent": true

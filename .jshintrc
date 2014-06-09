@@ -3,7 +3,6 @@
 		"chrome": false,
 		"Promise": false,
 
-		"hash": true,
 		"supergenpass": true
 	},
 

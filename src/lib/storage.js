@@ -42,6 +42,7 @@
 */
 
 var i18n = require('./i18n.js');
+var hash = require('./hash.js');
 
 var read = function(name, deflt) {
 	return new Promise(function(resolve){
