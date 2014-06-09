@@ -1,6 +1,8 @@
-chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
-	/* global storage */
+var storage = require('./lib/storage.js');
 
+require('./messages.js')(storage);
+
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
 	// Returning true from this function keeps the message channel
 	// open for a response to be sent asynchronously.
 	// https://developer.chrome.com/extensions/runtime#event-onMessage
@@ -25,8 +27,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
 
 			var tabId = sender.tab && sender.tab.id;
 			chrome.tabs.executeScript(tabId, {file: '3rd/jquery.min.js', allFrames: true});
-			chrome.tabs.executeScript(tabId, {file: 'src/lib/i18n.js', allFrames: true});
-			chrome.tabs.executeScript(tabId, {file: 'src/page/script.js', allFrames: true});
+			chrome.tabs.executeScript(tabId, {file: 'build/script.js', allFrames: true});
 			chrome.tabs.insertCSS(tabId, {file: 'src/page/styles.css', allFrames: true});
 			sendResponse({});
 		});

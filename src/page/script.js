@@ -1,6 +1,6 @@
-jQuery(function($){
-	/* global i18n */
+var i18n = require('../lib/i18n.js');
 
+jQuery(function($){
 	if ($('div.'+i18n('uustring')).length) {
 		return;
 	}

@@ -1,6 +1,8 @@
+var storage = require('../lib/storage.js');
+var i18n = require('../lib/i18n.js');
+
 jQuery(function($){
 	'use strict';
-	/* global storage, i18n */
 
 	// Navigation
 	var nav = $('.main-nav ul');

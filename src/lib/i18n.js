@@ -1,69 +1,68 @@
 /**
- * Abstract i18n functions.
- *
- * This file globalizes a single name "i18n".
- *
- * i18n(message_code, [...args])
- *   Returns a text value for message_code and args
- *
- *   i18n.html(element, message_code, htmls)
- *     Fills the element with a text value for message_code, with %n replaced
- *     by raw html snippets from htmls, returns the element
- *
- *   i18n.page(jQuery)
- *     Runs using jQuery on a page and populates all data-*-msg values.
- *     Use data-msg=key, data-value-msg, and data-placeholder-msg.
- */
-this.i18n = (function(){
-	'use strict';
+* Abstract i18n functions.
+*
+* This file globalizes a single name "i18n".
+*
+* i18n(message_code, [...args])
+*   Returns a text value for message_code and args
+*
+*   i18n.html(element, message_code, htmls)
+*     Fills the element with a text value for message_code, with %n replaced
+*     by raw html snippets from htmls, returns the element
+*
+*   i18n.page(jQuery)
+*     Runs using jQuery on a page and populates all data-*-msg values.
+*     Use data-msg=key, data-value-msg, and data-placeholder-msg.
+*/
 
-	var msg = function(name){
-		var args = Array.prototype.slice.call(arguments);
-		args.shift();
-		return chrome.i18n.getMessage.call(chrome.i18n, name, args) || ('[' + name + ']');
-	};
+'use strict';
 
-	var html = function(el, key, htmls){
-		htmls = htmls || [];
+var msg = function(name){
+	var args = Array.prototype.slice.call(arguments);
+	args.shift();
+	return chrome.i18n.getMessage.call(chrome.i18n, name, args) || ('[' + name + ']');
+};
 
-		var m = el.text(msg(key)).html();
+var html = function(el, key, htmls){
+	htmls = htmls || [];
 
-		// Reverse is requires to replace %10 before %1
-		// Although we replace only a single entry,
-		// it can be reordered in a messages file.
-		htmls.map(function(html, index){
-			return {
-				index: index + 1,
-				html: html.trim()
-			};
-		}).forEach(function(r){
-			m = m.replace('%'+r.index, r.html);
-		});
+	var m = el.text(msg(key)).html();
 
-		return el.html(m);
-	};
+	// Reverse is requires to replace %10 before %1
+	// Although we replace only a single entry,
+	// it can be reordered in a messages file.
+	htmls.map(function(html, index){
+		return {
+			index: index + 1,
+			html: html.trim()
+		};
+	}).forEach(function(r){
+		m = m.replace('%'+r.index, r.html);
+	});
+
+	return el.html(m);
+};
 
 
-	var api = msg;
+var api = msg;
 
-	api.html = html;
+api.html = html;
 
-	api.page = function($){
-		$('[data-msg]').each(function(){
-			var el = $(this);
-			var args = el.data('msg').split(';');
-			var key = args.shift();
-			html(el, key, args);
-		});
-		$('[data-value-msg]').each(function(){
-			var el = $(this);
-			el.val(msg(el.data('value-msg')));
-		});
-		$('[data-placeholder-msg]').each(function(){
-			var el = $(this);
-			el.prop('placeholder', msg(el.data('placeholder-msg')));
-		});
-	};
+api.page = function($){
+	$('[data-msg]').each(function(){
+		var el = $(this);
+		var args = el.data('msg').split(';');
+		var key = args.shift();
+		html(el, key, args);
+	});
+	$('[data-value-msg]').each(function(){
+		var el = $(this);
+		el.val(msg(el.data('value-msg')));
+	});
+	$('[data-placeholder-msg]').each(function(){
+		var el = $(this);
+		el.prop('placeholder', msg(el.data('placeholder-msg')));
+	});
+};
 
-	return api;
-})();
+module.exports = api;

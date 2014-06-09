@@ -1,9 +1,15 @@
-/* jshint node: true */
 var gulp = require('gulp');
+var browserify = require('gulp-browserify');
 var shell = require('gulp-shell');
 var zip = require('gulp-zip');
 
 var manifest = require('./manifest.json');
+
+gulp.task('build', function(){
+	gulp.src(['src/events.js']).pipe(browserify()).pipe(gulp.dest('./build/'));
+	gulp.src(['src/page/script.js']).pipe(browserify()).pipe(gulp.dest('./build/'));
+	gulp.src(['src/options/options.js']).pipe(browserify()).pipe(gulp.dest('./build/'));
+});
 
 gulp.task('default', function() {
 	var destination = process.env.BUILD_DESTINATION ||
@@ -12,6 +18,7 @@ gulp.task('default', function() {
 	gulp.src([
 		'_locales/**/*',
 		'3rd/**/*',
+		'build/*',
 		'img/**/*',
 		'src/**/*',
 		'LICENSE',

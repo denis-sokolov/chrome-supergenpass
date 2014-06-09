@@ -7,6 +7,8 @@
 		"supergenpass": true
 	},
 
+	"node": true,
+
 	"noempty": true,
 	"latedef": true,
 	"quotmark": "single",
