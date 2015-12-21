@@ -20,7 +20,7 @@
 var msg = function(name){
 	var args = Array.prototype.slice.call(arguments);
 	args.shift();
-	return chrome.i18n.getMessage.call(chrome.i18n, name, args) || ('[' + name + ']');
+	return chrome.i18n.getMessage(name, args) || ('[' + name + ']');
 };
 
 var html = function(el, key, htmls){
@@ -31,10 +31,10 @@ var html = function(el, key, htmls){
 	// Reverse is requires to replace %10 before %1
 	// Although we replace only a single entry,
 	// it can be reordered in a messages file.
-	htmls.map(function(html, index){
+	htmls.map(function(h, index){
 		return {
 			index: index + 1,
-			html: html.trim()
+			html: h.trim()
 		};
 	}).forEach(function(r){
 		m = m.replace('%'+r.index, r.html);

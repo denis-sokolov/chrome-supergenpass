@@ -32,7 +32,7 @@ var handleFieldValue = function(el){
 	});
 };
 
-var runonceperdom = function($, f) {
+var runonceperdom = function(f) {
 	$(function(){
 		var c = i18n('uustring')+'-added';
 		var body = $('body');
@@ -44,7 +44,7 @@ var runonceperdom = function($, f) {
 	});
 };
 
-runonceperdom($, function(){
+runonceperdom(function(){
 	// :password is case insensitive, while type="password" is
 	$('body').on('focus', 'input:password', function(){
 		popup.instructions($(this));

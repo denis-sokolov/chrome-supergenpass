@@ -7,15 +7,16 @@
   },
   "scripts": {
     "build": "gulp build",
-    "test": "node_modules/.bin/jshint src",
+    "test": "eslint src",
     "watch": "gulp"
   },
   "devDependencies": {
+    "eslint": "^1.10.3",
+    "eslint-config-useclark": "^2.0.0",
     "gulp": "^3",
     "gulp-browserify": "^0.5.0",
     "gulp-zip": "^3.0.2",
     "jquery": "^2.1.1",
-    "jshint": "^2.5.0",
     "supergenpass-lib": "^1.0.0"
   },
   "private": true

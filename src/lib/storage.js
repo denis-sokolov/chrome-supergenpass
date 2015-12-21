@@ -120,7 +120,7 @@ var api = {
 			var currentHash = passwordSettingsHash(pass);
 			if (!cache[currentHash]) {
 				var attempt = window.prompt(i18n('unlock_prompt', pass.name));
-				while(true){
+				for(;;){
 					if (!attempt) {
 						return Promise.reject(new Error('User did not authenticate'));
 					}
