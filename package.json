@@ -7,7 +7,9 @@
   },
   "version": "0.0.1",
   "scripts": {
-    "test": "node_modules/.bin/jshint src"
+    "build": "gulp build",
+    "test": "node_modules/.bin/jshint src",
+    "watch": "gulp"
   },
   "devDependencies": {
     "gulp": "^3",
