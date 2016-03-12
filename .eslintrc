@@ -1,13 +1,11 @@
 {
-  "extends": "useclark",
+  "extends": "eslint:recommended",
   "env": {
-    "browser": true
+    "browser": true,
+    "commonjs": true,
+    "es6": true
   },
   "globals": {
     "chrome": false
-  },
-  "rules": {
-    "no-alert": 0,
-    "strict": 0
   }
 }

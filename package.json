@@ -15,8 +15,7 @@
     "supergenpass-lib": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "^1.10.3",
-    "eslint-config-useclark": "^2.0.0",
+    "eslint": "^2.4.0",
     "gulp": "^3",
     "gulp-browserify": "^0.5.0",
     "gulp-zip": "^3.0.2"
