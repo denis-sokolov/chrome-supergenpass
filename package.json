@@ -11,7 +11,7 @@
     "watch": "gulp"
   },
   "dependencies": {
-    "jquery": "^2.1.1",
+    "jquery": "^3.0.0",
     "supergenpass-lib": "^1.0.0"
   },
   "devDependencies": {
