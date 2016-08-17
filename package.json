@@ -10,6 +10,9 @@
     "test": "eslint src",
     "watch": "gulp"
   },
+  "engines": {
+    "node": ">=4"
+  },
   "dependencies": {
     "jquery": "^2.1.1",
     "supergenpass-lib": "^1.0.0"
