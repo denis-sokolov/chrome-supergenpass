@@ -109,6 +109,29 @@ var addRaw = function(newPasswords){
 // see manifest background/persistent key.
 var cache = {};
 
+var getPassword = function(pass){
+	var currentHash = passwordSettingsHash(pass);
+	if (cache[currentHash])
+		return Promise.resolve(cache[currentHash]);
+
+	return new Promise(function(resolve, reject){
+		var tryThis = function(attempt){
+			if (!attempt) {
+				return reject(new Error('User did not authenticate'));
+			}
+			hash(attempt).then(function(hashedAttempt){
+				if (hashedAttempt === pass.hash) {
+					cache[currentHash] = attempt;
+					return resolve(attempt);
+				}
+				tryThis(window.prompt(i18n('unlock_prompt_retry', pass.name)));
+			});
+		};
+		var attempt = window.prompt(i18n('unlock_prompt', pass.name));
+		tryThis(attempt);
+	});
+};
+
 var api = {
 	passwords: {
 		add: function(pass) {
@@ -117,25 +140,15 @@ var api = {
 			return addRaw([pass]);
 		},
 		get: function(pass, domain) {
-			var currentHash = passwordSettingsHash(pass);
-			if (!cache[currentHash]) {
-				var attempt = window.prompt(i18n('unlock_prompt', pass.name));
-				for(;;){
-					if (!attempt) {
-						return Promise.reject(new Error('User did not authenticate'));
-					}
-					if (hash(attempt) === pass.hash) {
-						cache[currentHash] = attempt;
-						break;
-					}
-					attempt = window.prompt(i18n('unlock_prompt_retry', pass.name));
-				}
-			}
-			return Promise.resolve(supergenpass(cache[currentHash], domain, {
-				length: pass.len,
-				method: pass.method,
-				secret: pass.secret
-			}));
+			return getPassword(pass).then(function(password){
+				return new Promise(function(resolve){
+					supergenpass.generate(password, domain, {
+						length: pass.len,
+						method: pass.method,
+						secret: pass.secret
+					}, resolve);
+				});
+			});
 		},
 		list: list,
 		remove: function(pass) {
