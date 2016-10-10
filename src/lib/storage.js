@@ -28,8 +28,8 @@
 *     Resolves to a list of current passwords
 *
 *
-* storage.unseen(key)
-*   Resolves if this is the first time we run with key
+* storage.hasUserSeen(key)
+*   Resolves to a boolean if this is the first time we run with key
 *
 *
 * storage.whitelist
@@ -148,14 +148,13 @@ var api = {
 			});
 		}
 	},
-	unseen: function(key){
+	hasUserSeen: function(key){
 		return read('seen', []).then(function(keys){
-			if (keys.indexOf(key) < 0) {
-				keys.push(key);
-				write('seen', keys);
-				return;
-			}
-			throw new Error('seen ' + key + ' already');
+			if (keys.indexOf(key) >= 0)
+				return true;
+			keys.push(key);
+			write('seen', keys);
+			return false;
 		});
 	},
 	whitelist: {
