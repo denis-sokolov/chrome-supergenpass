@@ -21,16 +21,14 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
 				return whitelist === domain ||
 					domain.substr(-(whitelist.length+1)) === '.'+whitelist;
 			})) {
-				sendResponse({});
 				return;
 			}
 
 			var tabId = sender.tab && sender.tab.id;
 			chrome.tabs.executeScript(tabId, {file: 'build/script.js', allFrames: true});
 			chrome.tabs.insertCSS(tabId, {file: 'src/page/styles.css', allFrames: true});
-			sendResponse({});
 		});
-		return true;
+		return;
 	}
 
 	// Generate a password
