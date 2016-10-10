@@ -46,22 +46,22 @@ var hash = require('./hash.js');
 var supergenpass = require('supergenpass-lib');
 
 var read = function(name, deflt) {
-	return new Promise(function(resolve){
+	return new Promise(function(resolve, reject){
 		chrome.storage.sync.get([name], function(result){
 			if (chrome.runtime.lastError)
-				throw new Error(chrome.runtime.lastError);
+				return reject(new Error(chrome.runtime.lastError.message));
 			resolve(result[name] || deflt);
 		});
 	});
 };
 
 var write = function(name, value) {
-	return new Promise(function(resolve){
+	return new Promise(function(resolve, reject){
 		var input = {};
 		input[name] = value;
 		chrome.storage.sync.set(input, function(){
 			if (chrome.runtime.lastError)
-				throw new Error(chrome.runtime.lastError);
+				return reject(new Error(chrome.runtime.lastError.message));
 			resolve();
 		});
 	});
